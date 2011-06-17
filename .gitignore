@@ -1,2 +1,4 @@
 user_guide
 license.txt
+application/cache/*
+application/logs/*
