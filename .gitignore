@@ -1,4 +1,6 @@
 user_guide
-license.txt
+.htaccess
+application/config/config.php
+application/config/database.php
 application/cache/*
 application/logs/*
