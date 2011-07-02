@@ -8,4 +8,5 @@ cp application/config/database.php.sample application/config/database.php
 cp .htaccess.sample .htaccess
 
 * 請勿將 application/config/[database|config].php 上傳到 github
+test
 
