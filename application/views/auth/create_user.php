@@ -6,31 +6,31 @@
 	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("auth/create_user");?>
-      <p>First Name:<br />
-      <?php echo form_input($first_name);?>
+      <p>姓名:<br />
+      <?php echo form_input($user_name);?>
       </p>
       
-      <p>Last Name:<br />
-      <?php echo form_input($last_name);?>
+      <p>匿稱:<br />
+      <?php echo form_input($user_nickname);?>
       </p>
       
-      <p>Company Name:<br />
+      <p>公司:<br />
       <?php echo form_input($company);?>
       </p>
       
-      <p>Email:<br />
+      <p>E-mail:<br />
       <?php echo form_input($email);?>
       </p>
       
-      <p>Phone:<br />
+      <p>電話:<br />
       <?php echo form_input($phone1);?>-<?php echo form_input($phone2);?>-<?php echo form_input($phone3);?>
       </p>
       
-      <p>Password:<br />
+      <p>請輸入密碼:<br />
       <?php echo form_input($password);?>
       </p>
       
-      <p>Confirm Password:<br />
+      <p>再次輸入密碼:<br />
       <?php echo form_input($password_confirm);?>
       </p>
       

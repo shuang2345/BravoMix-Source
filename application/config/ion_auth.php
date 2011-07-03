@@ -22,7 +22,7 @@
 	 **/
 	$config['tables']['groups']  = 'groups';
 	$config['tables']['users']   = 'users';
-	$config['tables']['meta']    = 'meta';
+	$config['tables']['user_meta']    = 'user_meta';
 	
 	/**
 	 * Site Title, example.com
@@ -54,7 +54,7 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array('first_name', 'last_name', 'company', 'phone');
+	$config['columns']             = array('user_name', 'user_nickname', 'company', 'phone');
 	
 	/**
 	 * A database column which is used to

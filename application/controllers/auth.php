@@ -28,6 +28,7 @@ class Auth extends Controller {
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
+			//無管理者權限將導向首頁
 			redirect($this->config->item('base_url'), 'refresh');
 		}
 		else
@@ -59,7 +60,9 @@ class Auth extends Controller {
 			{ //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect($this->config->item('base_url'), 'refresh');
+				//登入後轉至登入首頁
+				redirect('auth/index', 'refresh');
+				//redirect($this->config->item('base_url'), 'refresh');
 			}
 			else
 			{ //if the login was un-successful
@@ -280,8 +283,8 @@ class Auth extends Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
+		$this->form_validation->set_rules('user_name', 'First Name', 'required|xss_clean');
+		$this->form_validation->set_rules('user_nickname', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
@@ -292,12 +295,12 @@ class Auth extends Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
+			$username = strtolower($this->input->post('user_name'));
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 
-			$additional_data = array('first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
+			$additional_data = array('user_name' => $this->input->post('user_name'),
+				'user_nickname' => $this->input->post('user_nickname'),
 				'company' => $this->input->post('company'),
 				'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 			);
@@ -313,15 +316,15 @@ class Auth extends Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['first_name'] = array('name' => 'first_name',
-				'id' => 'first_name',
+			$this->data['user_name'] = array('name' => 'user_name',
+				'id' => 'user_name',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('first_name'),
+				'value' => $this->form_validation->set_value('user_name'),
 			);
-			$this->data['last_name'] = array('name' => 'last_name',
-				'id' => 'last_name',
+			$this->data['user_nickname'] = array('name' => 'user_nickname',
+				'id' => 'user_nickname',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('last_name'),
+				'value' => $this->form_validation->set_value('user_nickname'),
 			);
 			$this->data['email'] = array('name' => 'email',
 				'id' => 'email',

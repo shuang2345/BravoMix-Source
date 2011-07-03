@@ -422,11 +422,11 @@ class Ion_auth_model extends CI_Model
 	    {
 		foreach ($this->columns as $field)
 		{
-		    $this->db->select($this->tables['meta'] .'.' . $field);
+		    $this->db->select($this->tables['user_meta'] .'.' . $field);
 		}
 	    }
 
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
+	    $this->db->join($this->tables['user_meta'], $this->tables['users'].'.id = '.$this->tables['user_meta'].'.'.$this->meta_join, 'left');
 	    $this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 
 	    if ($is_code)
@@ -557,7 +557,7 @@ class Ion_auth_model extends CI_Model
 		}
 	    }
 
-	    $this->db->insert($this->tables['meta'], $data);
+	    $this->db->insert($this->tables['user_meta'], $data);
 
 	    return $this->db->affected_rows() > 0 ? $id : false;
 	}
@@ -634,11 +634,11 @@ class Ion_auth_model extends CI_Model
 	    {
 		foreach ($this->columns as $field)
 		{
-		    $this->db->select($this->tables['meta'].'.'. $field);
+		    $this->db->select($this->tables['user_meta'].'.'. $field);
 		}
 	    }
 
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
+	    $this->db->join($this->tables['user_meta'], $this->tables['users'].'.id = '.$this->tables['user_meta'].'.'.$this->meta_join, 'left');
 	    $this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 
 	    if (is_string($group))
@@ -917,7 +917,7 @@ class Ion_auth_model extends CI_Model
 				// 'user_id' = $id
 				$this->db->where($this->meta_join, $id);
 				$this->db->set($meta_fields);
-				$this->db->update($this->tables['meta']);
+				$this->db->update($this->tables['user_meta']);
 			}
 	    }
 
@@ -954,7 +954,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    $this->db->trans_begin();
 
-	    $this->db->delete($this->tables['meta'], array($this->meta_join => $id));
+	    $this->db->delete($this->tables['user_meta'], array($this->meta_join => $id));
 	    $this->db->delete($this->tables['users'], array('id' => $id));
 
 	    if ($this->db->trans_status() === FALSE)

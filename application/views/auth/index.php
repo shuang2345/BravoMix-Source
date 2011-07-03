@@ -7,19 +7,19 @@
 	
 	<table cellpadding=0 cellspacing=10>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Email</th>
-			<th>Group</th>
-			<th>Status</th>
+			<th>使用者名稱</th>
+			<th>使用者暱稱</th>
+			<th>電子信箱</th>
+			<th>身分</th>
+			<th>啟用狀態</th>
 		</tr>
 		<?php foreach ($users as $user):?>
 			<tr>
-				<td><?php echo $user['first_name']?></td>
-				<td><?php echo $user['last_name']?></td>
+				<td><?php echo $user['user_name']?></td>
+				<td><?php echo $user['user_nickname']?></td>
 				<td><?php echo $user['email'];?></td>
 				<td><?php echo $user['group_description'];?></td>
-				<td><?php echo ($user['active']) ? anchor("auth/deactivate/".$user['id'], 'Active') : anchor("auth/activate/". $user['id'], 'Inactive');?></td>
+				<td><?php echo ($user['active']) ? anchor("auth/deactivate/".$user['id'], '已啟用') : anchor("auth/activate/". $user['id'], '未啟用');?></td>
 			</tr>
 		<?php endforeach;?>
 	</table>
