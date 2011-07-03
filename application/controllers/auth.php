@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+ï»¿<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 if ( ! class_exists('Controller'))
 {
@@ -28,7 +28,7 @@ class Auth extends Controller {
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			//µLºŞ²zªÌÅv­­±N¾É¦V­º­¶
+			//ç„¡ç®¡ç†è€…æ¬Šé™å°‡å°å‘é¦–é 
 			redirect($this->config->item('base_url'), 'refresh');
 		}
 		else
@@ -60,7 +60,7 @@ class Auth extends Controller {
 			{ //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				//µn¤J«áÂà¦Üµn¤J­º­¶
+				//ç™»å…¥å¾Œè½‰è‡³ç™»å…¥é¦–é 
 				redirect('auth/index', 'refresh');
 				//redirect($this->config->item('base_url'), 'refresh');
 			}
