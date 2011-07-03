@@ -1,4 +1,4 @@
-<h1>Change Password</h1>
+﻿<h1>Change Password</h1>
 
 <div id="infoMessage"><?php echo $message;?></div>
 

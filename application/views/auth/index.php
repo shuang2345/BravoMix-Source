@@ -1,4 +1,4 @@
-<div class='mainInfo'>
+ï»¿<div class='mainInfo'>
 
 	<h1>Users</h1>
 	<p>Below is a list of the users.</p>
@@ -7,11 +7,11 @@
 	
 	<table cellpadding=0 cellspacing=10>
 		<tr>
-			<th>¨Ï¥ÎªÌ¦WºÙ</th>
-			<th>¨Ï¥ÎªÌ¼ÊºÙ</th>
-			<th>¹q¤l«H½c</th>
-			<th>¨­¤À</th>
-			<th>±Ò¥Îª¬ºA</th>
+			<th>ä½¿ç”¨è€…åç¨±</th>
+			<th>ä½¿ç”¨è€…æš±ç¨±</th>
+			<th>é›»å­ä¿¡ç®±</th>
+			<th>èº«åˆ†</th>
+			<th>å•Ÿç”¨ç‹€æ…‹</th>
 		</tr>
 		<?php foreach ($users as $user):?>
 			<tr>
@@ -19,7 +19,7 @@
 				<td><?php echo $user['user_nickname']?></td>
 				<td><?php echo $user['email'];?></td>
 				<td><?php echo $user['group_description'];?></td>
-				<td><?php echo ($user['active']) ? anchor("auth/deactivate/".$user['id'], '¤w±Ò¥Î') : anchor("auth/activate/". $user['id'], '¥¼±Ò¥Î');?></td>
+				<td><?php echo ($user['active']) ? anchor("auth/deactivate/".$user['id'], 'å·²å•Ÿç”¨') : anchor("auth/activate/". $user['id'], 'æœªå•Ÿç”¨');?></td>
 			</tr>
 		<?php endforeach;?>
 	</table>

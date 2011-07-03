@@ -1,4 +1,4 @@
-<div class='mainInfo'>
+﻿<div class='mainInfo'>
 
 	<h1>Edit User</h1>
 	<p>Please enter the users information below.</p>

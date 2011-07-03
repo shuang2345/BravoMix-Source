@@ -1,4 +1,4 @@
-<div class='mainInfo'>
+﻿<div class='mainInfo'>
 
 	<div class="pageTitle">Login</div>
     <div class="pageTitleBorder"></div>
