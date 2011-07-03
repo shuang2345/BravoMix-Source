@@ -1,4 +1,4 @@
-<div class='mainInfo'>
+ï»¿<div class='mainInfo'>
 
 	<h1>Create User</h1>
 	<p>Please enter the users information below.</p>
@@ -6,15 +6,15 @@
 	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("auth/create_user");?>
-      <p>©m¦W:<br />
+      <p>å§“å:<br />
       <?php echo form_input($user_name);?>
       </p>
       
-      <p>°ÎºÙ:<br />
+      <p>åŒ¿ç¨±:<br />
       <?php echo form_input($user_nickname);?>
       </p>
       
-      <p>¤½¥q:<br />
+      <p>å…¬å¸:<br />
       <?php echo form_input($company);?>
       </p>
       
@@ -22,15 +22,15 @@
       <?php echo form_input($email);?>
       </p>
       
-      <p>¹q¸Ü:<br />
+      <p>é›»è©±:<br />
       <?php echo form_input($phone1);?>-<?php echo form_input($phone2);?>-<?php echo form_input($phone3);?>
       </p>
       
-      <p>½Ğ¿é¤J±K½X:<br />
+      <p>è«‹è¼¸å…¥å¯†ç¢¼:<br />
       <?php echo form_input($password);?>
       </p>
       
-      <p>¦A¦¸¿é¤J±K½X:<br />
+      <p>å†æ¬¡è¼¸å…¥å¯†ç¢¼:<br />
       <?php echo form_input($password_confirm);?>
       </p>
       
