@@ -54,7 +54,9 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array('user_name', 'user_nickname', 'phone', 'cellphone');
+				
+	$config['columns']             = array('user_name', 'user_nickname', 'phone', 'cellphone', 'user_sex', 'user_country', 'user_city', 'user_birthday', 'user_job', 
+										   'user_body_tall', 'user_body_weight', 'user_body_r1', 'user_body_r2', 'user_body_r3', 'user_body_shoulder', 'user_body_leg' );
 	
 	/**
 	 * A database column which is used to
@@ -76,7 +78,6 @@
 	 * Email Activation for registration
 	 **/
 	$config['email_activation']    = false;
-	
 	/**
 	 * Allow users to be remembered and enable auto-login
 	 **/

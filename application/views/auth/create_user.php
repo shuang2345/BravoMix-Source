@@ -29,7 +29,51 @@
       <p>市內電話：
       <?php echo form_input($phone);?>
       </p>
+      
+      <p>國家：
+      <?php echo form_input($user_country);?>
+      </p>
+      
+      <p>城市：
+      <?php echo form_input($user_city);?>
+      </p>
+      
+      <p>生日：
+      <?php echo form_input($user_birthday);?>
+      </p>
 
+	  <p>職業：
+      <?php echo form_input($user_job);?>
+      </p>
+      
+      <p>身高：
+      <?php echo form_input($user_body_tall);?>
+      </p>
+      
+      <p>體重：
+      <?php echo form_input($user_body_weight);?>
+      </p>
+      
+      <p>胸圍：
+      <?php echo form_input($user_body_r1);?>
+      </p>
+      
+      <p>腰圍：
+      <?php echo form_input($user_body_r2);?>
+      </p>
+      
+      <p>臀圍：
+      <?php echo form_input($user_body_r3);?>
+      </p>
+      
+      <p>肩寬：
+      <?php echo form_input($user_body_shoulder);?>
+      </p>
+      
+      <p>腿長：
+      <?php echo form_input($user_body_leg);?>
+      </p>
+      
       <p>請輸入密碼：
       <?php echo form_input($password);?>
       </p>
