@@ -6,24 +6,24 @@
 	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("admin/edit_user/".$this->uri->segment(3));?>
-      <p>First Name:<br />
+      <p>姓名：
       <?php echo form_input($firstName);?>
       </p>
       
-      <p>Last Name:<br />
+      <p>匿稱：
       <?php echo form_input($lastName);?>
       </p>
       
-      <p>Company Name:<br />
-      <?php echo form_input($company);?>
+      <p>市內電話:
+      <?php echo form_input($phone);?>
       </p>
       
-      <p>Email:<br />
+      <p>E-mail:
       <?php echo form_input($email);?>
       </p>
       
-      <p>Phone:<br />
-      <?php echo form_input($phone1);?>-<?php echo form_input($phone2);?>-<?php echo form_input($phone3);?>
+      <p>行動電話：
+      <?php echo form_input($cellphone);?>
       </p>
       
       <p>

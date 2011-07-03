@@ -283,15 +283,14 @@ class Auth extends Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('user_name', 'First Name', 'required|xss_clean');
-		$this->form_validation->set_rules('user_nickname', 'Last Name', 'required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
-		$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+		$this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[12]|xss_clean');
+		$this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
+		$this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
+		$this->form_validation->set_rules('cellphone', '行動電話', 'required|trim|strip_tags|min_length[10]|max_length[10]|xss_clean|numeric');
+		$this->form_validation->set_rules('phone', '市內電話', 'required|trim|strip_tags|min_length[8]|max_length[17]|xss_clean');
+		$this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+		$this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
 
 		if ($this->form_validation->run() == true)
 		{
@@ -301,8 +300,10 @@ class Auth extends Controller {
 
 			$additional_data = array('user_name' => $this->input->post('user_name'),
 				'user_nickname' => $this->input->post('user_nickname'),
-				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
+				'user_sex' => $this->input->post('user_sex'),
+				//'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
+				'phone' => $this->input->post('phone'),
+				'cellphone' => $this->input->post('cellphone'),
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
@@ -326,31 +327,31 @@ class Auth extends Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('user_nickname'),
 			);
+			$this->data['user_sex'] = array('name' => 'user_sex',
+				'id' => 'user_sex',
+				'type' => 'text',
+				'value' => $this->form_validation->set_value('user_sex'),
+			);
 			$this->data['email'] = array('name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			$this->data['company'] = array('name' => 'company',
-				'id' => 'company',
+			$this->data['phone'] = array('name' => 'phone',
+				'id' => 'phone',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('company'),
+				'value' => $this->form_validation->set_value('phone'),
 			);
-			$this->data['phone1'] = array('name' => 'phone1',
-				'id' => 'phone1',
+			$this->data['cellphone'] = array('name' => 'cellphone',
+				'id' => 'cellphone',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone1'),
+				'value' => $this->form_validation->set_value('cellphone'),
 			);
-			$this->data['phone2'] = array('name' => 'phone2',
-				'id' => 'phone2',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone2'),
-			);
-			$this->data['phone3'] = array('name' => 'phone3',
+			/*$this->data['phone3'] = array('name' => 'phone3',
 				'id' => 'phone3',
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('phone3'),
-			);
+			);*/
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',

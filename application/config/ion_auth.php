@@ -21,7 +21,7 @@
 	 * Tables.
 	 **/
 	$config['tables']['groups']  = 'groups';
-	$config['tables']['users']   = 'users';
+	$config['tables']['users']   = 'user';
 	$config['tables']['user_meta']    = 'user_meta';
 	
 	/**
@@ -54,7 +54,7 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array('user_name', 'user_nickname', 'company', 'phone');
+	$config['columns']             = array('user_name', 'user_nickname', 'phone', 'cellphone');
 	
 	/**
 	 * A database column which is used to
