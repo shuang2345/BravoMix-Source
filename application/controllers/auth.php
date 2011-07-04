@@ -277,10 +277,11 @@ class Auth extends Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		//原本需要有管理權限才可新增帳號, 更改後改為無限制
+		/*if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			redirect('auth', 'refresh');
-		}
+		}*/
 
 		//validate form input
 		$this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
@@ -443,6 +444,29 @@ class Auth extends Controller {
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 			$this->load->view('auth/create_user', $this->data);
+		}
+	}
+	
+	//Delete the user
+	function delete($id, $code=false)
+	{
+		if ($code !== false)
+			$activation = $this->ion_auth->activate($id, $code);
+		else if ($this->ion_auth->is_admin())
+			$activation = $this->ion_auth->activate($id);
+
+
+		if ($activation)
+		{
+			//redirect them to the auth page
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			redirect("auth", 'refresh');
+		}
+		else
+		{
+			//redirect them to the forgot password page
+			$this->session->set_flashdata('message', $this->ion_auth->errors());
+			redirect("auth/forgot_password", 'refresh');
 		}
 	}
 

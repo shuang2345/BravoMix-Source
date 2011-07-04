@@ -2,7 +2,7 @@
 
 	<div class="pageTitle">Deactivate User</div>
     <div class="pageTitleBorder"></div>
-	<p>Are you sure you want to deactivate the user '<?php echo $user['username']; ?>'</p>
+	<p>確定要停用 '<?php echo $user['username']; ?>'('<?php echo $user['email']; ?>')的帳號嗎?</p>
 	
     <?php echo form_open("auth/deactivate/".$user['id']);?>
     	

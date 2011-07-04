@@ -1,7 +1,7 @@
 ﻿<div class='mainInfo'>
 
-	<h1>Users</h1>
-	<p>Below is a list of the users.</p>
+	<!--Users-->
+	<p><h1>使用者列表</h1></p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
 	
@@ -24,8 +24,8 @@
 		<?php endforeach;?>
 	</table>
 	
-	<p><a href="<?php echo site_url('auth/create_user');?>">Create a new user</a></p>
+	<p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a></p>
 	
-	<p><a href="<?php echo site_url('auth/logout'); ?>">Logout</a></p>
+	<p><a href="<?php echo site_url('auth/logout'); ?>">登出</a></p>
 	
 </div>

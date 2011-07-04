@@ -1,6 +1,6 @@
 ﻿<div class='mainInfo'>
 
-	<div class="pageTitle">Login</div>
+	<div class="pageTitle">登入</div>
     <div class="pageTitleBorder"></div>
 	<p>Please login with your email address and password below.</p>
 	
@@ -24,9 +24,11 @@
 	  </p>
       
       
-      <p><?php echo form_submit('submit', 'Login');?></p>
+      <p><?php echo form_submit('submit', '登入');?></p>
 
       
     <?php echo form_close();?>
+    
+    <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a></p>
 
 </div>

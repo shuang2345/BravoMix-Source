@@ -237,6 +237,7 @@ class Ion_auth_model extends CI_Model
 	    $this->activation_code = $activation_code;
 
 	    $data = array(
+			//¥Î³~©|¥¼½T»{
 		    'activation_code' => $activation_code,
 		    'active'	  => 0
 	    );

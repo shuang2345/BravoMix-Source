@@ -1,7 +1,7 @@
 ﻿<div class='mainInfo'>
 
-	<h1>Create User</h1>
-	<p>Please enter the users information below.</p>
+	<h1>新建帳號</h1>
+	<p>請輸入個人資料</p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
 	
