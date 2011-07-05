@@ -1,7 +1,7 @@
-﻿<div class='mainInfo'>
+<div class='mainInfo'>
 
-	<h1>Edit User</h1>
-	<p>Please enter the users information below.</p>
+	<h1>編輯資料</h1>
+	<p>請輸入使用者資訊</p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
 	

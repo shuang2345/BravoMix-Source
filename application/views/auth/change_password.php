@@ -1,18 +1,18 @@
-﻿<h1>Change Password</h1>
+<h1>Change Password</h1>
 
 <div id="infoMessage"><?php echo $message;?></div>
 
 <?php echo form_open("auth/change_password");?>
 
-      <p>Old Password:<br />
+      <p>請輸入舊密碼:<br />
       <?php echo form_input($old_password);?>
       </p>
       
-      <p>New Password:<br />
+      <p>請輸入新密碼:<br />
       <?php echo form_input($new_password);?>
       </p>
       
-      <p>Confirm New Password:<br />
+      <p>在輸入一次:<br />
       <?php echo form_input($new_password_confirm);?>
       </p>
       

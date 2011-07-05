@@ -23,7 +23,6 @@ class Auth extends CI_Controller {
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			//無管理者權限將導向首頁
 			redirect($this->config->item('base_url'), 'refresh');
 		}
 		else
@@ -47,27 +46,29 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() == true)
-		{ //check to see if the user is logging in
+		{ 
+            //check to see if the user is logging in
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
-			{ //if the login is successful
+			{ 
+                //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				//登入後轉至登入首頁
-				redirect('auth/index', 'refresh');
-				//redirect($this->config->item('base_url'), 'refresh');
+				redirect($this->config->item('base_url'), 'refresh');
 			}
 			else
-			{ //if the login was un-successful
+			{ 
+                //if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
-		{  //the user is not logging in so display the login page
+		{  
+            //the user is not logging in so display the login page
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -271,12 +272,11 @@ class Auth extends CI_Controller {
 	function create_user()
 	{
 		$this->data['title'] = "Create User";
-
-		//原本需要有管理權限才可新增帳號, 更改後改為無限制
-		/*if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		
+		if (!$this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
-		}*/
+		}
 
 		//validate form input
 		$this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
@@ -330,13 +330,15 @@ class Auth extends CI_Controller {
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
-		{ //check to see if we are creating the user
+		{ 
+            //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Created");
 			redirect("auth", 'refresh');
 		}
 		else
-		{ //display the create user form
+		{ 
+            //display the create user form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
