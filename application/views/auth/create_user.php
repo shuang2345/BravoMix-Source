@@ -4,7 +4,7 @@
 	<p>請輸入個人資料</p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
-	
+
     <?php echo form_open("auth/create_user");?>
       <p>姓名：
       <?php echo form_input($user_name);?>
@@ -22,14 +22,14 @@
       <?php echo form_input($email);?>
       </p>
       
-      <p>行動電話：
+<!--      <p>行動電話：
 	  <?php echo form_input($cellphone);?>
       </p>
       
       <p>市內電話：
       <?php echo form_input($phone);?>
       </p>
-      
+      -->
       <p>國家：
       <?php echo form_input($user_country);?>
       </p>
@@ -42,7 +42,7 @@
       <?php echo form_input($user_birthday);?>
       </p>
 
-	  <p>職業：
+<!--	  <p>職業：
       <?php echo form_input($user_job);?>
       </p>
       
@@ -72,7 +72,7 @@
       
       <p>腿長：
       <?php echo form_input($user_body_leg);?>
-      </p>
+      </p>-->
       
       <p>請輸入密碼：
       <?php echo form_input($password);?>

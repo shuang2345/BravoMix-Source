@@ -2,7 +2,7 @@
 
 	<div class="pageTitle">登入</div>
     <div class="pageTitleBorder"></div>
-	<p>請輸入您的電子郵件帳號及密碼</p>
+	<p>請輸入電子信箱及密碼</p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
 	
@@ -19,7 +19,7 @@
       </p>
       
       <p>
-	      <label for="remember">記住登入:</label>
+	      <label for="remember">保持登入:</label>
 	      <?php echo form_checkbox('remember', '1', FALSE);?>
 	  </p>
       
@@ -30,5 +30,6 @@
     <?php echo form_close();?>
     
     <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a></p>
+    <p><a href="<?php echo site_url('auth/update_user');?>">編輯個人資料</a></p>
 
 </div>

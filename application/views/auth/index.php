@@ -1,8 +1,10 @@
 ﻿<div class='mainInfo'>
 
 	<!--Users-->
+    
 	<p><h1>使用者列表</h1></p>
-	
+	<p>登入帳號：<?=$this->session->userdata('email')?></p>
+    
 	<div id="infoMessage"><?php echo $message;?></div>
 	
 	<table cellpadding=0 cellspacing=10>
@@ -25,7 +27,15 @@
 	</table>
 	
 	<p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a></p>
+    <p><a href="<?php echo site_url('auth/update_user');?>">編輯個人資料</a></p>
 	
 	<p><a href="<?php echo site_url('auth/logout'); ?>">登出</a></p>
+    
+    
+    <?
+	//個人資料
+	//var_dump($this->session->userdata); 
+	?>
+
 	
 </div>

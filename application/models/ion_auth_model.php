@@ -237,7 +237,7 @@ class Ion_auth_model extends CI_Model
 	    $this->activation_code = $activation_code;
 
 	    $data = array(
-			//用途尚未確認
+			//看起來是更新DB
 		    'activation_code' => $activation_code,
 		    'active'	  => 0
 	    );
