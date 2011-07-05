@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ï»¿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Model
 *
@@ -237,7 +237,6 @@ class Ion_auth_model extends CI_Model
 	    $this->activation_code = $activation_code;
 
 	    $data = array(
-			//¬Ý°_¨Ó¬O§ó·sDB
 		    'activation_code' => $activation_code,
 		    'active'	  => 0
 	    );
