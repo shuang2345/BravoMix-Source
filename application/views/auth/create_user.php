@@ -1,4 +1,4 @@
-﻿<div class='mainInfo'>
+<div class='mainInfo'>
 
 	<h1>新建帳號</h1>
 	<p>請輸入個人資料</p>
