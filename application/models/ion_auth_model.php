@@ -728,7 +728,7 @@ class Ion_auth_model extends CI_Model
         //if no id was passed use the current users id
         if (empty($id))
         {
-        $id = $this->session->userdata('user_id');
+        	$id = $this->session->userdata('user_id');
         }
 
         $this->db->where($this->tables['users'].'.id', $id);

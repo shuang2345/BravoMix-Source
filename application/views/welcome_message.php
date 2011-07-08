@@ -71,7 +71,6 @@
     <div id="body">
         <p><a href="/auth/login">登入</a></p>
         <p><a href="/auth/create_user">申請帳號</a></p>
-        <p><a href="/auth/update_user">編輯個人資料</a></p>
     </div>
 
     <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>

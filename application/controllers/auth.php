@@ -23,17 +23,52 @@ class Auth extends CI_Controller {
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			redirect($this->config->item('base_url'), 'refresh');
+			redirect('auth/personal_index', 'refresh');
+			//redirect($this->config->item('base_url'), 'refresh');
 		}
 		else
 		{
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
+			//個人資料
+			$this->data['profile'] = $this->ion_auth->profile();
+
 			//list the users
 			$this->data['users'] = $this->ion_auth->get_users_array();
 			$this->load->view('auth/index', $this->data);
+
+
 		}
+	}
+
+	//一般登入者首頁
+	function personal_index()
+	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
+		//個人資料
+		$this->data['profile'] = $this->ion_auth->profile();
+		$this->load->view('auth/personal_index', $this->data);
+	}
+
+
+	//檢視個人資料
+	function personal_data()
+	{
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+
+		//個人資料
+		$this->data['profile'] = $this->ion_auth->profile();
+		$this->load->view('auth/personal_data', $this->data);
 	}
 
 	//log the user in
@@ -46,13 +81,13 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() == true)
-		{ 
+		{
             //check to see if the user is logging in
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
 			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
-			{ 
+			{
                 //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -60,7 +95,7 @@ class Auth extends CI_Controller {
 				//redirect($this->config->item('base_url'), 'refresh');
 			}
 			else
-			{ 
+			{
                 //if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
@@ -68,7 +103,7 @@ class Auth extends CI_Controller {
 			}
 		}
 		else
-		{  
+		{
             //the user is not logging in so display the login page
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
@@ -273,7 +308,7 @@ class Auth extends CI_Controller {
 	function create_user()
 	{
 		$this->data['title'] = "Create User";
-		
+
 		/*if (!$this->ion_auth->logged_in())
 		{
 			redirect('auth', 'refresh');
@@ -284,21 +319,11 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[12]|xss_clean');
 		$this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
 		$this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
-		
+
 		$this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
 		$this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
 		$this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean');
-		/*$this->form_validation->set_rules('user_job', '職業', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_tall', '身高', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_weight', '體重', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_r1', '胸圍', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_r2', '腰圍', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_r3', '臀圍', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_shoulder', '肩寬', 'required|xss_clean');
-		$this->form_validation->set_rules('user_body_leg', '腿長', 'required|xss_clean');
-		
-		$this->form_validation->set_rules('cellphone', '行動電話', 'required|trim|strip_tags|min_length[10]|max_length[10]|xss_clean|numeric');
-		$this->form_validation->set_rules('phone', '市內電話', 'required|trim|strip_tags|min_length[8]|max_length[17]|xss_clean');*/
+
 		$this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
 
@@ -311,7 +336,7 @@ class Auth extends CI_Controller {
 			$additional_data = array('user_name' => $this->input->post('user_name'),
 				'user_nickname' => $this->input->post('user_nickname'),
 				'user_sex' => $this->input->post('user_sex'),
-				
+
 				'user_country' => $this->input->post('user_country'),
 				'user_city' => $this->input->post('user_city'),
 				'user_birthday' => $this->input->post('user_birthday'),
@@ -323,22 +348,22 @@ class Auth extends CI_Controller {
 				'user_body_r3' => $this->input->post('user_body_r3'),
 				'user_body_shoulder' => $this->input->post('user_body_shoulder'),
 				'user_body_leg' => $this->input->post('user_body_leg'),
-				
+
 				//'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 				'phone' => $this->input->post('phone'),
 				'cellphone' => $this->input->post('cellphone'),
-				
+
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
-		{ 
+		{
             //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Created");
 			redirect("auth", 'refresh');
 		}
 		else
-		{ 
+		{
             //display the create user form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
@@ -363,17 +388,7 @@ class Auth extends CI_Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('email'),
 			);
-			/*$this->data['phone'] = array('name' => 'phone',
-				'id' => 'phone',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('phone'),
-			);
-			$this->data['cellphone'] = array('name' => 'cellphone',
-				'id' => 'cellphone',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('cellphone'),
-			);*/
-			
+
 			$this->data['user_country'] = array('name' => 'user_country',
 				'id' => 'user_country',
 				'type' => 'text',
@@ -389,46 +404,6 @@ class Auth extends CI_Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('user_birthday'),
 			);
-			/*$this->data['user_job'] = array('name' => 'user_job',
-				'id' => 'user_job',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_job'),
-			);
-			$this->data['user_body_tall'] = array('name' => 'user_body_tall',
-				'id' => 'user_body_tall',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_tall'),
-			);
-			$this->data['user_body_weight'] = array('name' => 'user_body_weight',
-				'id' => 'user_body_weight',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_weight'),
-			);
-			$this->data['user_body_r1'] = array('name' => 'user_body_r1',
-				'id' => 'user_body_r1',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_r1'),
-			);
-			$this->data['user_body_r2'] = array('name' => 'user_body_r2',
-				'id' => 'user_body_r2',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_r2'),
-			);
-			$this->data['user_body_r3'] = array('name' => 'user_body_r3',
-				'id' => 'user_body_r3',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_r3'),
-			);
-			$this->data['user_body_shoulder'] = array('name' => 'user_body_shoulder',
-				'id' => 'user_body_shoulder',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_shoulder'),
-			);
-			$this->data['user_body_leg'] = array('name' => 'user_body_leg',
-				'id' => 'user_body_leg',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_body_leg'),
-			);*/
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
@@ -442,23 +417,25 @@ class Auth extends CI_Controller {
 			$this->load->view('auth/create_user', $this->data);
 		}
 	}
-	
+
 		//create a new user
 	function update_user()
 	{
 		if (!$this->ion_auth->logged_in())
 		{
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
-		
+
 		$id = $this->session->userdata('user_id');
 		$this->data['title'] = "Update User";
-		
+
+		//個人資料
+		$this->data['profile'] = $this->ion_auth->profile();
+
 		//validate form input
-		$this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
 		$this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[12]|xss_clean');
 		$this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
-		
+
 		$this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
 		$this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
 		$this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean');
@@ -470,19 +447,18 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('user_body_r3', '臀圍', 'xss_clean');
 		$this->form_validation->set_rules('user_body_shoulder', '肩寬', 'xss_clean');
 		$this->form_validation->set_rules('user_body_leg', '腿長', 'xss_clean');
-		
+
 		$this->form_validation->set_rules('cellphone', '行動電話', 'trim|strip_tags|min_length[10]|max_length[10]|xss_clean|numeric');
 		$this->form_validation->set_rules('phone', '市內電話', 'trim|strip_tags|min_length[8]|max_length[17]|xss_clean');
 
 		if ($this->form_validation->run() == true)
 		{
 			$username = strtolower($this->input->post('user_name'));
-			
+
 			//$email = $this->input->post('email');
 			//$password = $this->input->post('password');
 
 			$update_data = array(
-				'user_name' => $this->input->post('user_name'),
 				'user_nickname' => $this->input->post('user_nickname'),
 				'user_sex' => $this->input->post('user_sex'),
 				'user_country' => $this->input->post('user_country'),
@@ -498,27 +474,22 @@ class Auth extends CI_Controller {
 				'user_body_leg' => $this->input->post('user_body_leg'),
 				'phone' => $this->input->post('phone'),
 				'cellphone' => $this->input->post('cellphone'),
-				
+
 			);
 		}
 		if ($this->form_validation->run() == true && $this->ion_auth->update_user($id, $update_data))
-		{ 
+		{
             //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Updated");
 			redirect("auth/index", 'refresh');
 		}
 		else
-		{ 
+		{
             //display the create user form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['user_name'] = array('name' => 'user_name',
-				'id' => 'user_name',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('user_name'),
-			);
 			$this->data['user_nickname'] = array('name' => 'user_nickname',
 				'id' => 'user_nickname',
 				'type' => 'text',
@@ -539,7 +510,7 @@ class Auth extends CI_Controller {
 				'type' => 'text',
 				'value' => $this->form_validation->set_value('cellphone'),
 			);
-			
+
 			$this->data['user_country'] = array('name' => 'user_country',
 				'id' => 'user_country',
 				'type' => 'text',
@@ -598,7 +569,7 @@ class Auth extends CI_Controller {
 			$this->load->view('auth/update_user', $this->data);
 		}
 	}
-	
+
 	//Delete the user
 	function delete($id, $code=false)
 	{
