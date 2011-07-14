@@ -1,5 +1,5 @@
 <div class='mainInfo'>
-<p>Hi,<?=$profile->user_name?>.</p>
+<p>Hi,<?php echo $profile->user_name; ?></p>
 
     <h1>編輯資料</h1>
     <p>請輸入個人資料</p>
