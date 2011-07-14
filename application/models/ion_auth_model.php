@@ -409,7 +409,7 @@ class Ion_auth_model extends CI_Model
     {
         if (empty($identity))
         {
-        return FALSE;
+            return FALSE;
         }
 
         $this->db->select(array(
@@ -420,10 +420,10 @@ class Ion_auth_model extends CI_Model
 
         if (!empty($this->columns))
         {
-        foreach ($this->columns as $field)
-        {
-            $this->db->select($this->tables['user_meta'] .'.' . $field);
-        }
+            foreach ($this->columns as $field)
+            {
+                $this->db->select($this->tables['user_meta'] .'.' . $field);
+            }
         }
 
         $this->db->join($this->tables['user_meta'], $this->tables['users'].'.id = '.$this->tables['user_meta'].'.'.$this->meta_join, 'left');
@@ -431,11 +431,11 @@ class Ion_auth_model extends CI_Model
 
         if ($is_code)
         {
-        $this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
+            $this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
         }
         else
         {
-        $this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
+            $this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
         }
 
         $this->db->where($this->ion_auth->_extra_where);
@@ -728,7 +728,7 @@ class Ion_auth_model extends CI_Model
         //if no id was passed use the current users id
         if (empty($id))
         {
-        	$id = $this->session->userdata('user_id');
+            $id = $this->session->userdata('user_id');
         }
 
         $this->db->where($this->tables['users'].'.id', $id);
