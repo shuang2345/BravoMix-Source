@@ -309,7 +309,7 @@ class Auth extends CI_Controller {
 
         //validate form input
         $this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
-        $this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[12]|xss_clean');
+        $this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[52]|xss_clean');
         $this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
         $this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
 

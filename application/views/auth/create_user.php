@@ -6,20 +6,30 @@
     <div id="infoMessage"><?php echo $message;?></div>
 
     <?php echo form_open("auth/create_user");?>
+      <p>E-mail：
+      <?php echo form_input($email);?>
+      </p>
+
       <p>姓名：
       <?php echo form_input($user_name);?>
       </p>
 
-      <p>匿稱：
+      <p>暱稱：
       <?php echo form_input($user_nickname);?>
       </p>
 
       <p>性別：
-      <?php echo form_input($user_sex);?>
-      </p>
+      <?php
+           $data = array('name'        => 'user_sex',
+                         'value'       => 'M',
+                         'checked'     => FALSE);
+           echo form_radio($data);?>男
+      <?php
+           $data = array('name'        => 'user_sex',
+                         'value'       => 'F',
+                         'checked'     => TRUE);
+           echo form_radio($data);?>女
 
-      <p>E-mail：
-      <?php echo form_input($email);?>
       </p>
 
 <!--
