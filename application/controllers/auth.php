@@ -315,7 +315,7 @@ class Auth extends CI_Controller {
 
         $this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
         $this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
-        $this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean');
+        $this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean|min_length[10]|max_length[10]');
 
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
