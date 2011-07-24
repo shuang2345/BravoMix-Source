@@ -27,12 +27,12 @@
 	/**
 	 * Site Title, example.com
 	 */
-	$config['site_title']		   = "Example.com";
+	$config['site_title']		   = "BravoMix.com";
 	
 	/**
 	 * Admin Email, admin@example.com
 	 */
-	$config['admin_email']		   = "admin@example.com";
+	$config['admin_email']		   = "service@bravomix.com";
 	
 	/**
 	 * Default group, use name
@@ -77,7 +77,7 @@
 	/**
 	 * Email Activation for registration
 	 **/
-	$config['email_activation']    = false;
+	$config['email_activation']    = true;
 	/**
 	 * Allow users to be remembered and enable auto-login
 	 **/

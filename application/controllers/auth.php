@@ -309,13 +309,13 @@ class Auth extends CI_Controller {
 
         //validate form input
         $this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
-        $this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[12]|xss_clean');
+        $this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[52]|xss_clean');
         $this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
         $this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
 
         $this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
         $this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
-        $this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean');
+        $this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean|min_length[10]|max_length[10]');
 
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
