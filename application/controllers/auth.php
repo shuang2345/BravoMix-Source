@@ -315,8 +315,9 @@ class Auth extends CI_Controller {
 
         $this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
         $this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
-        $this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean|min_length[10]|max_length[10]');
-
+        $this->form_validation->set_rules('year', '年', 'required|xss_clean');
+		$this->form_validation->set_rules('month', '月', 'required|xss_clean');
+		$this->form_validation->set_rules('day', '日', 'required|xss_clean');
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
 
@@ -332,7 +333,7 @@ class Auth extends CI_Controller {
 
                 'user_country' => $this->input->post('user_country'),
                 'user_city' => $this->input->post('user_city'),
-                'user_birthday' => $this->input->post('user_birthday'),
+                'user_birthday' => $this->input->post('year') . "-" . $this->input->post('month') . "-" . $this->input->post('day'),
                 'user_job' => $this->input->post('user_job'),
                 'user_body_tall' => $this->input->post('user_body_tall'),
                 'user_body_weight' => $this->input->post('user_body_weight'),
