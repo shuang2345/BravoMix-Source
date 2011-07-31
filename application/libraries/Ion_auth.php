@@ -358,7 +358,7 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function login($identity, $password, $remember=false)
+	public function login($identity, $password, $remember = false)
 	{
 		if ($this->ci->ion_auth_model->login($identity, $password, $remember))
 		{
@@ -408,9 +408,25 @@ class Ion_auth
 	 **/
 	public function logged_in()
 	{
-		$identity = $this->ci->config->item('identity', 'ion_auth');
+        $identity = $this->ci->config->item('identity', 'ion_auth');
 
 		return (bool) $this->ci->session->userdata($identity);
+	}
+	
+	/**
+	 * check_login_redirect
+	 *
+	 * @return bool
+	 * @author appleboy
+	 **/
+	public function check_login_error()
+	{
+        if ($this->ci->session->userdata('login_error_times') && $this->ci->session->userdata('login_error_times') >= 3)
+		{
+            return TRUE;
+		}
+
+		return FALSE;
 	}
 
 	/**
@@ -465,7 +481,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group_name=false, $limit=NULL, $offset=NULL)
+	public function get_users($group_name = FALSE, $limit=NULL, $offset=NULL)
 	{
 		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result();
 	}
@@ -476,7 +492,7 @@ class Ion_auth
 	 * @return int Number of Users
 	 * @author Sven Lueckenbach
 	 **/
-	public function get_users_count($group_name=false)
+	public function get_users_count($group_name = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_users_count($group_name);
 	}
@@ -487,7 +503,7 @@ class Ion_auth
 	 * @return array Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_array($group_name=false, $limit=NULL, $offset=NULL)
+	public function get_users_array($group_name = FALSE, $limit=NULL, $offset=NULL)
 	{
 		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result_array();
 	}
@@ -520,7 +536,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users($group_name = false)
+	public function get_active_users($group_name = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_active_users($group_name)->result();
 	}
@@ -531,7 +547,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users_array($group_name = false)
+	public function get_active_users_array($group_name = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_active_users($group_name)->result_array();
 	}
@@ -542,7 +558,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_inactive_users($group_name = false)
+	public function get_inactive_users($group_name = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_inactive_users($group_name)->result();
 	}
@@ -553,7 +569,7 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_inactive_users_array($group_name = false)
+	public function get_inactive_users_array($group_name = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_inactive_users($group_name)->result_array();
 	}
@@ -564,7 +580,7 @@ class Ion_auth
 	 * @return object User
 	 * @author Ben Edmunds
 	 **/
-	public function get_user($id=false)
+	public function get_user($id = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_user($id)->row();
 	}
@@ -630,7 +646,7 @@ class Ion_auth
 	 * @return array User
 	 * @author Ben Edmunds
 	 **/
-	public function get_user_array($id=false)
+	public function get_user_array($id = FALSE)
 	{
 		return $this->ci->ion_auth_model->get_user($id)->row_array();
 	}

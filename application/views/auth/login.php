@@ -17,12 +17,16 @@
         <label for="password">密碼:</label>
         <?php echo form_input($password);?>
       </p>
-
+      <?php if($show_captcha):?>
+      <p>
+          <label for="remember">驗證馬:</label>
+          <?php echo form_input($vcode);?><?php echo $captcha_image;?>
+      </p>
+      <?php endif;?>
       <p>
           <label for="remember">保持登入:</label>
           <?php echo form_checkbox('remember', '1', FALSE);?>
       </p>
-
 
       <p><?php echo form_submit('submit', '登入');?></p>
     <?php echo form_close();?>

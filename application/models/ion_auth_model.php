@@ -372,7 +372,7 @@ class Ion_auth_model extends CI_Model
      * @return string
      * @author Mathew
      **/
-    public function forgotten_password_complete($code, $salt=FALSE)
+    public function forgotten_password_complete($code, $salt = FALSE)
     {
         if (empty($code))
         {
@@ -568,11 +568,11 @@ class Ion_auth_model extends CI_Model
      * @return bool
      * @author Mathew
      **/
-    public function login($identity, $password, $remember=FALSE)
+    public function login($identity, $password, $remember = FALSE)
     {
         if (empty($identity) || empty($password) || !$this->identity_check($identity))
         {
-        return FALSE;
+            return FALSE;
         }
 
         $query = $this->db->select($this->identity_column.', id, password, group_id')
@@ -586,31 +586,31 @@ class Ion_auth_model extends CI_Model
 
         if ($query->num_rows() == 1)
         {
-        $password = $this->hash_password_db($identity, $password);
+            $password = $this->hash_password_db($identity, $password);
 
-        if ($result->password === $password)
-        {
-            $this->update_last_login($result->id);
-
-            $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
-
-            $session_data = array(
-                    $this->identity_column => $result->{$this->identity_column},
-                    'id'                   => $result->id, //kept for backwards compatibility
-                    'user_id'              => $result->id, //everyone likes to overwrite id so we'll use user_id
-                    'group_id'             => $result->group_id,
-                    'group'                => $group_row->name
-                     );
-
-            $this->session->set_userdata($session_data);
-
-            if ($remember && $this->config->item('remember_users', 'ion_auth'))
+            if ($result->password === $password)
             {
-            $this->remember_user($result->id);
+                $this->update_last_login($result->id);
+    
+                $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
+    
+                $session_data = array(
+                        $this->identity_column => $result->{$this->identity_column},
+                        'id'                   => $result->id, //kept for backwards compatibility
+                        'user_id'              => $result->id, //everyone likes to overwrite id so we'll use user_id
+                        'group_id'             => $result->group_id,
+                        'group'                => $group_row->name
+                         );
+    
+                $this->session->set_userdata($session_data);
+    
+                if ($remember && $this->config->item('remember_users', 'ion_auth'))
+                {
+                    $this->remember_user($result->id);
+                }
+    
+                return TRUE;
             }
-
-            return TRUE;
-        }
         }
 
         return FALSE;

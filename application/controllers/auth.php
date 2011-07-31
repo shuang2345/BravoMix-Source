@@ -67,31 +67,61 @@ class Auth extends CI_Controller {
     //log the user in
     function login()
     {
+
+        if ($this->ion_auth->logged_in())
+        {
+            redirect('auth/personal_index', 'refresh');
+        }
+        
+        $check_login_error = $this->ion_auth->check_login_error();
+        if($check_login_error)
+            $this->load->helper('captcha');
+
         $this->data['title'] = "登入帳號";
 
         //validate form input
         $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
+        if($check_login_error)
+            $this->form_validation->set_rules('vcode', 'Captcha Code', 'required');
+
         if ($this->form_validation->run() == true)
         {
             //check to see if the user is logging in
             //check for "remember me"
             $remember = (bool) $this->input->post('remember');
+            
+            // check Captcha Code
+            if($check_login_error)
+            {
+                $code = $this->input->post('vcode');
+                if($code != $this->session->userdata('vcode'))
+                    redirect('auth/login', 'refresh');
+            }
+
 
             if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
             {
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect('auth/index', 'refresh');
-                //redirect($this->config->item('base_url'), 'refresh');
+                // remove session data: Captcha Code
+                if($check_login_error)
+                {
+                    $this->session->unset_userdata('vcode');
+                    $this->session->set_userdata('login_error_times', 0);
+                }
+
+                redirect($this->config->item('base_url'), 'refresh');
             }
             else
             {
                 //if the login was un-successful
                 //redirect them back to the login page
                 $this->session->set_flashdata('message', $this->ion_auth->errors());
+                $login_error_times = $this->session->userdata('login_error_times');
+                $this->session->set_userdata('login_error_times', $login_error_times+1);
                 redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
             }
         }
@@ -100,7 +130,7 @@ class Auth extends CI_Controller {
             //the user is not logging in so display the login page
             //set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
+            
             $this->data['email'] = array('name' => 'email',
                 'id' => 'email',
                 'type' => 'text',
@@ -111,6 +141,27 @@ class Auth extends CI_Controller {
                 'type' => 'password',
             );
 
+            if($check_login_error)
+            {
+                $this->data['vcode'] = array('name' => 'vcode',
+                    'id' => 'vcode',
+                    'type' => 'text',
+                );
+
+                $vals = array(
+                    'img_path'	 => './captcha/',
+                    'img_url'	 => site_url() . "/captcha/",
+                    'img_width'	 => '150',
+                    'img_height' => 30,
+                    'expiration' => 7200
+                );
+
+                $cap = create_captcha($vals);
+                $this->data['captcha_image'] = $cap['image'];
+                $this->session->set_userdata('vcode', $cap['word']);
+            }
+
+            $this->data['show_captcha'] = $check_login_error;
             $this->layout->view('auth/login', $this->data);
         }
     }
