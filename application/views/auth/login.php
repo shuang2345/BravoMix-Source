@@ -33,5 +33,5 @@
 
     <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a></p>
     <p><a href="<?php echo site_url('auth/update_user');?>">編輯個人資料</a></p>
-
+    <p><a href="<?php echo site_url('auth/change_password');?>">忘記密碼</a></p>
 </div>
