@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteBase /
-RewriteCond $1 !^(index\.php|images|includes|robots\.txt|$)
+RewriteCond $1 !^(index\.php|images|captcha|includes|robots\.txt|$)
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 </IfModule>
