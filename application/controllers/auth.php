@@ -366,8 +366,8 @@ class Auth extends CI_Controller {
         //$this->form_validation->set_rules('day', '生日(天)', 'required|xss_clean');
         $this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
 
-        $this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
-        $this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
+        //$this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
+        //$this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
         $this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
 
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
@@ -380,25 +380,11 @@ class Auth extends CI_Controller {
             $password = $this->input->post('password');
             $user_birthday = $this->input->post('year') . '-' . $this->input->post('month') . '-' . $this->input->post('day');
 
-            $additional_data = array('user_name' => $this->input->post('user_name'),
+            $additional_data = array(
+                'user_name' => $this->input->post('user_name'),
                 'user_nickname' => $this->input->post('user_nickname'),
                 'user_sex' => $this->input->post('user_sex'),
-
-                'user_country' => $this->input->post('user_country'),
-                'user_city' => $this->input->post('user_city'),
                 'user_birthday' => $user_birthday,
-                'user_job' => $this->input->post('user_job'),
-                'user_body_tall' => $this->input->post('user_body_tall'),
-                'user_body_weight' => $this->input->post('user_body_weight'),
-                'user_body_r1' => $this->input->post('user_body_r1'),
-                'user_body_r2' => $this->input->post('user_body_r2'),
-                'user_body_r3' => $this->input->post('user_body_r3'),
-                'user_body_shoulder' => $this->input->post('user_body_shoulder'),
-                'user_body_leg' => $this->input->post('user_body_leg'),
-
-                'phone' => $this->input->post('phone'),
-                'cellphone' => $this->input->post('cellphone'),
-
             );
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))

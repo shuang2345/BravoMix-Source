@@ -29,6 +29,7 @@
       <?php echo form_input($phone);?>
       </p>
       -->
+      <!--
       <p>國家：
       <?php echo form_input($user_country);?>
       </p>
@@ -36,7 +37,7 @@
       <p>城市：
       <?php echo form_input($user_city);?>
       </p>
-
+      -->
 	  <p>生日：<?php echo $user_birthday;?>
 	  </p>
 
