@@ -1,11 +1,6 @@
 <div class='mainInfo'>
 
-<p>Hi,<?php echo $profile->user_name?> 你好.歡迎來到BravoMix.</p>
-	<!--Users-->
-
-個人資料
-
-
+<h2><?php echo $profile->user_name?> 個人資料</h2>
  	  <p>匿稱：
       <?php echo $profile->user_nickname;?>
       </p>

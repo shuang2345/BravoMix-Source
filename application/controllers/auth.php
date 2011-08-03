@@ -361,15 +361,8 @@ class Auth extends CI_Controller {
         //validate form input
         $this->form_validation->set_rules('user_name', '姓名', 'required|min_length[1]|max_length[12]|xss_clean');
         $this->form_validation->set_rules('user_nickname', '暱稱', 'required|min_length[1]|max_length[52]|xss_clean');
-        //$this->form_validation->set_rules('year', '生日(年)', 'required|xss_clean');
-        //$this->form_validation->set_rules('month', '生日(月)', 'required|xss_clean');
-        //$this->form_validation->set_rules('day', '生日(天)', 'required|xss_clean');
         $this->form_validation->set_rules('email', '電子信箱', 'required|valid_email');
-
-        //$this->form_validation->set_rules('user_country', '國家', 'required|xss_clean');
-        //$this->form_validation->set_rules('user_city', '城市', 'required|xss_clean');
         $this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
-
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
 
@@ -405,6 +398,7 @@ class Auth extends CI_Controller {
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('user_name'),
             );
+
             $this->data['user_nickname'] = array('name' => 'user_nickname',
                 'id' => 'user_nickname',
                 'type' => 'text',
@@ -417,22 +411,14 @@ class Auth extends CI_Controller {
                 'value' => $this->form_validation->set_value('email'),
             );
 
-            $this->data['user_sex_m'] = array('name' => 'user_sex',
-                         'value' => 'M',
-                         'checked' => FALSE);
-            $this->data['user_sex_f'] = array('name' => 'user_sex',
-                         'value' => 'F',
-                         'checked' => TRUE);
-
-            $this->data['user_country'] = array('name' => 'user_country',
-                'id' => 'user_country',
-                'type' => 'text',
-                'value' => $this->form_validation->set_value('user_country'),
+            $this->data['user_sex_m'] = array(
+                'name' => 'user_sex',
+                'value' => 'M',
+                'checked' => FALSE
             );
-            $this->data['user_city'] = array('name' => 'user_city',
-                'id' => 'user_city',
-                'type' => 'text',
-                'value' => $this->form_validation->set_value('user_city'),
+            $this->data['user_sex_f'] = array('name' => 'user_sex',
+                'value' => 'F',
+                'checked' => TRUE
             );
 
             $this->data['password'] = array('name' => 'password',
@@ -470,10 +456,6 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('user_nickname', '暱稱', 'min_length[1]|max_length[12]|xss_clean');
         $this->form_validation->set_rules('user_sex', '性別', 'xss_clean');
 
-        //$this->form_validation->set_rules('user_country', '國家', 'xss_clean');
-        //$this->form_validation->set_rules('user_city', '城市', 'xss_clean');
-        //$this->form_validation->set_rules('user_birthday', '生日', 'required|xss_clean');
-        //$this->form_validation->set_rules('user_job', '職業', 'xss_clean');
         $this->form_validation->set_rules('user_body_tall', '身高', 'xss_clean');
         $this->form_validation->set_rules('user_body_weight', '體重', 'xss_clean');
         $this->form_validation->set_rules('user_body_r1', '胸圍', 'xss_clean');
@@ -496,10 +478,7 @@ class Auth extends CI_Controller {
             $update_data = array(
                 'user_nickname' => $this->input->post('user_nickname'),
                 'user_sex' => $this->input->post('user_sex'),
-                //'user_country' => $this->input->post('user_country'),
-                //'user_city' => $this->input->post('user_city'),
                 'user_birthday' => $user_birthday,
-                //'user_job' => $this->input->post('user_job'),
                 'user_body_tall' => $this->input->post('user_body_tall'),
                 'user_body_weight' => $this->input->post('user_body_weight'),
                 'user_body_r1' => $this->input->post('user_body_r1'),
@@ -533,12 +512,15 @@ class Auth extends CI_Controller {
                 'value' => $this->form_validation->run() ? $this->form_validation->set_value('user_nickname') : $this->data['profile']->user_nickname,
             );
 
-            $this->data['user_sex_m'] = array('name' => 'user_sex',
-                         'value' => 'M',
-                         'checked' => ($this->data['profile']->user_sex == 'M') ? TRUE : FALSE);
+            $this->data['user_sex_m'] = array(
+                'name' => 'user_sex',
+                'value' => 'M',
+                'checked' => ($this->data['profile']->user_sex == 'M') ? TRUE : FALSE
+            );
             $this->data['user_sex_f'] = array('name' => 'user_sex',
-                         'value' => 'F',
-                         'checked' => ($this->data['profile']->user_sex == 'F') ? TRUE : FALSE);
+                'value' => 'F',
+                'checked' => ($this->data['profile']->user_sex == 'F') ? TRUE : FALSE
+            );
 
             $this->data['phone'] = array('name' => 'phone',
                 'id' => 'phone',
