@@ -22,6 +22,7 @@
 /* php 6 date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. */
 date_default_timezone_set("Asia/Taipei");
 define('ENVIRONMENT', 'development');
+
 /*
  * ---------------------------------------------------------------
  * ERROR REPORTING

@@ -1,0 +1,6 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+$config['facebook_app_id'] 			= 'xxxxxxxxxxx';
+$config['facebook_api_secret'] 		= 'xxxxxxxxxxxxxxxxxxxxxxxxxx';
+$config['facebook_default_scope']	= 'location'; // E.G 'read_stream,birthday,users_events,rsvp_event'
+$config['facebook_api_url'] 		= 'http://apps.facebook.com/xxxxxxx/'; // Just in case it changes.
