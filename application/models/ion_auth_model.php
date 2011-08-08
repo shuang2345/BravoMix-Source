@@ -906,8 +906,8 @@ class Ion_auth_model extends CI_Model
             {
                 if (is_array($data) && isset($data[$field]))
                 {
-                $meta_fields[$field] = $data[$field];
-                unset($data[$field]);
+                    $meta_fields[$field] = $data[$field];
+                    unset($data[$field]);
                 }
             }
 

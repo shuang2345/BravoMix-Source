@@ -8,7 +8,8 @@
     <?php echo form_open("auth/update_user");?>
 
       <p>姓名：
-      <?php echo $user_name;?>
+      <span id="show_username"><?php echo $user_name;?></span><span id="show_messsage" style="padding-left:10px;color:red">已成功提交姓名變更申請</span><input type="button" id="edit_username" value="申請變更姓名" />
+      <div id="show_button"><input type="button" id="save_username" value="送出" /><input type="button" id="cancel" value="取消" /></div>
       </p>
 
       <p>匿稱：
@@ -26,23 +27,11 @@
       <p>市內電話：
       <?php echo form_input($cellphone);?>
       </p>
- <!--
-      <p>國家：
-      <?php echo form_input(array('name'=>'user_country', 'value'=>$profile->user_country));?>
-      </p>
 
-      <p>城市：
-      <?php echo form_input(array('name'=>'user_city', 'value'=>$profile->user_city));?>
-      </p>
- -->
       <p>生日：
       <?php echo $user_birthday;?>
       </p>
- <!--
-      <p>職業：
-      <?php echo form_input(array('name'=>'user_job', 'value'=>$profile->user_job));?>
-      </p>
- -->
+
       <p>身高：
       <?php echo form_input($user_body_tall);?>
       </p>
@@ -78,3 +67,4 @@
     <?php echo form_close();?>
 
 </div>
+<script type="text/javascript" src="/assets/update_user.js"></script> 

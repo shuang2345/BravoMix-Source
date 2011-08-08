@@ -467,8 +467,25 @@ class Auth extends CI_Controller {
         }
     }
 
-        //create a new user
-    function update_user()
+    public function change_username()
+    {
+        if (!$this->ion_auth->logged_in())
+        {
+            redirect('auth/login', 'refresh');
+        }
+        $id = $this->session->userdata('user_id');
+        $user_name = $this->input->post('username');
+        $data = array(
+            'user_name' => $user_name,
+        );
+        
+        if($this->ion_auth->update_user($id, $data))
+        {
+            echo 'ok';
+        } 
+    }
+
+    public function update_user()
     {
         if (!$this->ion_auth->logged_in())
         {
