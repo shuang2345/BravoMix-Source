@@ -8,8 +8,8 @@
     <?php echo form_open("auth/update_user");?>
 
       <p>姓名：
-      <span id="show_username"><?php echo $user_name;?></span><span id="show_messsage" style="padding-left:10px;color:red">已成功提交姓名變更申請</span><input type="button" id="edit_username" value="申請變更姓名" />
-      <div id="show_button"><input type="button" id="save_username" value="送出" /><input type="button" id="cancel" value="取消" /></div>
+      <span id="show_username"><?php echo $user_name;?></span><span id="show_messsage" style="display:none;padding-left:10px;color:red">已成功提交姓名變更申請</span><input type="button" id="edit_username" value="申請變更姓名" />
+      <div id="show_button" style="display:none;"><input type="button" id="save_username" value="送出" /><input type="button" id="cancel" value="取消" /></div>
       </p>
 
       <p>匿稱：
