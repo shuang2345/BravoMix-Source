@@ -1,4 +1,13 @@
-* 安裝步驟
+Bravomix 2011
+===================
+
+## 目錄配置
+
+### assets
+
+共用 CSS / JS / 圖片
+
+## 安裝步驟
 
 cp application/config/config.php.sample application/config/config.php
 cp application/config/database.php.sample application/config/database.php
