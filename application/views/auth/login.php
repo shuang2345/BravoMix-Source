@@ -19,7 +19,7 @@
       </p>
       <?php if($show_captcha):?>
       <p>
-          <label for="remember">驗證馬:</label>
+          <label for="remember">驗證碼:</label>
           <?php echo form_input($vcode);?><?php echo $captcha_image;?>
       </p>
       <?php endif;?>

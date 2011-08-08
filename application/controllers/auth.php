@@ -149,9 +149,10 @@ class Auth extends CI_Controller {
                 );
 
                 $vals = array(
-                    'img_path'	 => './captcha/',
-                    'img_url'	 => site_url() . "/captcha/",
-                    'img_width'	 => '150',
+                    'word' => $this->system->generate_code(6),
+                    'img_path' => './captcha/',
+                    'img_url' => site_url() . "captcha/",
+                    'img_width' => 150,
                     'img_height' => 30,
                     'expiration' => 7200
                 );
@@ -365,9 +366,14 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('user_sex', '性別', 'required|xss_clean');
         $this->form_validation->set_rules('password', '密碼', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', '密碼確認', 'required');
+        $this->form_validation->set_rules('register_code', '驗證碼', 'required');
 
         if ($this->form_validation->run() == true)
         {
+            $register_code = $this->input->post('register_code');
+            if($register_code != $this->session->userdata('register_code'))
+                redirect('auth/create_user', 'refresh');
+            
             $username = strtolower($this->input->post('user_name'));
             $email = $this->input->post('email');
             $password = $this->input->post('password');
@@ -380,11 +386,14 @@ class Auth extends CI_Controller {
                 'user_birthday' => $user_birthday,
             );
         }
+
         if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
         {
             //check to see if we are creating the user
             //redirect them back to the admin page
             $this->session->set_flashdata('message', "User Created");
+            // unset register_code variable value
+            $this->session->unset_userdata('register_code');
             redirect("auth", 'refresh');
         }
         else
@@ -433,6 +442,26 @@ class Auth extends CI_Controller {
             );
             
             $this->data['user_birthday'] = $this->_get_birthday_input();
+
+            // load captcha module
+            $this->load->helper('captcha');
+            $this->data['register_code'] = array('name' => 'register_code',
+                'id' => 'register_code',
+                'type' => 'text',
+            );
+
+            $vals = array(
+                'word'  => $this->system->generate_code(6),
+                'img_path' => './captcha/',
+                'img_url' => site_url() . "captcha/",
+                'img_width' => 150,
+                'img_height' => 30,
+                'expiration' => 7200
+            );
+
+            $cap = create_captcha($vals);
+            $this->data['captcha_image'] = $cap['image'];
+            $this->session->set_userdata('register_code', $cap['word']);
 
             $this->layout->view('auth/create_user', $this->data);
         }

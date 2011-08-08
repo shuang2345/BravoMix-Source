@@ -29,6 +29,11 @@
       <?php echo form_input($password_confirm);?>
       </p>
 
+      <p>
+          <label for="remember">驗證碼:</label>
+          <?php echo form_input($register_code);?><br /><?php echo $captcha_image;?>
+      </p>
+
       <p><?php echo form_submit('submit', 'Create User');?></p>
 
 
