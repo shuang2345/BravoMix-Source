@@ -72,7 +72,7 @@ class Auth extends CI_Controller {
         {
             redirect('auth/personal_index', 'refresh');
         }
-        
+
         $check_login_error = $this->ion_auth->check_login_error();
 
         $this->data['title'] = "登入帳號";
@@ -89,7 +89,7 @@ class Auth extends CI_Controller {
             //check to see if the user is logging in
             //check for "remember me"
             $remember = (bool) $this->input->post('remember');
-            
+
             // check Captcha Code
             if($check_login_error)
             {
@@ -131,7 +131,7 @@ class Auth extends CI_Controller {
             //the user is not logging in so display the login page
             //set the flash data error message if there is one
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            
+
             $this->data['email'] = array('name' => 'email',
                 'id' => 'email',
                 'type' => 'text',
@@ -366,7 +366,7 @@ class Auth extends CI_Controller {
             $auth_code = explode("|", $vCode);            
             if($register_code != $auth_code[0])
                 redirect('auth/create_user', 'refresh');
-            
+
             $username = strtolower($this->input->post('user_name'));
             $email = $this->input->post('email');
             $password = $this->input->post('password');
@@ -433,7 +433,7 @@ class Auth extends CI_Controller {
                 'type' => 'password',
                 'value' => $this->form_validation->set_value('password_confirm'),
             );
-            
+
             $this->data['user_birthday'] = $this->_get_birthday_input();
 
             $this->data['register_code'] = array('name' => 'register_code',
@@ -457,7 +457,7 @@ class Auth extends CI_Controller {
         $data = array(
             'user_name' => $user_name,
         );
-        
+
         if($this->ion_auth->update_user($id, $data))
         {
             echo 'ok';
@@ -516,7 +516,7 @@ class Auth extends CI_Controller {
 
             );
         }
-        
+
         if ($this->form_validation->run() == true && $this->ion_auth->update_user($id, $update_data))
         {
             //check to see if we are creating the user
@@ -569,7 +569,7 @@ class Auth extends CI_Controller {
                 'type' => 'text',
                 'value' => $this->form_validation->set_value('user_city'),
             );
-            
+
             $this->data['user_birthday'] = $this->_get_birthday_input($this->data['profile']->user_birthday);
 
             $this->data['user_body_tall'] = array('name' => 'user_body_tall',
@@ -658,7 +658,7 @@ class Auth extends CI_Controller {
             return FALSE;
         }
     }
-    
+
     private function _get_birthday_input($data = NULL)
     {
         if(isset($data))
@@ -669,16 +669,16 @@ class Auth extends CI_Controller {
         $year = (isset($data[0])) ? $data[0] : "0";
         $month = (isset($data[1])) ? $data[1] : "0";
         $day = (isset($data[2])) ? $data[2] : "0";
-        
+
         // year
-        
+
         $options = array("0" => "請選擇");
-        for($i=1911;$i<=date("Y");$i++)
+        for($i=(date("Y")-1);$i>=1911;$i--)
         {
             $options[$i] = $i;
         }
         $year = form_dropdown('year', $options, $year);
-        
+
         // month
 
         $options = array("0" => "請選擇");
@@ -696,7 +696,7 @@ class Auth extends CI_Controller {
             $options[$i] = $i;
         }
         $day = form_dropdown('day', $options, $day);
-        
+
         return $year . "年" . $month . "月" . $day . "日";
     }
 
