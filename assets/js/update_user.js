@@ -22,19 +22,19 @@ $(document).ready(function() {
         $('#username').attr("disabled", true);
         console.log(username);
         $.ajax({
-			type: "POST",
-			url: "/auth/change_username",
-			data: {
-				"username": username,
-			},
-			success: function(result){
+            type: "POST",
+            url: "/auth/change_username",
+            data: {
+                "username": username,
+            },
+            success: function(result){
                 var show_html = username;
                 $('#show_username').html(show_html);
-                $('#show_messsage').fadeIn("slow", complete);                
+                $('#show_messsage').fadeIn("slow", complete);
             }
         }); //end ajax call   
     });
-    
+
     $('#cancel').click(function() {
         $('#show_button').hide();
         $('#edit_username').show();
