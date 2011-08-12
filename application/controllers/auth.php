@@ -74,8 +74,6 @@ class Auth extends CI_Controller {
         }
         
         $check_login_error = $this->ion_auth->check_login_error();
-        if($check_login_error)
-            $this->load->helper('captcha');
 
         $this->data['title'] = "登入帳號";
 
@@ -96,7 +94,10 @@ class Auth extends CI_Controller {
             if($check_login_error)
             {
                 $code = $this->input->post('vcode');
-                if($code != $this->session->userdata('vcode'))
+                /* verify vCode */
+                $vCode = $this->session->userdata('vCode');
+                $auth_code = explode("|", $vCode);
+                if($code != $auth_code[0])
                     redirect('auth/login', 'refresh');
             }
 
@@ -109,7 +110,7 @@ class Auth extends CI_Controller {
                 // remove session data: Captcha Code
                 if($check_login_error)
                 {
-                    $this->session->unset_userdata('vcode');
+                    $this->session->unset_userdata('vCode');
                     $this->session->set_userdata('login_error_times', 0);
                 }
 
@@ -148,18 +149,7 @@ class Auth extends CI_Controller {
                     'type' => 'text',
                 );
 
-                $vals = array(
-                    'word' => $this->system->generate_code(6),
-                    'img_path' => './captcha/',
-                    'img_url' => site_url() . "captcha/",
-                    'img_width' => 150,
-                    'img_height' => 30,
-                    'expiration' => 7200
-                );
-
-                $cap = create_captcha($vals);
-                $this->data['captcha_image'] = $cap['image'];
-                $this->session->set_userdata('vcode', $cap['word']);
+                $this->data['images'] = "<img id='auth_code' src='/vcode'>";
             }
 
             $this->data['show_captcha'] = $check_login_error;
@@ -371,7 +361,10 @@ class Auth extends CI_Controller {
         if ($this->form_validation->run() == true)
         {
             $register_code = $this->input->post('register_code');
-            if($register_code != $this->session->userdata('register_code'))
+            /* verify vCode */
+            $vCode = $this->session->userdata('vCode');
+            $auth_code = explode("|", $vCode);            
+            if($register_code != $auth_code[0])
                 redirect('auth/create_user', 'refresh');
             
             $username = strtolower($this->input->post('user_name'));
@@ -393,7 +386,7 @@ class Auth extends CI_Controller {
             //redirect them back to the admin page
             $this->session->set_flashdata('message', "User Created");
             // unset register_code variable value
-            $this->session->unset_userdata('register_code');
+            $this->session->unset_userdata('vCode');
             redirect("auth", 'refresh');
         }
         else
@@ -443,25 +436,11 @@ class Auth extends CI_Controller {
             
             $this->data['user_birthday'] = $this->_get_birthday_input();
 
-            // load captcha module
-            $this->load->helper('captcha');
             $this->data['register_code'] = array('name' => 'register_code',
                 'id' => 'register_code',
                 'type' => 'text',
             );
-
-            $vals = array(
-                'word'  => $this->system->generate_code(6),
-                'img_path' => './captcha/',
-                'img_url' => site_url() . "captcha/",
-                'img_width' => 150,
-                'img_height' => 30,
-                'expiration' => 7200
-            );
-
-            $cap = create_captcha($vals);
-            $this->data['captcha_image'] = $cap['image'];
-            $this->session->set_userdata('register_code', $cap['word']);
+            $this->data['images'] = "<img id='auth_code' src='/vcode'>";
 
             $this->layout->view('auth/create_user', $this->data);
         }

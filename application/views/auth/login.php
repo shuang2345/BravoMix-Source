@@ -20,7 +20,8 @@
       <?php if($show_captcha):?>
       <p>
           <label for="remember">驗證碼:</label>
-          <?php echo form_input($vcode);?><?php echo $captcha_image;?>
+          <?php echo form_input($vcode);?><br /><?php echo $images;?><br />
+          <input type="button" value="不清楚嗎？請重新刷圖" id="regen_code" />
       </p>
       <?php endif;?>
       <p>
@@ -33,3 +34,4 @@
 
     <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a> | <a href="<?php echo site_url('auth/change_password');?>">忘記密碼</a></p>
 </div>
+<script type="text/javascript" src="/assets/js/login.js"></script>

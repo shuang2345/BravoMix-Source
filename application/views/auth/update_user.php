@@ -67,4 +67,4 @@
     <?php echo form_close();?>
 
 </div>
-<script type="text/javascript" src="/assets/update_user.js"></script> 
+<script type="text/javascript" src="/assets/js/update_user.js"></script> 

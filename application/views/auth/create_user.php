@@ -31,7 +31,8 @@
 
       <p>
           <label for="remember">驗證碼:</label>
-          <?php echo form_input($register_code);?><br /><?php echo $captcha_image;?>
+          <?php echo form_input($register_code);?><br /><?php echo $images;?><br />
+          <input type="button" value="不清楚嗎？請重新刷圖" id="regen_code" />
       </p>
 
       <p><?php echo form_submit('submit', 'Create User');?></p>
@@ -40,3 +41,5 @@
     <?php echo form_close();?>
 
 </div>
+
+<script type="text/javascript" src="/assets/js/create_user.js"></script> 

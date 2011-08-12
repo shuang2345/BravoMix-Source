@@ -25,7 +25,7 @@ class Vcode extends CI_Controller {
 
     function getCode($time)
     {
-        $this->SetImage(3, 6, 150, 70, 200, 3);
+        $this->SetImage(3, 6, 150, 70, 150, 3);
     }
 
     function SetImage($mode = 3, $v_num = 8, $img_w = 150, $img_h = 80, $int_pixel_num = 60, $int_line_num = 10, $font_dir = '/tool/font', $border = FALSE, $borderColor='0,0,0')
