@@ -1,6 +1,6 @@
 user_guide
 .htaccess
-captcha/*.jpg
+tool/cache/*
 application/config/config.php
 application/config/database.php
 application/config/facebook.php
