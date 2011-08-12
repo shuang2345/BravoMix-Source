@@ -18,14 +18,14 @@ class System {
     {
         echo '<pre>';
         print_r($msg);
-        echo '<pre>';
+        echo '</pre>';
     }
 
     public function d_dump($msg)
     {
         echo '<pre>';
-        dump($msg);
-        echo '<pre>';
+        var_dump($msg);
+        echo '</pre>';
     }
 
     /**

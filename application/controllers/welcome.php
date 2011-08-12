@@ -30,7 +30,7 @@ class Welcome extends CI_Controller {
     public function facebook()
     {
         $fb_data = $this->session->userdata('fb_data'); // This array contains all the user FB information
-        $this->dprint_r($fb_data);
+        $this->system->d_print($fb_data);
 
         $data = array(
                 'fb_data' => $fb_data,
@@ -39,11 +39,10 @@ class Welcome extends CI_Controller {
         $this->load->view('home', $data);
     }
     
-    private function dprint_r($msg)
+    public function vcode()
     {
-        echo '<pre>';
-        print_r($msg);
-        echo '</pre>';
+        // test auth random image
+        echo "<img src='".base_url()."vcode'>";
     }
 }
 
