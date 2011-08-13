@@ -32,6 +32,6 @@
       <p><?php echo form_submit('submit', '登入');?></p>
     <?php echo form_close();?>
 
-    <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a> | <a href="<?php echo site_url('auth/change_password');?>">忘記密碼</a></p>
+    <p><a href="<?php echo site_url('auth/create_user');?>">申請帳號</a> | <a href="<?php echo site_url('auth/forgot_password');?>">忘記密碼</a></p>
 </div>
 <script type="text/javascript" src="/assets/js/login.js"></script>

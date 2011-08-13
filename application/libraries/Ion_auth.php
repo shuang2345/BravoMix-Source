@@ -415,7 +415,7 @@ class Ion_auth
     }
     
     /**
-     * check_login_redirect
+     * check_login_error
      *
      * @return bool
      * @author appleboy
@@ -428,6 +428,28 @@ class Ion_auth
         }
 
         return FALSE;
+    }
+
+    /**
+     * check_login_email
+     *
+     * @return bool
+     * @author appleboy
+     **/
+    public function check_active_email($email)
+    {
+        $profile = $this->ci->ion_auth_model->profile($email);
+
+        if (!is_object($profile))
+            return FALSE;
+
+        if(!$profile->active)
+        {
+            $this->set_error('login_account_email_inactive');
+            return FALSE;
+        }
+
+        return TRUE;
     }
 
     /**

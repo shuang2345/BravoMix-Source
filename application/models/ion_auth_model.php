@@ -108,8 +108,8 @@ class Ion_auth_model extends CI_Model
         }
         else
         {
-        $salt = $this->salt();
-        return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
+            $salt = $this->salt();
+            return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
         }
     }
 
@@ -312,7 +312,7 @@ class Ion_auth_model extends CI_Model
     {
         if (empty($email))
         {
-        return FALSE;
+            return FALSE;
         }
 
         return $this->db->where('email', $email)
@@ -352,7 +352,7 @@ class Ion_auth_model extends CI_Model
     {
         if (empty($email))
         {
-        return FALSE;
+            return FALSE;
         }
 
         $key = $this->hash_password(microtime().$email);
@@ -465,32 +465,32 @@ class Ion_auth_model extends CI_Model
     {
         if ($this->identity_column == 'email' && $this->email_check($email))
         {
-        $this->ion_auth->set_error('account_creation_duplicate_email');
-        return FALSE;
+            $this->ion_auth->set_error('account_creation_duplicate_email');
+            return FALSE;
         }
         elseif ($this->identity_column == 'username' && $this->username_check($username))
         {
-        $this->ion_auth->set_error('account_creation_duplicate_username');
-        return FALSE;
+            $this->ion_auth->set_error('account_creation_duplicate_username');
+            return FALSE;
         }
 
         // If username is taken, use username1 or username2, etc.
         if ($this->identity_column != 'username')
         {
-        for($i = 0; $this->username_check($username); $i++)
-        {
-            if($i > 0)
+            for($i = 0; $this->username_check($username); $i++)
             {
-            $username .= $i;
+                if($i > 0)
+                {
+                    $username .= $i;
+                }
             }
-        }
         }
 
         // If a group ID was passed, use it
         if(isset($additional_data['group_id']))
         {
-        $group_id = $additional_data['group_id'];
-        unset($additional_data['group_id']);
+            $group_id = $additional_data['group_id'];
+            unset($additional_data['group_id']);
         }
 
         // Otherwise use the group name if it exists
@@ -527,12 +527,12 @@ class Ion_auth_model extends CI_Model
 
         if ($this->store_salt)
         {
-        $data['salt'] = $salt;
+            $data['salt'] = $salt;
         }
 
         if($this->ion_auth->_extra_set)
         {
-        $this->db->set($this->ion_auth->_extra_set);
+            $this->db->set($this->ion_auth->_extra_set);
         }
 
         $this->db->insert($this->tables['users'], $data);
@@ -544,17 +544,17 @@ class Ion_auth_model extends CI_Model
 
         if (!empty($this->columns))
         {
-        foreach ($this->columns as $input)
-        {
-            if (is_array($additional_data) && isset($additional_data[$input]))
+            foreach ($this->columns as $input)
             {
-            $data[$input] = $additional_data[$input];
+                if (is_array($additional_data) && isset($additional_data[$input]))
+                {
+                    $data[$input] = $additional_data[$input];
+                }
+                elseif ($this->input->post($input))
+                {
+                    $data[$input] = $this->input->post($input);
+                }
             }
-            elseif ($this->input->post($input))
-            {
-            $data[$input] = $this->input->post($input);
-            }
-        }
         }
 
         $this->db->insert($this->tables['user_meta'], $data);
@@ -632,10 +632,10 @@ class Ion_auth_model extends CI_Model
 
         if (!empty($this->columns))
         {
-        foreach ($this->columns as $field)
-        {
-            $this->db->select($this->tables['user_meta'].'.'. $field);
-        }
+            foreach ($this->columns as $field)
+            {
+                $this->db->select($this->tables['user_meta'].'.'. $field);
+            }
         }
 
         $this->db->join($this->tables['user_meta'], $this->tables['users'].'.id = '.$this->tables['user_meta'].'.'.$this->meta_join, 'left');
@@ -643,11 +643,11 @@ class Ion_auth_model extends CI_Model
 
         if (is_string($group))
         {
-        $this->db->where($this->tables['groups'].'.name', $group);
+            $this->db->where($this->tables['groups'].'.name', $group);
         }
         else if (is_array($group))
         {
-        $this->db->where_in($this->tables['groups'].'.name', $group);
+            $this->db->where_in($this->tables['groups'].'.name', $group);
         }
 
 
@@ -922,7 +922,7 @@ class Ion_auth_model extends CI_Model
         }
 
         if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data) || array_key_exists('group_id', $data))
-            {
+        {
             if (array_key_exists('password', $data))
             {
                 $data['password'] = $this->hash_password($data['password'], $user->salt);
@@ -959,8 +959,8 @@ class Ion_auth_model extends CI_Model
 
         if ($this->db->trans_status() === FALSE)
         {
-        $this->db->trans_rollback();
-        return FALSE;
+            $this->db->trans_rollback();
+            return FALSE;
         }
 
         $this->db->trans_commit();

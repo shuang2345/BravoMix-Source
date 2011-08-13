@@ -78,7 +78,7 @@ class Auth extends CI_Controller {
         $this->data['title'] = "登入帳號";
 
         //validate form input
-        $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+        $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email|callback_email_activate');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if($check_login_error)
@@ -230,7 +230,7 @@ class Auth extends CI_Controller {
     //forgot password
     function forgot_password()
     {
-        $this->form_validation->set_rules('email', 'Email Address', 'required');
+        $this->form_validation->set_rules('email', '電子郵件', 'required|valid_email|callback_email_activate');
         if ($this->form_validation->run() == false)
         {
             //setup the input
@@ -249,7 +249,7 @@ class Auth extends CI_Controller {
             if ($forgotten)
             { //if there were no errors
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
-                redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+                //redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
             }
             else
             {
@@ -698,6 +698,19 @@ class Auth extends CI_Controller {
         $day = form_dropdown('day', $options, $day);
 
         return $year . "年" . $month . "月" . $day . "日";
+    }
+    
+    public function email_activate($email = NULL)
+    {
+        if(!isset($email))
+            return FALSE;
+
+        $activate = $this->ion_auth->check_active_email($email);
+        if(is_bool($activate) && $activate === TRUE)
+            return TRUE;
+
+        $this->form_validation->set_message('email_activate', $this->lang->line('login_account_email_inactive'));
+        return FALSE;
     }
 
 }
