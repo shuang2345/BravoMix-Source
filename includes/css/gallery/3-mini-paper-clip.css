@@ -1,0 +1,48 @@
+.gallery {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.gallery li {
+	padding: 10px;
+	margin: 0;
+	float: left;
+	position: relative;
+	width: 180px;
+	height: 130px;
+}
+.gallery li:hover img {
+	border-color: #000;
+}
+.gallery img {
+	background: #fff;
+	border: solid 1px #ccc;
+	padding: 5px;
+}
+.gallery em {
+	background: #fff;
+	color: #000;
+	font-style: normal;
+	padding: 2px 8px 4px 22px;
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: 5px;
+	border: 1px solid #999;
+}
+.gallery a:hover em {
+    display: block;
+}
+.gallery a {
+	text-decoration: none;
+}
+.gallery span {
+	width: 30px;
+	height: 60px;
+	display: block;
+	position: absolute;
+	top: 7px;
+	left: 9px;
+	background: url(images/paper-clip-mini.png) no-repeat;
+	z-index: 3;
+}
