@@ -135,7 +135,7 @@ class Template {
      */
     public function add_js($src)
     {
-        $this->_scripts[] = '<script src="' . ($src) . '" type="text/javascript"></script>';
+        $this->_scripts[] = script_tag($src);
     }
 
     /**

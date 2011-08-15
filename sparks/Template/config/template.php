@@ -1,25 +1,24 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 /**
  * 預設使用的樣板
  */
-$config['template_layout'] = 'layouts/template';
+$config['template_layout'] = 'template/layout/fw-18-2-col';
 
 /**
- * CSS
- * 
- * 'path' => 'media'
+ * 預先載入的CSS檔
  */
 $config['template_css'] = array(
-    base_url() . '/includes/css/bravomix.css' => 'screen',
+    'assets/css/bravomix.css' => 'screen',
 );
 
 /**
- * Javascript
+ * 預先載入的JS檔
  */
 $config['template_js'] = array(
-    base_url() . '/includes/js/jquery-1.6.2.min.js',
-
+    'assets/js/jquery-1.6.2.min.js',
 );
 
 /**

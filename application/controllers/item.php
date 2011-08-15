@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author Liao San-Kai
  */
-class Item extends CI_Controller {
+class Item extends MY_controller {
 
     /**
      * 建構子
@@ -20,9 +20,13 @@ class Item extends CI_Controller {
         $this->load->model('item_model');
         $this->load->spark('template');
         //
-        $this->template->add_css('/includes/css/gallery/3-mini-paper-clip.css', 'screen');
-        $this->template->add_css('/includes/css/pagination.css', 'screen');
-        $this->template->set_layout('layouts/template_item');
+        $this->template->set_layout('template/layout/2-col');
+
+        $links = '<ul>';
+        $links .= '<li><a href="' . site_url('item/roll') . '">單品列表</a></li>';
+        $links .= '<li><a href="' . site_url('item/edit/new') . '">建立新單品</a></li>';
+        $links .= '</ul>';
+        $this->template->set('leftcolumn', $links);
     }
 
     //--------------------------------------------------------------------------
@@ -31,7 +35,7 @@ class Item extends CI_Controller {
      */
     public function index()
     {
-        exit;
+        $this->template->render('template/empty');
     }
 
     //--------------------------------------------------------------------------
@@ -45,7 +49,7 @@ class Item extends CI_Controller {
      * @param type $orderby 排序欄位
      * @param type $vector 遞增或遞增
      */
-    public function roll($limit=4, $orderby='add_time', $vector='DESC', $offset=0)
+    public function roll($limit=6, $orderby='add_time', $vector='DESC', $offset=0)
     {
         //如果為Ajax模式請求，就直接輸出JSON格式
         if ($this->input->is_ajax_request())
@@ -89,6 +93,8 @@ class Item extends CI_Controller {
         $data['pager'] = $this->pagination->create_links();
 
         //套用視圖
+        $this->template->add_css('assets/css/pagination.css', 'screen');
+        $this->template->add_css('assets/css/gallery/3-mini-paper-clip.css', 'screen');
         $this->template->render('item/roll', $data);
     }
 
@@ -153,8 +159,9 @@ class Item extends CI_Controller {
             $data['item_kind_tags'] = (isset($data['item_kind_tags'])) ? $data['item_kind_tags'] : array();
             $data['item_style_tags'] = (isset($data['item_style_tags'])) ? $data['item_style_tags'] : array();
             $data['item_images'] = (isset($data['item_images'])) ? $data['item_images'] : array();
-            $this->template->add_js(base_url() . '/includes/js/pikaChoose/jquery.pikachoose.full.js');
-            $this->template->add_css(base_url() . '/includes/js/pikaChoose/styles/bottom.css');
+            //
+            $this->template->add_js('assets/js/pikaChoose/jquery.pikachoose.full.js');
+            $this->template->add_css('assets/js/pikaChoose/styles/bottom.css');
             $this->template->render('item/view', $data);
         }
     }
@@ -227,8 +234,8 @@ class Item extends CI_Controller {
         $data['item_images'] = array_pad(element('item_images', $data, array()), 5, array());
 
         //載入視圖
-        $this->template->add_js(base_url('includes/js/jquery.form.js'));
-        $this->template->add_js(base_url('includes/js/jquery-custom-file-input.js'));
+        $this->template->add_js('assets/js/jquery.form.js');
+        $this->template->add_js('assets/js/jquery-custom-file-input.js');
         $this->template->render('item/edit', $data);
     }
 

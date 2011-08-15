@@ -274,7 +274,7 @@ class Item_model extends CI_Model {
      * @param int $limit 圖片數量
      * @return Array
      * 
-     * TODO: 這邊應該不需要全部SELECT出來
+     * @todo: 這邊應該不需要全部SELECT出來
      */
     public function find_images($item_id=NULL, $limit=NULL)
     {
@@ -302,7 +302,7 @@ class Item_model extends CI_Model {
      * @param int $item_id 單品代碼
      * @return int 影響的列數
      * 
-     * TODO: 應追加登入者(建立者)的帳號判斷
+     * @todo: 應追加登入者(建立者)的帳號判斷
      */
     public function clear_images($item_id=NULL)
     {
@@ -333,7 +333,7 @@ class Item_model extends CI_Model {
      * @param String $filename 圖片實體名稱
      * @return int 影響的列數
      * 
-     * TODO: 把未確認的檔案從資料庫與實體刪除
+     * @todo: 把未確認的檔案從資料庫與實體刪除
      */
     public function add_image($item_id=NULL, $filename=NULL)
     {

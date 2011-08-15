@@ -3,7 +3,7 @@
     <?php echo isset($validation_error) ? print_r($validation_error, TRUE) : '' ?>
     <?php echo form_open('item/edit/' . $item_id) ?>
 
-    <div id="left">
+    <div class="images-list" style="float:left">
         <fieldset>
             <legend>單品圖示</legend>
             <?php foreach ($item_images as $image): ?>
