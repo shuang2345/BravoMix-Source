@@ -11,7 +11,7 @@ $config['template_layout'] = 'template/layout/fw-18-2-col';
  * 預先載入的CSS檔
  */
 $config['template_css'] = array(
-    'assets/css/bravomix.css' => 'screen',
+    '/assets/css/bravomix.css' => 'screen',
 );
 
 /**

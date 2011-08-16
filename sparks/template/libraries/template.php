@@ -119,6 +119,7 @@ class Template {
      */
     public function add_css($href=NULL, $media='screen')
     {
+        $href = ltrim($href, "/");
         $link = array(
             'href' => $href,
             'rel' => 'stylesheet',
