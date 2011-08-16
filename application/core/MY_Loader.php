@@ -95,7 +95,7 @@ class MY_Loader extends CI_Loader
 
         foreach($autoload as $type => $read)
         {
-            if($type == 'library')
+            if($type == 'libraries')
                 $this->library($read);
             elseif($type == 'model')
                 $this->model($read);

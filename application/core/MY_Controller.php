@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * 佈局控制器
@@ -19,18 +19,6 @@ class MY_Controller extends CI_Controller {
 
         //
         $this->load->spark('template');
-
-        //初始化各區塊
-        /*
-        $this->_top();
-        $this->_header();
-        $this->_navigation();
-        $this->_leftcolumn();
-        $this->_rightcolumn();
-        $this->_navigation();
-        $this->_footer();
-        $this->_bottom();
-        */
     }
 
     //--------------------------------------------------------------------------
@@ -43,77 +31,6 @@ class MY_Controller extends CI_Controller {
     {
         
     }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 置頂列
-     */
-    private function _top()
-    {
-        $panel = $this->load->view('template/top', NULL, TRUE);
-        $this->template->set('top', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 頁首
-     */
-    private function _header()
-    {
-        $panel = $this->load->view('template/header', NULL, TRUE);
-        $this->template->set('header', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 導覽頁
-     */
-    private function _navigation()
-    {
-        $panel = $this->load->view('template/navigation', NULL, TRUE);
-        $this->template->set('navigation', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 右欄
-     */
-    private function _leftcolumn()
-    {
-        $panel = $this->load->view('template/leftcolumn', NULL, TRUE);
-        $this->template->set('leftcolumn', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 左欄
-     */
-    private function _rightcolumn()
-    {
-        $panel = $this->load->view('template/rightcolumn', NULL, TRUE);
-        $this->template->set('rightcolumn', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 頁尾
-     */
-    private function _footer()
-    {
-        $panel = $this->load->view('template/footer', NULL, TRUE);
-        $this->template->set('footer', $panel);
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 置底列
-     */
-    private function _bottom()
-    {
-        $panel = $this->load->view('template/bottom', NULL, TRUE);
-        $this->template->set('bottom', $panel);
-    }
-
 }
 
 /* End of file MY_Controller.php */

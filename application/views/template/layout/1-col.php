@@ -1,20 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
     <head>
-        <title><?php echo $site_name ?></title>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8">
+        <title><?php echo $site_title ?></title>
         <meta name="description" content="<?php echo $site_description ?>" />
         <meta name="keywords" content="<?php echo $site_keywords ?>" />
+        <?php echo $meta_tag; ?>
         <!-- CSS -->
-        <?php echo link_tag('assets/css/layout/1-col.css') ?>
+        <?php echo link_tag('/assets/css/layout/1-col.css') . "\n"; ?>
         <?php echo $styles ?>
-        <!-- JS -->
-        <?php echo $scripts ?>
     </head>
 
     <body>
         <div id="top">
-            <?php echo $top ?>
         </div>
 
         <!-- Begin Wrapper -->
@@ -22,13 +25,11 @@
 
             <!-- Begin Header -->
             <div id="header">
-                <?php echo $header ?>
             </div>
             <!-- End Header -->
 
             <!-- Begin Naviagtion -->
             <div id="navigation">
-                <?php echo $navigation ?>
             </div>
             <!-- End Naviagtion -->
 
@@ -40,7 +41,6 @@
 
             <!-- Begin Footer -->
             <div id="footer">
-                <?php echo $footer ?>
             </div>
             <!-- End Footer -->
 
@@ -48,7 +48,8 @@
         <!-- End Wrapper -->
 
         <div id="bottom">
-            <?php echo $bottom ?>
-        </div>        
+        </div>
+        <!-- JS -->
+        <?php echo $scripts ?>        
     </body>
 </html>

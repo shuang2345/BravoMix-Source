@@ -4,4 +4,4 @@
 $autoload['libraries'] = array('template');
 
 # Load the helper when the spark is loaded
-$autoload['helpers'] = array('html');
+$autoload['helper'] = array('html');
