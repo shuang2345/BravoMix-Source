@@ -159,7 +159,7 @@ class Item extends MY_Controller {
             $data['item_images'] = (isset($data['item_images'])) ? $data['item_images'] : array();
             //
             $this->template->add_js('/assets/js/pikaChoose/jquery.pikachoose.full.js');
-            $this->template->add_css('assets/js/pikaChoose/styles/bottom.css');
+            $this->template->add_css('/assets/js/pikaChoose/styles/bottom.css');
             $this->template->render('item/view', $data);
         }
     }
@@ -232,8 +232,8 @@ class Item extends MY_Controller {
         $data['item_images'] = array_pad(element('item_images', $data, array()), 5, array());
 
         //載入視圖
-        $this->template->add_js('assets/js/jquery.form.js');
-        $this->template->add_js('assets/js/jquery-custom-file-input.js');
+        $this->template->add_js('/assets/js/jquery.form.js');
+        $this->template->add_js('/assets/js/jquery-custom-file-input.js');
         $this->template->render('item/edit', $data);
     }
 
