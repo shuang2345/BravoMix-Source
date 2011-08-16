@@ -705,7 +705,7 @@ class Auth extends CI_Controller {
         if(!isset($email))
             return FALSE;
 
-        $activate = $this->ion_auth->check_active_email($email);
+        $activate = $this->ion_auth->active_check($email);
         if(is_bool($activate) && $activate === TRUE)
             return TRUE;
 

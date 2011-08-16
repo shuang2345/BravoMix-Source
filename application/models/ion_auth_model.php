@@ -294,7 +294,7 @@ class Ion_auth_model extends CI_Model
     {
         if (empty($username))
         {
-        return FALSE;
+            return FALSE;
         }
 
         return $this->db->where('username', $username)
@@ -496,16 +496,16 @@ class Ion_auth_model extends CI_Model
         // Otherwise use the group name if it exists
         else
         {
-        // Group ID
-        if(!$group_name)
-        {
-            $group_name = $this->config->item('default_group', 'ion_auth');
-        }
+            // Group ID
+            if(!$group_name)
+            {
+                $group_name = $this->config->item('default_group', 'ion_auth');
+            }
 
-        $group_id = $this->db->select('id')
-                     ->where('name', $group_name)
-                     ->get($this->tables['groups'])
-                     ->row()->id;
+            $group_id = $this->db->select('id')
+                         ->where('name', $group_name)
+                         ->get($this->tables['groups'])
+                         ->row()->id;
         }
 
         // IP Address

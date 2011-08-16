@@ -431,13 +431,16 @@ class Ion_auth
     }
 
     /**
-     * check_login_email
+     * active_check
      *
      * @return bool
      * @author appleboy
      **/
-    public function check_active_email($email)
+    public function active_check($email = "")
     {
+        if(empty($email))
+            return FALSE;
+
         $profile = $this->ci->ion_auth_model->profile($email);
 
         if (!is_object($profile))
