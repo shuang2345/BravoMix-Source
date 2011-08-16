@@ -1,6 +1,7 @@
 user_guide
 .htaccess
 tool/cache/*
+uploads/*.jpg
 application/config/config.php
 application/config/database.php
 application/config/facebook.php

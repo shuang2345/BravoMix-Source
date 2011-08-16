@@ -1,13 +1,11 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 單品控制器
  *
  * @author Liao San-Kai
  */
-class Item extends MY_controller {
+class Item extends MY_Controller {
 
     /**
      * 建構子
@@ -35,7 +33,7 @@ class Item extends MY_controller {
      */
     public function index()
     {
-        $this->template->render('template/empty');
+        //$this->template->render('template/empty');
     }
 
     //--------------------------------------------------------------------------
@@ -93,8 +91,8 @@ class Item extends MY_controller {
         $data['pager'] = $this->pagination->create_links();
 
         //套用視圖
-        $this->template->add_css('assets/css/pagination.css', 'screen');
-        $this->template->add_css('assets/css/gallery/3-mini-paper-clip.css', 'screen');
+        $this->template->add_css('/assets/css/pagination.css', 'screen');
+        $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
         $this->template->render('item/roll', $data);
     }
 
@@ -160,7 +158,7 @@ class Item extends MY_controller {
             $data['item_style_tags'] = (isset($data['item_style_tags'])) ? $data['item_style_tags'] : array();
             $data['item_images'] = (isset($data['item_images'])) ? $data['item_images'] : array();
             //
-            $this->template->add_js('assets/js/pikaChoose/jquery.pikachoose.full.js');
+            $this->template->add_js('/assets/js/pikaChoose/jquery.pikachoose.full.js');
             $this->template->add_css('assets/js/pikaChoose/styles/bottom.css');
             $this->template->render('item/view', $data);
         }

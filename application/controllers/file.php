@@ -1,6 +1,4 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 檔案控制器
@@ -14,9 +12,10 @@ class File extends CI_Controller {
      * 
      * @see http://www.codeigniter.org.tw/user_guide/libraries/file_uploading.html
      */
+
     private $upload_config = array(
         //上傳路徑
-        'upload_path' => './uploads/',
+        'upload_path' => "./uploads/",
         //合法的檔案類型
         'allowed_types' => 'gif|jpg|png',
         //限定檔案大小，0=不限定
@@ -72,6 +71,7 @@ class File extends CI_Controller {
     public function get($filename='no_image.png', $width=NULL, $height=NULL)
     {
         //實體檔案位置
+        //echo $this->upload_config['upload_path'];
         $filepath = $this->upload_config['upload_path'] . $filename;
 
         //如果原圖存在，而且有限定寬度和高度(沒原圖一定沒縮圖)
@@ -146,7 +146,7 @@ class File extends CI_Controller {
             'height' => $height,
             'new_image' => $new_image
         );
-        print_r($thumb_config);
+        //print_r($thumb_config);
         $this->load->library('image_lib', $thumb_config);
         return $this->image_lib->resize();
     }

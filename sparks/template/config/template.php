@@ -18,7 +18,7 @@ $config['template_css'] = array(
  * 預先載入的JS檔
  */
 $config['template_js'] = array(
-    'assets/js/jquery-1.6.2.min.js',
+    '/assets/js/jquery-1.6.2.min.js',
 );
 
 /**

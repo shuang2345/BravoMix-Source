@@ -1,13 +1,11 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 佈局控制器
  *
  * @author Liao San-Kai
  */
-class MY_controller extends CI_Controller {
+class MY_Controller extends CI_Controller {
 
     /**
      * 建構子
@@ -23,6 +21,7 @@ class MY_controller extends CI_Controller {
         $this->load->spark('template');
 
         //初始化各區塊
+        /*
         $this->_top();
         $this->_header();
         $this->_navigation();
@@ -31,6 +30,7 @@ class MY_controller extends CI_Controller {
         $this->_navigation();
         $this->_footer();
         $this->_bottom();
+        */
     }
 
     //--------------------------------------------------------------------------
