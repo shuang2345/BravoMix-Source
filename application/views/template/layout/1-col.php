@@ -14,6 +14,8 @@
         <!-- CSS -->
         <?php echo link_tag('/assets/css/layout/1-col.css') . "\n"; ?>
         <?php echo $styles ?>
+        <!-- JS -->
+        <?php echo $scripts ?>             
     </head>
 
     <body>
@@ -24,24 +26,24 @@
         <div id="wrapper">
 
             <!-- Begin Header -->
-            <div id="header">
-            </div>
+            <header id="header">
+            </header>
             <!-- End Header -->
 
             <!-- Begin Naviagtion -->
-            <div id="navigation">
-            </div>
+            <nav id="nav">
+            </nav>
             <!-- End Naviagtion -->
 
             <!-- Begin Content -->
-            <div id="content">
+            <section id="content">
                 <?php echo $content ?>
-            </div>
+            </section>
             <!-- End Content -->
 
             <!-- Begin Footer -->
-            <div id="footer">
-            </div>
+            <footer id="footer">
+            </footer>
             <!-- End Footer -->
 
         </div>
@@ -49,7 +51,6 @@
 
         <div id="bottom">
         </div>
-        <!-- JS -->
-        <?php echo $scripts ?>        
+
     </body>
 </html>

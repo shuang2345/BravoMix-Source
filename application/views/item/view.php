@@ -2,7 +2,7 @@
 
 
 
-    <table width="100%" border="0">
+    <table style="width:100%;border:0px">
         <tr>
             <td>
                 <div class="item-info">
@@ -14,7 +14,7 @@
                     <p>風格TAG：<?php foreach ($item_style_tags as $tag): ?><a href="#"><?php echo $tag['tag_title'] ?></a> | <?php endforeach; ?></p>
                 </div>
             </td>
-            <td valign="top">
+            <td style="vertical-align: top">
                 <ul>
                     <li><a href="#">讚</a></li>
                     <li><a href="#">分享</a></li>
@@ -28,13 +28,13 @@
     <div class="pikachoose">
         <ul id="pikame" class="jcarousel-skin-pika">
             <li>
-                <a href="#"><img src="<?php echo site_url('file/get/' . $item_cover . '/300/250') ?>"/></a>
+                <a href="#"><img alt="#" src="<?php echo site_url('file/get/' . $item_cover . '/300/250') ?>"/></a>
                 <span>封面</span>
             </li>             
             <?php foreach ($item_images as $key => $image): ?>
                 <?php if ($item_cover && $item_cover != element('file_name', $image)): ?>
                     <li>
-                        <a href="#"><img src="<?php echo site_url('file/get/' . element('file_name', $image, 'no_image.png') . '/300/250') ?>"/></a>
+                        <a href="#"><img alt="#" src="<?php echo site_url('file/get/' . element('file_name', $image, 'no_image.png') . '/300/250') ?>"/></a>
                         <span><?php echo element('client_name', $image) ?></span>
                     </li>
                 <?php endif; ?>

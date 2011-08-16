@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -12,7 +12,6 @@
  * @since		Version 1.0
  * @filesource
  */
-
 // ------------------------------------------------------------------------
 
 /**
@@ -24,7 +23,6 @@
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/helpers/html_helper.html
  */
-
 // ------------------------------------------------------------------------
 
 /**
@@ -36,17 +34,19 @@
  * @param	string
  * @return	string
  */
-if ( ! function_exists('script_tag'))
+if (!function_exists('script_tag'))
 {
-	function script_tag($src = NULL)
-	{
-		if(isset($src) and !empty($src))
-		{
-            return '<script src="'.$src.'" type="text/javascript"></script>';
+
+    function script_tag($src = NULL)
+    {
+        if (isset($src) and !empty($src))
+        {
+            return '<script src="' . base_url($src) . '" type="text/javascript"></script>';
         }
-        
+
         return "";
-	}
+    }
+
 }
 
 /* End of file html_helper.php */
