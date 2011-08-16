@@ -1,0 +1,29 @@
+.gallery {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.gallery li {
+	margin: 20px 10px 5px;
+	padding: 8px;
+	background: url(images/polaroid.png) no-repeat;
+	float: left;
+	position: relative;
+	width: 186px;
+}
+.gallery span {
+	background: url(images/tape.png) no-repeat;
+	width: 77px;
+	height: 27px;
+	display: block;
+	position: absolute;
+	left: 54px;
+	top: -12px;
+}
+.gallery em {
+	display: block;
+	padding: 0 20px 0 0;
+	text-align: center;
+	font: italic 100% Georgia, "Times New Roman", Times, serif;
+	color: #333;
+}
