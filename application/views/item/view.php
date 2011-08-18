@@ -1,7 +1,4 @@
 <div id="item-view">
-
-
-
     <table style="width:100%;border:0px">
         <tr>
             <td>
@@ -18,7 +15,7 @@
                 <ul>
                     <li><a href="#">讚</a></li>
                     <li><a href="#">分享</a></li>
-                    <li><a href="#">加至衣櫃中</a></li>
+                    <li><a id="addToWardrobe" href="#<?php echo $item_id ?>">加至衣櫃中</a></li>
                     <li><a href="<?php echo site_url('item/edit/' . $item_id) ?>">編輯</a></li>
                 </ul>  
             </td>
@@ -41,10 +38,28 @@
             <?php endforeach; ?>            
         </ul>
     </div>   
-
 </div>
 <script type="text/javascript">
+    /**
+     * 加至衣櫃
+     */    
     $(document).ready(function(){
-        $("#pikame").PikaChoose({carousel:true});
+        $("#addToWardrobe").click(function(){
+            var item_id = $(this).attr('href').split('#').pop();
+            var ajax_url = '<?php echo site_url('wardrobe/recruit') ?>/'+item_id;
+            $.post(ajax_url,{},function(response){
+                if(response.result){
+                    alert('已加至衣櫃中');
+                } else {
+                    alert(response.error);
+                }
+            },'json');
+        });
+    });    
+    /**
+     * 圖片展示
+     */    
+    $(document).ready(function(){
+        //$("#pikame").PikaChoose({carousel:true});
     });
 </script>

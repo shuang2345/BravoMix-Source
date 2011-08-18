@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 單品控制器
@@ -16,9 +18,7 @@ class Item extends MY_Controller {
 
         $this->load->helper('array');
         $this->load->model('item_model');
-        $this->load->spark('template');
-        //
-        $this->template->set_layout('template/layout/2-col');
+        $this->load->model('wardrobe_model');
 
         $links = '<ul>';
         $links .= '<li><a href="' . site_url('item/roll') . '">單品列表</a></li>';
@@ -172,11 +172,11 @@ class Item extends MY_Controller {
      */
     public function edit($item_id=NULL)
     {
+
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
                 $this->input->get_post('item_id') : $item_id;
-
-        if ($_POST)
+        if (count($_POST))
         {
             //儲存單品資料
             $data = $this->item_model->save($_POST);
@@ -200,17 +200,31 @@ class Item extends MY_Controller {
                 {
                     $this->item_model->add_image($item_id, $image['filename']);
                 }
+                //將此商品加到自己的衣櫃中
+                if (!$this->wardrobe_model->is_exists($item_id, $this->loginer->wardrobe_id, '我所上傳的'))
+                {
+                    $this->wardrobe_model->add($item_id, $this->loginer->wardrobe_id, '我所上傳的');
+                }
                 redirect('item/edit/' . $item_id);
             }
         }
         else
         {
-            //透過AJAX取得單品資料         
+            //透過AJAX取得單品資料
+            /*
+              $ch = curl_init();
+              curl_setopt($ch, CURLOPT_URL, site_url('item/view/' . $item_id));
+              curl_setopt($ch, CURLOPT_HEADER, FALSE);
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+              curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:application/json', 'X-Requested-With:XMLHttpRequest'));
+              $curldata = curl_exec($ch);
+             */
             $this->load->spark('curl-1.2.0');
             $this->curl->http_header('Accept', 'application/json');
             $this->curl->http_header('X-Requested-With', 'XMLHttpRequest');
-            $response = json_decode($this->curl->simple_post('item/view/' . $item_id), TRUE);
-
+            $curldata = $this->curl->simple_post('item/view/' . $item_id);
+            //
+            $response = json_decode($curldata, TRUE);
             //基本資料初始化
             $data = ($response['data']) ? $response['data'] : array(
                 'item_id' => '',

@@ -3,7 +3,7 @@
 /**
  * 預設使用的樣板
  */
-$config['template_layout'] = 'template/layout/fw-18-2-col';
+$config['template_layout'] = 'template/layout/2-col';
 
 /**
  * 預先載入的CSS檔
