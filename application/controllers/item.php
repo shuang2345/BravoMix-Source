@@ -33,7 +33,7 @@ class Item extends MY_Controller {
      */
     public function index()
     {
-        //$this->template->render('template/empty');
+        
     }
 
     //--------------------------------------------------------------------------
@@ -127,6 +127,13 @@ class Item extends MY_Controller {
         //嘗試讀取指定單品代碼的基本資料
         $data = $this->item_model->find($item_id);
 
+        //是否要顯示編輯按鈕
+        $data['show_edit_button'] = FALSE;
+        if ($this->loginer->id == $data['item_user_id'])
+        {
+            $data['show_edit_button'] = TRUE;
+        }
+
         //如果單品存在，繼續讀取相關資訊
         if (count($data))
         {
@@ -176,6 +183,7 @@ class Item extends MY_Controller {
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
                 $this->input->get_post('item_id') : $item_id;
+
         if (count($_POST))
         {
             //儲存單品資料
@@ -210,21 +218,35 @@ class Item extends MY_Controller {
         }
         else
         {
-            //透過AJAX取得單品資料
             /*
-              $ch = curl_init();
-              curl_setopt($ch, CURLOPT_URL, site_url('item/view/' . $item_id));
-              curl_setopt($ch, CURLOPT_HEADER, FALSE);
-              curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-              curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept:application/json', 'X-Requested-With:XMLHttpRequest'));
-              $curldata = curl_exec($ch);
+              //透過AJAX取得單品資料
+              $this->load->spark('curl-1.2.0');
+              $this->curl->http_header('Accept', 'application/json');
+              $this->curl->http_header('X-Requested-With', 'XMLHttpRequest');
+              $curldata = $this->curl->simple_post('item/view/' . $item_id);
+              $response = json_decode($curldata, TRUE);
              */
-            $this->load->spark('curl-1.2.0');
-            $this->curl->http_header('Accept', 'application/json');
-            $this->curl->http_header('X-Requested-With', 'XMLHttpRequest');
-            $curldata = $this->curl->simple_post('item/view/' . $item_id);
-            //
-            $response = json_decode($curldata, TRUE);
+            //########用Ajax方式有權限上的問題，這邊先改回直接自己處理 2011-08-19#######
+            $response['data'] = $this->item_model->find($item_id);
+            //如果非單品建立者不能編輯
+            if ($this->loginer->id != $response['data']['item_user_id'])
+            {
+                redirect('item/view/' . $response['data']['item_id']);
+            }
+            //如果單品存在，繼續讀取相關資訊
+            if (count($response['data']))
+            {
+                //讀取指定單品代碼的分類標籤
+                $response['data']['item_kind_tags'] =
+                        $this->item_model->find_tags($response['data']['item_id'], 'kind', 3);
+                //讀取指定單品代碼的風格標籤
+                $response['data']['item_style_tags'] =
+                        $this->item_model->find_tags($response['data']['item_id'], 'style', 3);
+                //讀取指定單品代碼的圖片
+                $response['data']['item_images'] =
+                        $this->item_model->find_images($response['data']['item_id'], 5);
+            }
+            //##################################################################
             //基本資料初始化
             $data = ($response['data']) ? $response['data'] : array(
                 'item_id' => '',

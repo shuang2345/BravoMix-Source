@@ -28,7 +28,7 @@ class Wardrobe extends MY_Controller {
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $tag_title 標籤名稱
      */
-    public function view($tag_title='', $wardrobe_id=NULL)
+    public function view($tag_title=NULL, $wardrobe_id=NULL)
     {
         if (!$wardrobe_id)
         {
@@ -36,11 +36,13 @@ class Wardrobe extends MY_Controller {
         }
         //讀取指定的衣櫃中的所有單品
         $items = $this->wardrobe_model->find_items($wardrobe_id, $tag_title);
-        //取得指定的衣櫃中的所有標籤
+        //取得指定衣櫃可選用的所有標籤
         $tags = $this->wardrobe_model->find_tags($wardrobe_id);
 
         $data['items'] = $items;
         $data['tags'] = $tags;
+        $data['view_tag_title'] = urldecode($tag_title);
+
         $this->template->set_layout('template/layout/1-col');
         $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
         $this->template->render('wardrobe/view', $data);
@@ -74,12 +76,13 @@ class Wardrobe extends MY_Controller {
             else
             {
                 //將單品加入衣櫃中
-                if ($this->wardrobe_model->add($item_id, $wardrobe_id, '未分類'))
+                if ($this->wardrobe_model->add($item_id, $wardrobe_id, '收錄別人的'))
                 {
                     $respone['result'] = TRUE;
                     $respone['error'] = NULL;
                 }
-                else {
+                else
+                {
                     $respone['error'] = '單品已在衣櫃中';
                 }
             }

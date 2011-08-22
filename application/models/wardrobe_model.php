@@ -88,13 +88,24 @@ class Wardrobe_model extends CI_Model {
             $this->db->where('wardrobes_items.tag_id', $tag_id);
         }
         $this->db->distinct();
-        $this->db->select('items.*,wardrobes_items.add_time');
+        $this->db->select('items.item_id, item_title, item_cover, item_describe, item_price');
         $this->db->from('wardrobes_items');
         $this->db->join('items', 'wardrobes_items.item_id = items.item_id');
         $this->db->where('wardrobes_items.wardrobe_id', $wardrobe_id);
         $this->db->order_by('wardrobes_items.add_time', 'DESC');
         $query = $this->db->get();
         $result = $query->result_array();
+        //讀出items擁有的tag
+        foreach ($result as $key => $row)
+        {
+            $this->db->distinct();
+            $this->db->select('wardrobe_item_id AS recruit_id,tag_title');
+            $this->db->from('wardrobes_items');
+            $this->db->join('tags', 'wardrobes_items.tag_id = tags.tag_id');
+            $this->db->where('wardrobes_items.item_id', $row['item_id']);
+            $result[$key]['item_tags'] = $this->db->get()->result_array();
+        }
+
         $query->free_result();
         return $result;
     }
@@ -191,8 +202,9 @@ class Wardrobe_model extends CI_Model {
             $tag_id = $this->db->insert_id();
         }
         //如果此單品未在衣櫃中，就加入
-        if ($this->is_exists($item_id, $wardrobe_id, $tag_title))
+        if (!$this->is_exists($item_id, $wardrobe_id, $tag_title))
         {
+
             $new_add = array(
                 'wardrobe_id' => $wardrobe_id,
                 'item_id' => $item_id,

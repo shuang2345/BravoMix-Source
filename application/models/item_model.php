@@ -278,7 +278,7 @@ class Item_model extends CI_Model {
      */
     public function find_images($item_id=NULL, $limit=NULL)
     {
-        $this->db->select('*');
+        $this->db->select('files.file_id,files.file_name,files.client_name');
         $this->db->from('files');
         $this->db->join('files_items', 'files.file_id = files_items.file_id');
         $this->db->where('item_id', $item_id);

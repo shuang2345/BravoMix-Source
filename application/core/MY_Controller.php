@@ -32,6 +32,8 @@ class MY_Controller extends CI_Controller {
             $this->loginer = $this->ion_auth->profile();
             //登入者衣櫃
             $this->_init_wardrobe();
+        } else {
+            redirect('auth/login');
         }
     }
 
