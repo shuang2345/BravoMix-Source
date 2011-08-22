@@ -12,6 +12,7 @@
         <meta name="keywords" content="<?php echo $site_keywords ?>" />
         <?php echo $meta_tag; ?>
         <!-- CSS -->
+        <?php echo link_tag('/assets/css/layout/normalize.css') . "\n"; ?>
         <?php echo link_tag('/assets/css/layout/1-col.css') . "\n"; ?>
         <?php echo $styles ?>
 

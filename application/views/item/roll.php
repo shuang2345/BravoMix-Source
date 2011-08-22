@@ -11,7 +11,7 @@
                     <span>&nbsp;</span>
                     <em><?php echo $item['item_title'] ?></em>
                     <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="170" height="120" 
-                         src="<?php echo site_url('file/get/' . element('item_cover', $item, 'no_image.png') . '/170/120') ?>" />
+                         src="<?php echo site_url('file/get/' . element('item_cover', $item, 'no_image.png') . '/170/120/crop') ?>" />
                 </a>
             </li>         
         <?php endforeach; ?>

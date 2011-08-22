@@ -269,10 +269,14 @@ class Item extends MY_Controller {
 
         //載入視圖
         $this->template->add_js('/assets/js/jquery.form.js');
+        $this->template->add_js('/assets/js/jcrop/jquery.Jcrop.min.js');
+        $this->template->add_js('/assets/js/jcrop/jquery.color.js');
         $this->template->add_js('/assets/js/jquery-custom-file-input.js');
+        $this->template->add_js('/assets/js/jquery-ui/jquery-ui-1.8.16.custom.min.js');
+        $this->template->add_css('/assets/js/jcrop/styles/jquery.Jcrop.css');
+        $this->template->add_css('/assets/js/jquery-ui/styles/ui-lightness/jquery-ui-1.8.16.custom.css');
         $this->template->render('item/edit', $data);
     }
-
 }
 
 /* End of file item.php */
