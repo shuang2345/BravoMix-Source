@@ -179,7 +179,6 @@ class Item extends MY_Controller {
      */
     public function edit($item_id=NULL)
     {
-
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
                 $this->input->get_post('item_id') : $item_id;
@@ -277,6 +276,7 @@ class Item extends MY_Controller {
         $this->template->add_css('/assets/js/jquery-ui/styles/ui-lightness/jquery-ui-1.8.16.custom.css');
         $this->template->render('item/edit', $data);
     }
+
 }
 
 /* End of file item.php */

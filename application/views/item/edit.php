@@ -8,7 +8,7 @@
             <legend>單品圖示</legend>
             <?php foreach ($item_images as $image): ?>
                 <p class="field">
-                    <img src="<?php echo site_url('file/get/' . element('file_name', $image, 'no_image.png') . '/100/80/crop') ?>" />
+                    <img src="<?php echo site_url('file/get/' . element('file_name', $image, 'no_image.png') . '/100/100/crop') ?>" />
                     <?php echo form_hidden('item_images[][filename]', element('file_name', $image)) ?>
                     <input class="doUpload" type="button" value="上傳商品圖" />        
 
@@ -110,8 +110,9 @@
         $('#crop-panel').find('img.raw').load(function(){
             //使圖片可選取裁切範圍
             $(this).Jcrop({
-                onChange:   showCoords,
-                onSelect:   showCoords,
+                onChange: showCoords,
+                onSelect: showCoords,
+                onRelease: clearCoords,
                 aspectRatio: 1
             });               
             $('#crop-panel').dialog({
@@ -120,13 +121,20 @@
                 width: 640,
                 modal: true
             });                        
-        })    
+        })   
+        function clearCoords()
+        {
+            $('#x1').val('');
+            $('#y1').val('');
+            $('#x2').val('');
+            $('#y2').val('');
+            $('#w').val('');
+            $('#h').val('');
+        };        
         function showCoords(coords)
         {
-            /**
-             * todo: offset有問題
-             */
-            var fixScale = 1+scaleRatio;
+            var fixScale = scaleRatio;
+            console.log('放大:'+fixScale);
             $('#x1').val(coords.x*fixScale);
             $('#y1').val(coords.y*fixScale);
             $('#x2').val(coords.x2*fixScale);
@@ -138,7 +146,7 @@
             var ry = 100 / coords.h;
             $('#crop-panel').find('img.preview').css({
                 width: Math.round(rx * 500) + 'px',
-                height: Math.round(ry * 370) + 'px',
+                height: Math.round(ry * 375) + 'px',
                 marginLeft: '-' + Math.round(rx * coords.x) + 'px',
                 marginTop: '-' + Math.round(ry * coords.y) + 'px'
             });            
@@ -158,7 +166,8 @@
                     var fileWidth = 500;
                     var fileHeight = 375;
                     var thubmPath = '<?php echo site_url('file/get') ?>';
-                    scaleRatio = (500 / fileWidth);
+                    scaleRatio = ( data.upload_data.image_width / fileWidth );
+                    console.log('縮放比:'+scaleRatio);
                     $('#filename').val(fileName);
                     $('#crop-panel').find('img').attr('src',new Array(thubmPath,fileName,fileWidth,fileHeight).join('/'));  
                 },
@@ -194,6 +203,7 @@
                 } else {
                     console.log('裁切失敗');
                 }
+                clearCoords();
                 $('#crop-panel').dialog("close");
             },'json');            
         });
@@ -225,7 +235,7 @@
                 $('#cover').attr('src','<?php echo site_url('file/get/no_image/170/120') ?>');
             }
             hiddenFileField.val('');
-            reviewImg.attr('src','<?php echo site_url('file/get/no_image/100/75') ?>');
+            reviewImg.attr('src','<?php echo site_url('file/get/no_image/100/100') ?>');
             reviewImg.load(function() {
                 removeBtn.hide();
                 coverBtn.hide();

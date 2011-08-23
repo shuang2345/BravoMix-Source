@@ -157,6 +157,7 @@ class File extends CI_Controller {
             'source_image' => $source_image,
             'width' => $width,
             'height' => $height,
+            'master_dim' => 'width',
             'new_image' => $new_image
         );
         $this->load->library('image_lib', $thumb_config);
@@ -203,33 +204,6 @@ class File extends CI_Controller {
      * 
      * @param $filename 實體檔名
      */
-    public function test()
-    {
-        $crop_config = array(
-            'image_library' => 'gd2',
-            'source_image' => 'Hokkaido_1014.jpg',
-            'width' => 300,
-            'height' => 300,
-            'x_axis' => 50,
-            'y_axis' => 50,
-            'new_image' => 'Hokkaido_1014_test.jpg'
-        );
-        $this->load->library('image_lib', $crop_config);
-
-        if (!$this->image_lib->crop())
-        {
-            $data['error'] = $this->upload->display_errors();
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    /**
-     * 裁圖
-     * 
-     * 將圖片裁切成指定寬度、長度、位置並儲存
-     * 
-     * @param $filename 實體檔名
-     */
     public function crop($filename=NULL, $width=NULL, $height=NULL, $x_axis=0, $y_axis=0)
     {
         //取得欲裁切的實體圖片檔案位置
@@ -255,6 +229,7 @@ class File extends CI_Controller {
                 'height' => $height,
                 'x_axis' => $x_axis,
                 'y_axis' => $y_axis,
+                'maintain_ratio' => false,
                 'new_image' => $new_image
             );
             $this->load->library('image_lib', $crop_config);
@@ -273,6 +248,22 @@ class File extends CI_Controller {
         }
         echo json_encode($data);
         exit;
+    }
+
+    public function test()
+    {
+        $crop_config = array(
+            'image_library' => 'gd2',
+            'source_image' => 'Hokkaido_1014.jpg',
+            'width' => 300,
+            'height' => 300,
+            'x_axis' => 600,
+            'y_axis' => 600,
+            'maintain_ratio' => false,
+            'new_image' => 'test.jpg'
+        );
+        $this->load->library('image_lib', $crop_config);
+        $this->image_lib->crop();
     }
 
     //--------------------------------------------------------------------------
