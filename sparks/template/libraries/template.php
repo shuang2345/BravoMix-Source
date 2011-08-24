@@ -35,7 +35,8 @@ class Template {
      * 
      * @var string 
      */
-    private $_scripts = array();
+    private $_scripts_header = array();
+    private $_scripts_footer = array();
 
     /**
      * Styles
@@ -228,9 +229,12 @@ class Template {
      * 
      * @param string $src
      */
-    public function add_js($src)
+    public function add_js($src, $location = "header")
     {
-        $this->_scripts[] = script_tag($src);
+        if($location == 'header')
+            $this->_scripts_header[] = script_tag($src);
+        else
+            $this->_scripts_footer[] = script_tag($src);
     }
 
     /**
@@ -245,7 +249,8 @@ class Template {
     {
         $this->set('meta_tag', implode("\r\n", $this->_meta_tags) . "\r\n");
         $this->set('styles', implode("\r\n", $this->_styles) . "\r\n");
-        $this->set('scripts', implode("\r\n", $this->_scripts) . "\r\n");
+        $this->set('scripts_header', implode("\r\n", $this->_scripts_header) . "\r\n");
+        $this->set('scripts_footer', implode("\r\n", $this->_scripts_footer) . "\r\n");
         $this->set('content', $this->_ci->load->view($view, $data, TRUE));
 
         // handle site title

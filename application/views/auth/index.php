@@ -28,10 +28,4 @@
     <p><a href="<?php echo site_url('auth/personal_data');?>">個人資料</a></p>
     <p><a href="<?php echo site_url('auth/change_password');?>">忘記密碼</a></p>
     <p><a href="<?php echo site_url('auth/logout'); ?>">登出</a></p>
-
-
-    <?
-    //個人資料
-    //var_dump($this->session->userdata);
-    ?>
 </div>

@@ -34,7 +34,6 @@ class Auth extends MY_Controller {
 
             //list the users
             $this->data['users'] = $this->ion_auth->get_users_array();
-            //$this->layout->view('auth/index', $this->data);
             $this->template->render('auth/index', $this->data);
         }
     }
@@ -48,7 +47,6 @@ class Auth extends MY_Controller {
         }
 
         $this->data['profile'] = $this->ion_auth->profile();
-        //$this->layout->view('auth/personal_index', $this->data);
        $this->template->render('auth/personal_index', $this->data);
     }
 
@@ -63,7 +61,6 @@ class Auth extends MY_Controller {
 
         // get user profile
         $this->data['profile'] = $this->ion_auth->profile();
-        //$this->layout->view('auth/personal_data', $this->data);
         $this->template->render('auth/personal_data', $this->data);
     }
 
@@ -156,7 +153,7 @@ class Auth extends MY_Controller {
             }
 
             $this->data['show_captcha'] = $check_login_error;
-            //$this->layout->view('auth/login', $this->data);
+            $this->template->add_js('/assets/js/login.js', 'footer');
             $this->template->render('auth/login', $this->data);
         }
     }
@@ -210,7 +207,6 @@ class Auth extends MY_Controller {
             );
 
             //render
-            //$this->layout->view('auth/change_password', $this->data);
             $this->template->render('auth/change_password', $this->data);
         }
         else
@@ -244,7 +240,6 @@ class Auth extends MY_Controller {
             );
             //set any errors and display the form
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-            //$this->layout->view('auth/forgot_password', $this->data);
             $this->template->render('auth/forgot_password', $this->data);
         }
         else
@@ -320,7 +315,6 @@ class Auth extends MY_Controller {
             // insert csrf check
             $this->data['csrf'] = $this->_get_csrf_nonce();
             $this->data['user'] = $this->ion_auth->get_user_array($id);
-            //$this->layout->view('auth/deactivate_user', $this->data);
             $this->template->render('auth/deactivate_user', $this->data);
         }
         else
@@ -448,8 +442,7 @@ class Auth extends MY_Controller {
                 'type' => 'text',
             );
             $this->data['images'] = "<img id='auth_code' src='/vcode'>";
-
-            //$this->layout->view('auth/create_user', $this->data);
+            $this->template->add_js('/assets/js/create_user.js', 'footer');
             $this->template->render('auth/create_user', $this->data);
         }
     }
@@ -616,7 +609,7 @@ class Auth extends MY_Controller {
                 'value' => $this->form_validation->run() ? $this->form_validation->set_value('user_body_leg') : $this->data['profile']->user_body_leg,
             );
 
-            //$this->layout->view('auth/update_user', $this->data);
+            $this->template->add_js('/assets/js/update_user.js', 'footer');
             $this->template->render('auth/update_user', $this->data);
         }
     }
@@ -708,7 +701,7 @@ class Auth extends MY_Controller {
 
         return $year . "年" . $month . "月" . $day . "日";
     }
-    
+
     public function email_activate($email = NULL)
     {
         if(!isset($email))

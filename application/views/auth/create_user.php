@@ -42,5 +42,4 @@
 
 </div>
 
-<p><a href="<?php echo site_url('auth/forgot_password');?>">忘記密碼</a> | <a href="<?php echo site_url('auth/login');?>">登入系統</a></p>
-<script type="text/javascript" src="/assets/js/create_user.js"></script> 
+<p><a href="<?php echo site_url('auth/forgot_password');?>">忘記密碼</a> | <a href="<?php echo site_url('auth/login');?>">登入系統</a></p> 

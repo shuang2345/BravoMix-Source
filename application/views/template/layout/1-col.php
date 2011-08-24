@@ -17,7 +17,7 @@
         <?php echo $styles ?>
 
         <!-- JS -->
-        <?php echo $scripts ?>        
+        <?php echo $scripts_header;?>
     </head>
 
     <body>
@@ -30,8 +30,7 @@
             <!-- Begin Header -->
             <header id="header">
                 <ul>
-                    <li><a href="<?php echo site_url('wardrobe/view') ?>">我的衣櫃</a></li>
-                    <li><a href="<?php echo site_url('auth/logout') ?>">登出</a></li>
+                    <a href="<?php echo site_url()?>"><img src="http://www.bravomix.com/includes/images/logo_bravomix.png"></a>
                 </ul>
             </header>
             <!-- End Header -->
@@ -65,6 +64,6 @@
         <div id="bottom">
 
         </div>
-
+        <?php echo $scripts_footer;?>
     </body>
 </html>
