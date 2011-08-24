@@ -250,22 +250,6 @@ class File extends CI_Controller {
         exit;
     }
 
-    public function test()
-    {
-        $crop_config = array(
-            'image_library' => 'gd2',
-            'source_image' => 'Hokkaido_1014.jpg',
-            'width' => 300,
-            'height' => 300,
-            'x_axis' => 600,
-            'y_axis' => 600,
-            'maintain_ratio' => false,
-            'new_image' => 'test.jpg'
-        );
-        $this->load->library('image_lib', $crop_config);
-        $this->image_lib->crop();
-    }
-
     //--------------------------------------------------------------------------
     /**
      * 上傳檔案動作

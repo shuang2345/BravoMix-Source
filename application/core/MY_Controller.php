@@ -25,16 +25,6 @@ class MY_Controller extends CI_Controller {
 
         //權限判斷
         $this->_auth();
-
-        if ($this->ion_auth->logged_in())
-        {
-            //登入者資料
-            $this->loginer = $this->ion_auth->profile();
-            //登入者衣櫃
-            $this->_init_wardrobe();
-        } else {
-            redirect('auth/login');
-        }
     }
 
     /**
@@ -66,6 +56,22 @@ class MY_Controller extends CI_Controller {
     {
         $ctrl = $this->router->class;
         $action = $this->router->method;
+
+
+        if ($ctrl != 'auth' && $ctrl != 'welcome')
+        {
+            if ($this->ion_auth->logged_in())
+            {
+                //登入者資料
+                $this->loginer = $this->ion_auth->profile();
+                //登入者衣櫃
+                $this->_init_wardrobe();
+            }
+            else
+            {
+                redirect('auth/login');
+            }
+        }
     }
 
 }

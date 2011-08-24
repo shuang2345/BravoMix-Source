@@ -43,7 +43,7 @@
     $(document).ready(function(){
         $("#addToWardrobe").click(function(){
             var item_id = $(this).attr('title');
-            var ajax_url = '<?php echo site_url('wardrobe/recruit') ?>/'+item_id;
+            var ajax_url = '<?php echo site_url('wardrobe/attach_item/') ?>/'+item_id+'/收錄別人的';
             $.post(ajax_url,{},function(response){
                 if(response.result){
                     alert('已加至衣櫃中');

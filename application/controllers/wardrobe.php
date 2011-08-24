@@ -26,10 +26,12 @@ class Wardrobe extends MY_Controller {
      * 檢視衣櫃
      * 
      * @param int $wardrobe_id 衣櫃代碼
-     * @param int $tag_title 標籤名稱
+     * @param int $tag_title 標籤名稱(中文)※需要urldecode
      */
     public function view($tag_title=NULL, $wardrobe_id=NULL)
     {
+        $tag_title = urldecode($tag_title);
+        //
         if (!$wardrobe_id)
         {
             $wardrobe_id = $this->loginer->wardrobe_id;
@@ -41,7 +43,7 @@ class Wardrobe extends MY_Controller {
 
         $data['items'] = $items;
         $data['tags'] = $tags;
-        $data['view_tag_title'] = urldecode($tag_title);
+        $data['view_tag_title'] = $tag_title;
 
         $this->template->set_layout('template/layout/1-col');
         $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
@@ -55,10 +57,12 @@ class Wardrobe extends MY_Controller {
      * 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
      * 
      * @param int $item_id 單品代碼
-     * @param int $wardrobe_id 衣櫃代碼
+     * @param int $tag_title 標籤名稱(中文)※需要urldecode
+     * @param int $wardrobe_id 衣櫃代碼* 
      */
-    public function recruit($item_id=NULL, $wardrobe_id=NULL)
+    public function attach_item($item_id=NULL, $tag_title=NULL, $wardrobe_id=NULL)
     {
+        $tag_title = urldecode($tag_title);
         $respone['result'] = FALSE;
         //如果沒指定衣櫃代碼，使用登入者預設的衣櫃
         if (!$wardrobe_id)
@@ -69,14 +73,14 @@ class Wardrobe extends MY_Controller {
         if ($item_id)
         {
             //檢查此單品是否已在衣櫃中
-            if ($this->wardrobe_model->is_exists($item_id, $wardrobe_id))
+            if ($this->wardrobe_model->is_exists($item_id, $wardrobe_id, $tag_title))
             {
                 $respone['error'] = '單品已在衣櫃中';
             }
             else
             {
                 //將單品加入衣櫃中
-                if ($this->wardrobe_model->add($item_id, $wardrobe_id, '收錄別人的'))
+                if ($this->wardrobe_model->add($item_id, $wardrobe_id, $tag_title))
                 {
                     $respone['result'] = TRUE;
                     $respone['error'] = NULL;
@@ -107,6 +111,62 @@ class Wardrobe extends MY_Controller {
         
     }
 
+    //--------------------------------------------------------------------------
+    /**
+     * 從衣櫃移除單品(其實就是移除tag)
+     * 
+     * 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
+     * 
+     * @param int $item_id 單品代碼
+     * @param int $tag_title 標籤名稱(中文)※需要urldecode
+     * @param int $wardrobe_id 衣櫃代碼 
+     */
+    public function remove_item($item_id=NULL, $tag_title=NULL, $wardrobe_id=NULL)
+    {
+        $tag_title = urldecode($tag_title);
+        $respone['result'] = FALSE;
+        //如果沒指定衣櫃代碼，使用登入者預設的衣櫃
+        if (!$wardrobe_id)
+        {
+            $wardrobe_id = $this->loginer->wardrobe_id;
+        }
+        //如果有指定單品代碼，再繼續
+        if ($item_id)
+        {
+            //檢查此單品是否不在衣櫃中
+            if (!$this->wardrobe_model->is_exists($item_id, $wardrobe_id, $tag_title))
+            {
+                $respone['error'] = '已經從衣櫃中移除';
+            }
+            else
+            {
+                //將單品從衣櫃中移除
+                if ($this->wardrobe_model->remove($item_id, $wardrobe_id, $tag_title))
+                {
+                    $respone['result'] = TRUE;
+                    $respone['error'] = NULL;
+                }
+                else
+                {
+                    $respone['error'] = '已經從衣櫃中移除';
+                }
+            }
+        }
+        else
+        {
+            $respone['error'] = '單品(' . $item_id . ')或衣櫃(' . $wardrobe_id . ')不存在';
+        }
+        if ($this->input->is_ajax_request())
+        {
+            echo json_encode($respone);
+            exit;
+        }
+        else
+        {
+            redirect('wardrobe/view/' . $tag_title);
+        }
+ 
+    }
 }
 
 /* End of file item.php */

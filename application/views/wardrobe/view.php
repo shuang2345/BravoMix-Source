@@ -1,6 +1,6 @@
 <div id="wardrobe-view">
     <h1>我的衣櫃</h1>
-    
+
     <ul class="links">
         <?php if ($view_tag_title == ''): ?>
             <li class="active"><a href="<?php echo site_url('wardrobe/view/') ?>">所有</a></li>
@@ -30,9 +30,13 @@
                              src="<?php echo site_url('file/get/' . element('item_cover', $item, 'no_image.png') . '/170/120') ?>" />
                     </a>
                     <div>
-                        <?php foreach($item['item_tags'] as $key => $tag):?>
-                        <a href="<?php site_url('wardrobe/remove/'.$tag['recruit_id'])?>"><?php echo $tag['tag_title']?></a>
-                        <?php endforeach;?>
+                        <?php foreach ($item['item_tags'] as $key => $tag): ?>
+                            <?php if('我所上傳的' != $tag['tag_title']):?>
+                            <a href="<?php echo site_url('wardrobe/remove_item/' . $item['item_id'] . '/' . $tag['tag_title']) ?>">
+                                <?php echo $tag['tag_title'] ?>[X]
+                            </a>
+                            <?php endif;?>
+                        <?php endforeach; ?>
                     </div>
                 </li>         
             <?php endforeach; ?>
