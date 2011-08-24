@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 單品控制器
@@ -16,9 +18,7 @@ class Item extends MY_Controller {
 
         $this->load->helper('array');
         $this->load->model('item_model');
-        $this->load->spark('template');
-        //
-        $this->template->set_layout('template/layout/2-col');
+        $this->load->model('wardrobe_model');
 
         $links = '<ul>';
         $links .= '<li><a href="' . site_url('item/roll') . '">單品列表</a></li>';
@@ -33,7 +33,7 @@ class Item extends MY_Controller {
      */
     public function index()
     {
-        //$this->template->render('template/empty');
+        
     }
 
     //--------------------------------------------------------------------------
@@ -127,6 +127,13 @@ class Item extends MY_Controller {
         //嘗試讀取指定單品代碼的基本資料
         $data = $this->item_model->find($item_id);
 
+        //是否要顯示編輯按鈕
+        $data['show_edit_button'] = FALSE;
+        if ($this->loginer->id == $data['item_user_id'])
+        {
+            $data['show_edit_button'] = TRUE;
+        }
+
         //如果單品存在，繼續讀取相關資訊
         if (count($data))
         {
@@ -176,7 +183,7 @@ class Item extends MY_Controller {
         $item_id = ($this->input->get_post('item_id')) ?
                 $this->input->get_post('item_id') : $item_id;
 
-        if ($_POST)
+        if (count($_POST))
         {
             //儲存單品資料
             $data = $this->item_model->save($_POST);
@@ -200,17 +207,45 @@ class Item extends MY_Controller {
                 {
                     $this->item_model->add_image($item_id, $image['filename']);
                 }
+                //將此商品加到自己的衣櫃中
+                if (!$this->wardrobe_model->is_exists($item_id, $this->loginer->wardrobe_id, '我所上傳的'))
+                {
+                    $this->wardrobe_model->add($item_id, $this->loginer->wardrobe_id, '我所上傳的');
+                }
                 redirect('item/edit/' . $item_id);
             }
         }
         else
         {
-            //透過AJAX取得單品資料         
-            $this->load->spark('curl-1.2.0');
-            $this->curl->http_header('Accept', 'application/json');
-            $this->curl->http_header('X-Requested-With', 'XMLHttpRequest');
-            $response = json_decode($this->curl->simple_post('item/view/' . $item_id), TRUE);
-
+            /*
+              //透過AJAX取得單品資料
+              $this->load->spark('curl-1.2.0');
+              $this->curl->http_header('Accept', 'application/json');
+              $this->curl->http_header('X-Requested-With', 'XMLHttpRequest');
+              $curldata = $this->curl->simple_post('item/view/' . $item_id);
+              $response = json_decode($curldata, TRUE);
+             */
+            //########用Ajax方式有權限上的問題，這邊先改回直接自己處理 2011-08-19#######
+            $response['data'] = $this->item_model->find($item_id);
+            //如果非單品建立者不能編輯
+            if ($this->loginer->id != $response['data']['item_user_id'])
+            {
+                redirect('item/view/' . $response['data']['item_id']);
+            }
+            //如果單品存在，繼續讀取相關資訊
+            if (count($response['data']))
+            {
+                //讀取指定單品代碼的分類標籤
+                $response['data']['item_kind_tags'] =
+                        $this->item_model->find_tags($response['data']['item_id'], 'kind', 3);
+                //讀取指定單品代碼的風格標籤
+                $response['data']['item_style_tags'] =
+                        $this->item_model->find_tags($response['data']['item_id'], 'style', 3);
+                //讀取指定單品代碼的圖片
+                $response['data']['item_images'] =
+                        $this->item_model->find_images($response['data']['item_id'], 5);
+            }
+            //##################################################################
             //基本資料初始化
             $data = ($response['data']) ? $response['data'] : array(
                 'item_id' => '',
@@ -233,7 +268,12 @@ class Item extends MY_Controller {
 
         //載入視圖
         $this->template->add_js('/assets/js/jquery.form.js');
+        $this->template->add_js('/assets/js/jcrop/jquery.Jcrop.min.js');
+        $this->template->add_js('/assets/js/jcrop/jquery.color.js');
         $this->template->add_js('/assets/js/jquery-custom-file-input.js');
+        $this->template->add_js('/assets/js/jquery-ui/jquery-ui-1.8.16.custom.min.js');
+        $this->template->add_css('/assets/js/jcrop/styles/jquery.Jcrop.css');
+        $this->template->add_css('/assets/js/jquery-ui/styles/ui-lightness/jquery-ui-1.8.16.custom.css');
         $this->template->render('item/edit', $data);
     }
 

@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 檔案控制器
@@ -12,7 +14,6 @@ class File extends CI_Controller {
      * 
      * @see http://www.codeigniter.org.tw/user_guide/libraries/file_uploading.html
      */
-
     private $upload_config = array(
         //上傳路徑
         'upload_path' => "./uploads/",
@@ -36,7 +37,7 @@ class File extends CI_Controller {
     /**
      * 建構子
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->load->model('file_model');
@@ -64,25 +65,35 @@ class File extends CI_Controller {
      * 用法：
      *  <img src="<?php echo site_url('file/get/random_name.jpg/150/150')?>" />
      * 
-     * @param $filename 實體檔名
-     * @param $width 縮圖寬度(圖片限定)
-     * @param $height 縮圖高度(圖片限定)
+     * @param string $filename 實體檔名
+     * @param int $width 縮圖寬度(圖片限定)
+     * @param int $height 縮圖高度(圖片限定)
+     * @param string $source 原圖來源(raw或crop)
      */
-    public function get($filename='no_image.png', $width=NULL, $height=NULL)
+    public function get($filename='no_image.png', $width=NULL, $height=NULL, $source='raw')
     {
-        //實體檔案位置
-        //echo $this->upload_config['upload_path'];
+        //來源實體檔案位置
         $filepath = $this->upload_config['upload_path'] . $filename;
+        if ('crop' == $source)
+        {
+            $croppath = $this->upload_config['upload_path'] . '/crops/' . $filename;
+            if (file_exists($croppath))
+            {
+                $filepath = $croppath;
+            }
+            else
+            {
+                $source = 'raw';
+            }
+        }
 
-        //如果原圖存在，而且有限定寬度和高度(沒原圖一定沒縮圖)
+        //如果來源原圖存在，而且有限定寬度和高度(沒原圖一定沒縮圖)
         //檢查是否有此尺寸的縮圖，若有就回傳縮圖位置
         if (file_exists($filepath) && $width && $height)
         {
-            //取得縮圖位置
-            $fileinfo = pathinfo($filepath);
-            $filepath = $fileinfo['dirname'] . '/thumbs/' . $fileinfo['filename']
-                    . '_' . join('_', array($width, $height, 'thumb'))
-                    . '.' . $fileinfo['extension'];
+            $filepath = $this->upload_config['upload_path']
+                    . '/thumbs/'
+                    . join('_', array($source, $width, $height, $filename));
             //如果縮圖存在，顯示縮圖
             if (file_exists($filepath))
             {
@@ -92,9 +103,10 @@ class File extends CI_Controller {
             //不存在，利用原圖做縮圖
             else
             {
-                $this->_create_thumb($filename, $width, $height);
+                //取得縮圖
+                $this->_create_thumb($filename, $width, $height, $source);
                 //重新再要求縮圖
-                $this->get($filename, $width, $height);
+                $this->get($filename, $width, $height, $source);
             }
         }
         //沒指定寬高，所以檢查原圖是否存在
@@ -118,11 +130,12 @@ class File extends CI_Controller {
      * @param $filename 實體檔名
      * @param $width 縮圖寬度(圖片限定)
      * @param $height 縮圖高度(圖片限定)
+     * @param string $source 原圖來源(raw或crop)
      * @return Boolean 建立結果
      */
-    public function _create_thumb($filename=NULL, $width=NULL, $height=NULL)
+    public function _create_thumb($filename=NULL, $width=NULL, $height=NULL, $source='raw')
     {
-        //檢查放縮圖資料夾是否存在，不存在就先建立
+        //檢查存放縮圖資料夾是否存在，不存在就先建立
         if (!is_dir($this->upload_config['upload_path'] . '/thumbs'))
         {
             echo $this->upload_config['upload_path'] . '/thumbs' . '不存在，建立中';
@@ -130,23 +143,23 @@ class File extends CI_Controller {
         }
         //取得實體檔案位置
         $source_image = $this->upload_config['upload_path'] . $filename;
-        //分析檔案資訊
-        $fileinfo = pathinfo($source_image);
+        if ('crop' == $source)
+        {
+            $source_image = $this->upload_config['upload_path'] . '/crops/' . $filename;
+        }
         //指定新圖位置(這邊要略過thumb，因為會自己加)
-        $new_image = $fileinfo['dirname'] . '/thumbs/' . $fileinfo['filename']
-                . '_' . join('_', array($width, $height))
-                . '.' . $fileinfo['extension'];
+        $new_image = $this->upload_config['upload_path'] . '/thumbs/' . join('_', array($source, $width, $height, $filename));
         //縮圖設定
         $thumb_config = array(
-            'thumb_marker' => '_thumb',
+            'thumb_marker' => '',
             'image_library' => 'gd2',
             'create_thumb' => TRUE,
             'source_image' => $source_image,
             'width' => $width,
             'height' => $height,
+            'master_dim' => 'width',
             'new_image' => $new_image
         );
-        //print_r($thumb_config);
         $this->load->library('image_lib', $thumb_config);
         return $this->image_lib->resize();
     }
@@ -181,6 +194,60 @@ class File extends CI_Controller {
     public function upload()
     {
         $this->load->view('file/upload_form', array('error' => ''));
+    }
+
+    //--------------------------------------------------------------------------
+    /**
+     * 裁圖
+     * 
+     * 將圖片裁切成指定寬度、長度、位置並儲存
+     * 
+     * @param $filename 實體檔名
+     */
+    public function crop($filename=NULL, $width=NULL, $height=NULL, $x_axis=0, $y_axis=0)
+    {
+        //取得欲裁切的實體圖片檔案位置
+        $filepath = $this->upload_config['upload_path'] . $filename;
+        //分析檔案資訊
+        $fileinfo = pathinfo($filepath);
+        //指定裁圖位置(這邊要略過thumb，因為會自己加)
+        $new_image = $fileinfo['dirname'] . '/crops/'
+                . $fileinfo['filename'] . '.'
+                . $fileinfo['extension'];
+
+        $data['result'] = FALSE;
+        $data['error'] = '檔案不存在';
+
+        //如果原圖存在，而且有指定寬度和高度(沒原圖一定沒縮圖)
+        //檢查是否有此尺寸的縮圖，若有就回傳縮圖位置
+        if (file_exists($filepath) && $width && $height)
+        {
+            $crop_config = array(
+                'image_library' => 'gd2',
+                'source_image' => $filepath,
+                'width' => $width,
+                'height' => $height,
+                'x_axis' => $x_axis,
+                'y_axis' => $y_axis,
+                'maintain_ratio' => false,
+                'new_image' => $new_image
+            );
+            $this->load->library('image_lib', $crop_config);
+
+            if (!$this->image_lib->crop())
+            {
+                $data['error'] = $this->upload->display_errors();
+            }
+            else
+            {
+                $data['result'] = TRUE;
+                $data['data'] = array(
+                    'file_name' => $filename,
+                );
+            }
+        }
+        echo json_encode($data);
+        exit;
     }
 
     //--------------------------------------------------------------------------

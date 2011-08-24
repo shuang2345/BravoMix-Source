@@ -12,8 +12,12 @@
         <meta name="keywords" content="<?php echo $site_keywords ?>" />
         <?php echo $meta_tag; ?>
         <!-- CSS -->
+        <?php echo link_tag('/assets/css/layout/normalize.css') . "\n"; ?>
         <?php echo link_tag('/assets/css/layout/1-col.css') . "\n"; ?>
         <?php echo $styles ?>
+
+        <!-- JS -->
+        <?php echo $scripts ?>        
     </head>
 
     <body>
@@ -24,32 +28,43 @@
         <div id="wrapper">
 
             <!-- Begin Header -->
-            <div id="header">
-            </div>
+            <header id="header">
+                <ul>
+                    <li><a href="<?php echo site_url('wardrobe/view') ?>">我的衣櫃</a></li>
+                    <li><a href="<?php echo site_url('auth/logout') ?>">登出</a></li>
+                </ul>
+            </header>
             <!-- End Header -->
 
             <!-- Begin Naviagtion -->
-            <div id="navigation">
-            </div>
+            <nav id="nav">
+                <ul class="links">
+                    <li><a href="<?php echo site_url('item/roll') ?>">時尚單品</a></li>
+                    <li><a>時尚搭配</a></li>
+                    <li><a>時尚達人</a></li>
+                    <li><a>品牌專區</a></li>
+                </ul>
+            </nav>
             <!-- End Naviagtion -->
 
             <!-- Begin Content -->
-            <div id="content">
+            <section id="content">
                 <?php echo $content ?>
-            </div>
+            </section>
             <!-- End Content -->
 
             <!-- Begin Footer -->
-            <div id="footer">
-            </div>
+            <footer id="footer">
+
+            </footer>
             <!-- End Footer -->
 
         </div>
         <!-- End Wrapper -->
 
         <div id="bottom">
+
         </div>
-        <!-- JS -->
-        <?php echo $scripts ?>        
+
     </body>
 </html>
