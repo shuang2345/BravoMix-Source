@@ -226,12 +226,14 @@ class Template {
 
     /**
      * add js
+     * add script on header or footer (before </body>)     
      * 
      * @param string $src
+     * @param boolean $is_footer     
      */
-    public function add_js($src, $location = "header")
+    public function add_js($src, $is_footer = FALSE)
     {
-        if($location == 'header')
+        if(!$is_footer)
             $this->_scripts_header[] = script_tag($src);
         else
             $this->_scripts_footer[] = script_tag($src);

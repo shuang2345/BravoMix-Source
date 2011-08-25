@@ -153,7 +153,7 @@ class Auth extends MY_Controller {
             }
 
             $this->data['show_captcha'] = $check_login_error;
-            $this->template->add_js('/assets/js/login.js', 'footer');
+            $this->template->add_js('/assets/js/login.js', TRUE);
             $this->template->render('auth/login', $this->data);
         }
     }
@@ -442,7 +442,7 @@ class Auth extends MY_Controller {
                 'type' => 'text',
             );
             $this->data['images'] = "<img id='auth_code' src='/vcode'>";
-            $this->template->add_js('/assets/js/create_user.js', 'footer');
+            $this->template->add_js('/assets/js/create_user.js', TRUE);
             $this->template->render('auth/create_user', $this->data);
         }
     }
@@ -609,7 +609,7 @@ class Auth extends MY_Controller {
                 'value' => $this->form_validation->run() ? $this->form_validation->set_value('user_body_leg') : $this->data['profile']->user_body_leg,
             );
 
-            $this->template->add_js('/assets/js/update_user.js', 'footer');
+            $this->template->add_js('/assets/js/update_user.js', TRUE);
             $this->template->render('auth/update_user', $this->data);
         }
     }
