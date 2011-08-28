@@ -3,6 +3,8 @@ user_guide
 tool/cache/*
 uploads/*.jpg
 uploads/*.png
+uploads/crops/*.jpg
+uploads/crops/*.png
 uploads/thumbs/*.jpg
 uploads/thumbs/*.png
 application/config/config.php
