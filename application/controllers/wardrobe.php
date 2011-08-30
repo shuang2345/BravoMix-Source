@@ -45,9 +45,19 @@ class Wardrobe extends MY_Controller {
         $data['tags'] = $tags;
         $data['view_tag_title'] = $tag_title;
 
-        $this->template->set_layout('template/layout/1-col');
-        $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
-        $this->template->render('wardrobe/view', $data);
+        if ($this->input->is_ajax_request())
+        {
+            $respone['result'] = TRUE;
+            $respone['data'] = $data;
+            echo json_encode($respone);
+            exit;
+        }
+        else
+        {
+            $this->template->set_layout('template/layout/1-col');
+            $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
+            $this->template->render('wardrobe/view', $data);
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -165,8 +175,8 @@ class Wardrobe extends MY_Controller {
         {
             redirect('wardrobe/view/' . $tag_title);
         }
- 
     }
+
 }
 
 /* End of file item.php */

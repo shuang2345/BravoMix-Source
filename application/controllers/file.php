@@ -236,7 +236,7 @@ class File extends CI_Controller {
 
             if (!$this->image_lib->crop())
             {
-                $data['error'] = $this->upload->display_errors();
+                $data['error'] = $this->image_lib->display_errors();
             }
             else
             {
