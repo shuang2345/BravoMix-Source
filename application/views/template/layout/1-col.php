@@ -28,34 +28,34 @@
         <div id="wrapper">
 
             <!-- Begin Header -->
-            <header id="header">
+            <div id="header">
                 <ul>
                     <a href="<?php echo site_url()?>"><img src="http://www.bravomix.com/includes/images/logo_bravomix.png"></a>
                 </ul>
-            </header>
+            </div>
             <!-- End Header -->
 
             <!-- Begin Naviagtion -->
-            <nav id="nav">
+            <div id="nav">
                 <ul class="links">
                     <li><a href="<?php echo site_url('item/roll') ?>">時尚單品</a></li>
                     <li><a>時尚搭配</a></li>
                     <li><a>時尚達人</a></li>
                     <li><a>品牌專區</a></li>
                 </ul>
-            </nav>
+            </div>
             <!-- End Naviagtion -->
 
             <!-- Begin Content -->
-            <section id="content">
+            <div id="content">
                 <?php echo $content ?>
-            </section>
+            </div>
             <!-- End Content -->
 
             <!-- Begin Footer -->
-            <footer id="footer">
+            <div id="footer">
 
-            </footer>
+            </div>
             <!-- End Footer -->
 
         </div>

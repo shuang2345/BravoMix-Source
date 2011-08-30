@@ -28,24 +28,24 @@
         <div id="wrapper">
 
             <!-- Begin Header -->
-            <header id="header">
+            <div id="header">
                 <a href="<?php echo site_url()?>"><img src="http://www.bravomix.com/includes/images/logo_bravomix.png"></a>
-            </header>
+            </div>
             <!-- End Header -->
 
             <!-- Begin Navigation -->
-            <nav id="nav">
+            <div id="nav">
                 <ul class="links">
                     <li><a href="<?php echo site_url('item/roll');?>">時尚單品</a></li>
                     <li><a>時尚搭配</a></li>
                     <li><a>時尚達人</a></li>
                     <li><a>品牌專區</a></li>
                 </ul>
-            </nav>
+            </div>
             <!-- End Navigation -->
 
             <!-- Begin Left Column -->
-            <aside id="leftcolumn">
+            <div id="leftcolumn">
                  <h3>帳號區</h3>
                  <ul>
                     <li><a href="<?php echo site_url('auth/login');?>">登入帳號</a></li>
@@ -65,18 +65,19 @@
                     <li><a href="<?php echo site_url('item/roll');?>">單品列表</a></li>
                     <li><a href="<?php echo site_url('item/edit/new');?>">建立新單品</a></li>
                 </ul>
-            </aside>
+                <h3>混搭</h3>
+            </div>
             <!-- End Left Column -->
 
             <!-- Begin Content -->
-            <section id="content">
+            <div id="content">
                 <?php echo $content;?>
-            </section>
+            </div>
             <!-- End Content -->
 
             <!-- Begin Footer -->
-            <footer id="footer">
-            </footer>
+            <div id="footer">
+            </div>
             <!-- End Footer -->
 
         </div>
