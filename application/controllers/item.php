@@ -19,12 +19,6 @@ class Item extends MY_Controller {
         $this->load->helper('array');
         $this->load->model('item_model');
         $this->load->model('wardrobe_model');
-
-        $links = '<ul>';
-        $links .= '<li><a href="' . site_url('item/roll') . '">單品列表</a></li>';
-        $links .= '<li><a href="' . site_url('item/edit/new') . '">建立新單品</a></li>';
-        $links .= '</ul>';
-        $this->template->set('leftcolumn', $links);
     }
 
     //--------------------------------------------------------------------------
@@ -228,8 +222,8 @@ class Item extends MY_Controller {
               $response = json_decode($curldata, TRUE);
              */
             //########用Ajax方式有權限上的問題，這邊先改回直接自己處理 2011-08-19#######
-            
-            if($item_id > 0)
+
+            if ($item_id > 0)
             {
                 $response['data'] = $this->item_model->find($item_id);
                 //如果非單品建立者不能編輯
@@ -259,8 +253,8 @@ class Item extends MY_Controller {
                     'item_price' => '',
                     'item_link' => '',
                     'item_cover' => '',
-                );
-                
+                        );
+
                 //標籤與圖片讀取(填滿固定數量)
                 $data['item_kind_tags'] = element('item_kind_tags', $response['data'], array());
                 $data['item_style_tags'] = element('item_style_tags', $response['data'], array());
@@ -277,7 +271,6 @@ class Item extends MY_Controller {
                     'item_cover' => '',
                 );
             }
-            
         }
         //標籤與圖片讀取(填滿固定數量)
         $data['item_kind_tags'] = array_pad(element('item_kind_tags', $data, array()), 3, array());

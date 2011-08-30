@@ -31,11 +31,11 @@
                     </a>
                     <div>
                         <?php foreach ($item['item_tags'] as $key => $tag): ?>
-                            <?php if('我所上傳的' != $tag['tag_title']):?>
-                            <a href="<?php echo site_url('wardrobe/remove_item/' . $item['item_id'] . '/' . $tag['tag_title']) ?>">
-                                <?php echo $tag['tag_title'] ?>[X]
-                            </a>
-                            <?php endif;?>
+                            <?php if ('我所上傳的' != $tag['tag_title']): ?>
+                                <a href="<?php echo site_url('wardrobe/remove_item/' . $item['item_id'] . '/' . $tag['tag_title']) ?>">
+                                    <?php echo $tag['tag_title'] ?>[X]
+                                </a>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
                 </li>         
