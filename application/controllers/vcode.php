@@ -138,11 +138,11 @@ class Vcode extends CI_Controller {
         }
 
         imageantialias($distortion_im, true); // 消除鋸齒
-        
+
         // 把驗證碼與時間賦與給 $_SESSION[vCode], 時間欄位可以驗證是否超時
         $time = time();
         $this->session->set_userdata('vCode', $v_code."|".$time);
-    
+
         // 生成圖像給瀏覽器
         if (function_exists("imagegif")) {
             header ("Content-type: image/gif");

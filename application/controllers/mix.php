@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 混搭控制器
- * 
+ *
  *
  * @author Liao San-Kai
  */
@@ -25,7 +25,7 @@ class Mix extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 檢視混搭
-     * 
+     *
      * @param int $mix_id 混搭代碼
      */
     public function view($mix_id=NULL)
@@ -53,13 +53,13 @@ class Mix extends MY_Controller {
      */
     public function roll($limit=6, $orderby='add_time', $vector='DESC', $offset=0)
     {
-        
+
     }
 
     //--------------------------------------------------------------------------
     /**
      * 編輯混搭
-     * 
+     *
      * @param int $mix_id 混搭代碼
      */
     public function edit($mix_id=NULL)
@@ -98,7 +98,7 @@ class Mix extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 儲存混搭
-     * 
+     *
      * @param int $mix_id 混搭代碼
      */
     public function save($mix_id=NULL)

@@ -38,7 +38,7 @@ class Welcome extends MY_Controller {
 
         $this->load->view('home', $data);
     }
-    
+
     public function vcode()
     {
         // test auth random image
