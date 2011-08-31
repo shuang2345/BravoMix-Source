@@ -13,8 +13,7 @@
         <?php echo $meta_tag; ?>
         <!-- CSS -->
         <?php echo $styles ?>
-        <?php echo link_tag('/assets/css/layout/normalize.css') . "\n"; ?>
-        <?php echo link_tag('/assets/css/layout/1-col.css') . "\n"; ?>
+        <link href="/assets/css/layout/1-col.css" rel="stylesheet" type="text/css" />
         <!-- JS -->
         <?php echo $scripts_header;?>
     </head>

@@ -13,10 +13,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
 }
+
 #wrapper { 
     margin: 0 auto;
     width: 960px;
 }
+
 #header {
     color: #333;
     width: 938px;
@@ -27,6 +29,7 @@ body {
     margin: 10px 0px 5px 0px;
     background: #E7DBD5;
 }
+
 #nav {
     float: left;
     width: 938px;
@@ -36,6 +39,7 @@ body {
     margin: 0px 0px 5px 0px;
     background: #BD9C8C;
 }
+
 #leftcolumn { 
     color: #333;
     border: 1px solid #ccc;
@@ -46,6 +50,7 @@ body {
     width: 195px;
     float: left;
 }
+
 #content { 
     float: right;
     color: #333;
@@ -57,6 +62,7 @@ body {
     width: 716px;
     display: inline;
 }
+
 #footer { 
     width: 938px;
     clear: both;
