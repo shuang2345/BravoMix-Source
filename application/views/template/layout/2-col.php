@@ -12,10 +12,9 @@
         <meta name="keywords" content="<?php echo $site_keywords;?>" />
 
         <!-- CSS -->
+        <?php echo $styles;?>
         <?php echo link_tag('/assets/css/layout/normalize.css') . "\n"; ?>
         <?php echo link_tag('/assets/css/layout/2-col.css') . "\n"; ?>
-        <?php echo $styles;?>
-
         <!-- JS -->
         <?php echo $scripts_header;?>
     </head>
@@ -65,7 +64,6 @@
                     <li><a href="<?php echo site_url('item/roll');?>">單品列表</a></li>
                     <li><a href="<?php echo site_url('item/edit/new');?>">建立新單品</a></li>
                 </ul>
-                <h3>混搭</h3>
             </div>
             <!-- End Left Column -->
 

@@ -218,9 +218,12 @@ class Template {
         $link = array(
             'href' => $href,
             'rel' => 'stylesheet',
-            'type' => 'text/css',
-            'media' => $media
+            'type' => 'text/css'
         );
+
+        if(!empty($media))
+            $link['media'] = $media;
+
         $this->_styles[] = link_tag($link);
     }
 
