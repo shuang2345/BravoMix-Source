@@ -33,7 +33,7 @@ class Mix_model extends CI_Model {
      * 找出混塔的單品內容
      * 
      * @param int $mix_id 混搭代碼
-     * @return Array 
+     * @return Array 搜尋結果，若無資料會回傳空陣列
      */
     public function find_items($mix_id)
     {
@@ -42,7 +42,6 @@ class Mix_model extends CI_Model {
         $this->db->join('mixs_items', 'items.item_id = mixs_items.item_id');
         $this->db->where('mix_id', $mix_id);
         $query = $this->db->get();
-        //echo $this->db->last_query();
         $result = $query->result_array();
         $query->free_result();
         return $result;
@@ -50,29 +49,68 @@ class Mix_model extends CI_Model {
 
     //--------------------------------------------------------------------------
     /**
-     * 清除指定混搭代碼的所有組合
+     * 將指定的單品代碼從指定混搭代碼的中移除，若沒有指定單品代碼
+     * 表示移除所有單品
      * 
      * @param int $mix_id 混搭代碼
      * @return int 
      */
-    public function clear_mix($mix_id)
+    public function remove_item($mix_id=NULL, $item_id=NULL)
     {
-        $sql = "DELETE FROM mixs_items WHERE mix_id = {$mix_id}";
-        $this->db->query($sql);
+        if ($mix_id)
+        {
+            if ($item_id)
+            {
+                $this->db->where('item_id', $item_id);
+            }
+            $this->db->where('mix_id', $mix_id);
+            $this->db->delete('mixs_items');
+        }
         return $this->db->affected_rows();
     }
 
     //--------------------------------------------------------------------------
     /**
-     * 新增一組
+     * 追加一個單品至混搭中
      * 
      * @param int $mix_id 混搭代碼
      * @return int 
      */
-    public function add_mix($mix_id, $savedata)
+    public function add_item($mix_id, $savedata)
     {
         $savedata['mix_id'] = $mix_id;
         $this->db->insert('mixs_items', $savedata);
+    }
+
+    //--------------------------------------------------------------------------
+    /**
+     * 檢查混搭代碼的是否存在，若不存在，是否要自動建立？
+     * 
+     * @param int $mix_id 混搭代碼
+     * @param boolean $auto_new 自動建立
+     * @return int 若存在，回傳檢查值，不存在回傳0，若自動建立=TRUE，則回傳建立後的新ID
+     */
+    public function check_id($mix_id, $auto_new=FALSE)
+    {
+        $this->db->where('mix_id', $mix_id);
+        $this->db->from('mixs');
+        if ($this->db->count_all_results())
+        {
+            return $mix_id;
+        }
+        else
+        {
+            if ($auto_new)
+            {
+                $data = array(
+                    'mix_describe' => '',
+                    'add_time' => time(),
+                );
+                $this->db->insert('mixs', $data);
+                return $this->db->insert_id();
+            }
+        }
+        return 0;
     }
 
 }
