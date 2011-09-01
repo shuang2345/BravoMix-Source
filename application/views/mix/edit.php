@@ -277,12 +277,17 @@
             }
             var saveMixUrl = '<?php echo site_url('mix/save') ?>';
             $.post(saveMixUrl, params, function(resp){
-                if('true' == resp.result) {
-                    alert('SAVE OK!');
+                console.log(resp);
+                if(true == resp.result) {
+                    alert('混搭資訊已儲存');
+                    //若兩個mix_id不一樣，表是為新增
+                    if(resp.mix_id != params.mix_id){
+                        $('#mix_id').val(resp.mix_id);
+                    }
                 } else {
-                    alert('Oh~NO');
+                    alert('無法儲存混搭資訊');
                 }
-            });
+            },'json');
         });        
     });
 </script>
