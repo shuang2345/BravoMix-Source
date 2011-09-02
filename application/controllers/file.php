@@ -68,7 +68,7 @@ class File extends CI_Controller {
      * @param string $filename 實體檔名
      * @param int $width 縮圖寬度(圖片限定)
      * @param int $height 縮圖高度(圖片限定)
-     * @param string $source 原圖來源(raw或crop)
+     * @param string $source 原圖來源(raw或crop或mix)
      */
     public function get($filename='no_image.png', $width=NULL, $height=NULL, $source='raw')
     {
@@ -80,6 +80,18 @@ class File extends CI_Controller {
             if (file_exists($croppath))
             {
                 $filepath = $croppath;
+            }
+            else
+            {
+                $source = 'raw';
+            }
+        }
+        else if ('mix' == $source)
+        {
+            $mixpath = $this->upload_config['upload_path'] . '/mixs/' . $filename;
+            if (file_exists($mixpath))
+            {
+                $filepath = $mixpath;
             }
             else
             {
@@ -130,7 +142,7 @@ class File extends CI_Controller {
      * @param $filename 實體檔名
      * @param $width 縮圖寬度(圖片限定)
      * @param $height 縮圖高度(圖片限定)
-     * @param string $source 原圖來源(raw或crop)
+     * @param string $source 原圖來源(raw或crop或mix)
      * @return Boolean 建立結果
      */
     public function _create_thumb($filename=NULL, $width=NULL, $height=NULL, $source='raw')
@@ -146,6 +158,10 @@ class File extends CI_Controller {
         if ('crop' == $source)
         {
             $source_image = $this->upload_config['upload_path'] . '/crops/' . $filename;
+        }
+        else if ('mix' == $source)
+        {
+            $source_image = $this->upload_config['upload_path'] . '/mixs/' . $filename;
         }
         //指定新圖位置(這邊要略過thumb，因為會自己加)
         $new_image = $this->upload_config['upload_path'] . '/thumbs/' . join('_', array($source, $width, $height, $filename));
@@ -223,7 +239,7 @@ class File extends CI_Controller {
         if (file_exists($filepath) && $width && $height)
         {
             $crop_config = array(
-                'image_library' => 'gd2',
+                'image_library' => 'ImageMagick',
                 'source_image' => $filepath,
                 'width' => $width,
                 'height' => $height,

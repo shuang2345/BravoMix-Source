@@ -7,25 +7,31 @@
         <input id="mix_id" type="hidden" value="<?php echo $mix_id ?>" />
         <h1>混塔圖</h1>
         <div class="box" style="width:475px;height:475px;border:2px solid #CCC">
-            <?php foreach ($mix_items as $item): ?>
-                <div id="item-<?php echo $item['item_id'] ?>" class="item" 
-                     style="
-                     display: none;
-                     position:absolute;
-                     z-Index:<?php echo $item['item_zIndex'] ?>;
-                     left:<?php echo $item['item_left'] ?>px;
-                     top:<?php echo $item['item_top'] ?>px;">
-                    <a href="#">
-                        <img alt="#"
-                             src="<?php echo site_url('file/get/' . $item['item_cover'] . '/500/500/crop') ?>" 
-                             width="<?php echo $item['item_width'] ?>"
-                             height="<?php echo $item['item_height'] ?>" />
-                    </a>
-                </div>   
-
-            <?php endforeach; ?>
-        </div>        
+            <?php if ($img_mode): ?>
+                <img src="<?php echo site_url('file/get/' . $mix_id . '.png/475/475/mix') ?>" />
+            <?php else: ?>
+                <?php foreach ($mix_items as $item): ?>
+                    <div id="item-<?php echo $item['item_id'] ?>" class="item" 
+                         style="
+                         display: none;
+                         position:absolute;
+                         z-Index:<?php echo $item['item_zIndex'] ?>;
+                         left:<?php echo $item['item_left'] ?>px;
+                         top:<?php echo $item['item_top'] ?>px;">
+                        <a href="#">
+                            <img alt="#"
+                                 src="<?php echo site_url('file/get/' . $item['item_cover'] . '/500/500/crop') ?>" 
+                                 width="<?php echo $item['item_width'] ?>"
+                                 height="<?php echo $item['item_height'] ?>" />
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>  
     </div>
+    <button onclick="location.href='<?php echo site_url('mix/view/' . $mix_id . '') ?>'">資訊模式</button>
+    <button onclick="location.href='<?php echo site_url('mix/view/' . $mix_id . '/imgmode?' . time()) ?>'">純圖模式</button>
+    <button onclick="location.href='<?php echo site_url('mix/edit/' . $mix_id) ?>'">編輯</button>    
 </div>
 
 

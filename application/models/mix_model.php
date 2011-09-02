@@ -27,7 +27,27 @@ class Mix_model extends CI_Model {
         //載入驗證器
         $this->load->library('form_validation');
     }
-
+    //--------------------------------------------------------------------------
+    /**
+     * 找出所有混搭
+     *
+     * @param int $limit 筆數
+     * @param String $orderby 排序
+     * @param String $vector 方向
+     * @param int $offset 位移
+     * @return Array 
+     */
+    public function find_all($limit=20, $orderby='add_time', $vector='DESC', $offset=0)
+    {
+        $this->db->select('*');
+        $this->db->from('mixs');
+        $this->db->limit($limit, $offset);
+        $this->db->order_by($orderby, $vector);
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $query->free_result();
+        return $result;
+    }
     //--------------------------------------------------------------------------
     /**
      * 找出混塔的單品內容
@@ -41,6 +61,7 @@ class Mix_model extends CI_Model {
         $this->db->from('items');
         $this->db->join('mixs_items', 'items.item_id = mixs_items.item_id');
         $this->db->where('mix_id', $mix_id);
+        $this->db->order_by('item_zIndex','ASC');
         $query = $this->db->get();
         $result = $query->result_array();
         $query->free_result();
