@@ -37,7 +37,7 @@
             <div id="nav">
                 <ul class="links">
                     <li><a href="<?php echo site_url('item/roll') ?>">時尚單品</a></li>
-                    <li><a>時尚搭配</a></li>
+                    <li><a href="<?php echo site_url('mix/roll') ?>">時尚搭配</a></li>
                     <li><a>時尚達人</a></li>
                     <li><a>品牌專區</a></li>
                 </ul>
