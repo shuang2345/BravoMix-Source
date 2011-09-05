@@ -176,9 +176,9 @@ class File extends CI_Controller {
             'master_dim' => 'width',
             'new_image' => $new_image
         );
-        
+
         $thumb_config = array_merge($this->config->item('gd2'), $thumb_config);
-        
+
         $this->load->library('image_lib', $thumb_config);
         return $this->image_lib->resize();
     }
@@ -191,7 +191,7 @@ class File extends CI_Controller {
      */
     public function info($filename=NULL)
     {
-        
+
     }
 
     //--------------------------------------------------------------------------
@@ -203,7 +203,7 @@ class File extends CI_Controller {
      */
     public function delete($filename=NULL)
     {
-        
+
     }
 
     //--------------------------------------------------------------------------
@@ -250,9 +250,9 @@ class File extends CI_Controller {
                 'maintain_ratio' => false,
                 'new_image' => $new_image
             );
-            
+
             $crop_config = array_merge($this->config->item('ImageMagick'), $crop_config);
-            
+
             $this->load->library('image_lib', $crop_config);
 
             if (!$this->image_lib->crop())
