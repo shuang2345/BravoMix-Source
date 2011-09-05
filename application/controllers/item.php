@@ -12,7 +12,7 @@ class Item extends MY_Controller {
     /**
      * 建構子
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
