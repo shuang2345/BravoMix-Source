@@ -563,6 +563,82 @@ class Ion_auth_model extends CI_Model
     }
 
     /**
+     * add_user
+     *
+     * @param type
+     * @param data
+     * @return bool
+     * @author appleboy
+     **/
+    public function add_user($type = 'facebook', $data = NULL)
+    {
+        if(!isset($data))
+            return FALSE;
+
+        $group_name = $this->config->item('default_group', 'ion_auth');
+
+        $group_id = $this->db->select('id')
+                     ->where('name', $group_name)
+                     ->get($this->tables['groups'])
+                     ->row()->id;
+
+        $username = $data['me']['email'];
+        
+        // IP Address
+        $ip_address = $this->input->ip_address();
+        $salt   = $this->store_salt ? $this->salt() : FALSE;
+        //$password   = $this->hash_password($password, $salt);
+
+        // Users table.
+        $data = array(
+            'username'   => $username,
+            'password'   => $password,
+            'email'      => $email,
+            'group_id'   => $group_id,
+            'ip_address' => $ip_address,
+            'created_on' => now(),
+            'last_login' => now(),
+            'active'     => 1
+        );
+
+        if ($this->store_salt)
+        {
+            $data['salt'] = $salt;
+        }
+
+        if($this->ion_auth->_extra_set)
+        {
+            $this->db->set($this->ion_auth->_extra_set);
+        }
+
+        $this->db->insert($this->tables['users'], $data);
+
+        // Meta table.
+        $id = $this->db->insert_id();
+
+        $data = array($this->meta_join => $id);
+
+        if (!empty($this->columns))
+        {
+            foreach ($this->columns as $input)
+            {
+                if (is_array($additional_data) && isset($additional_data[$input]))
+                {
+                    $data[$input] = $additional_data[$input];
+                }
+                elseif ($this->input->post($input))
+                {
+                    $data[$input] = $this->input->post($input);
+                }
+            }
+        }
+
+        $this->db->insert($this->tables['user_meta'], $data);
+
+        return $this->db->affected_rows() > 0 ? $id : false;
+    }
+
+    /**
      * login
      *
      * @return bool

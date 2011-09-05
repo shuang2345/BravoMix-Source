@@ -24,17 +24,18 @@ class Facebook_model extends CI_Model {
             try {
                 // Proceed knowing you have a logged in user who's authenticated.
                 //$profile = $this->facebook->api('/me');
-                $profile = $this->facebook->api('/me?fields=work,location,id,name,link,email,website');
+                $profile = $this->facebook->api('/me');
             } catch (FacebookApiException $e) {
                 error_log($e);
                 $user = NULL;
             }
         }
 
+        $permission = 'email,publish_stream,user_birthday';
         $fb_data = array(
                         'me' => $profile,
                         'uid' => $user,
-                        'loginUrl' => $this->facebook->getLoginUrl(array('scope' => 'email')),
+                        'loginUrl' => $this->facebook->getLoginUrl(array('scope' => $permission)),
                         'logoutUrl' => $this->facebook->getLogoutUrl(),
         );
         $this->session->set_userdata('fb_data', $fb_data);

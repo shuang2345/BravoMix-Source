@@ -1,5 +1,6 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Copyright 2011 Facebook, Inc.
  *
@@ -92,3 +93,4 @@ class Facebook extends BaseFacebook
                               $key));
   }
 }
+

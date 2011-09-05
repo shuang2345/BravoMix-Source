@@ -5,7 +5,9 @@ class Welcome extends MY_Controller {
     function __construct()
     {
         parent::__construct();
+        $this->load->library('ion_auth');
         $this->load->model('Facebook_model');
+        $this->load->model('ion_auth_model');
     }
     /**
      * Index Page for this controller.
@@ -30,11 +32,24 @@ class Welcome extends MY_Controller {
     public function facebook()
     {
         $fb_data = $this->session->userdata('fb_data'); // This array contains all the user FB information
-        $this->system->d_print($fb_data);
 
         $data = array(
-                'fb_data' => $fb_data,
+            'fb_data' => $fb_data,
         );
+        $this->system->d_print($fb_data);
+        if($this->ion_auth_model->email_check($fb_data['me']['email']))
+        {
+            echo "account exist<br />";
+        }
+        else
+        {
+            $this->ion_auth_model->add_user('facebook', $fb_data);
+        }
+        $this->load->view('home', $data);
+    }
+
+    public function logout()
+    {
 
         $this->load->view('home', $data);
     }
