@@ -40,6 +40,7 @@ class File extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->config('images');
         $this->load->model('file_model');
         $this->load->helper('form');
     }
@@ -168,7 +169,6 @@ class File extends CI_Controller {
         //縮圖設定
         $thumb_config = array(
             'thumb_marker' => '',
-            'image_library' => 'gd2',
             'create_thumb' => TRUE,
             'source_image' => $source_image,
             'width' => $width,
@@ -176,6 +176,9 @@ class File extends CI_Controller {
             'master_dim' => 'width',
             'new_image' => $new_image
         );
+        
+        $thumb_config = array_merge($this->config->item('gd2'), $thumb_config);
+        
         $this->load->library('image_lib', $thumb_config);
         return $this->image_lib->resize();
     }
@@ -239,7 +242,6 @@ class File extends CI_Controller {
         if (file_exists($filepath) && $width && $height)
         {
             $crop_config = array(
-                'image_library' => 'ImageMagick',
                 'source_image' => $filepath,
                 'width' => $width,
                 'height' => $height,
@@ -248,6 +250,9 @@ class File extends CI_Controller {
                 'maintain_ratio' => false,
                 'new_image' => $new_image
             );
+            
+            $crop_config = array_merge($this->config->item('ImageMagick'), $crop_config);
+            
             $this->load->library('image_lib', $crop_config);
 
             if (!$this->image_lib->crop())

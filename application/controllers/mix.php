@@ -17,6 +17,7 @@ class Mix extends MY_Controller {
     {
         parent::__construct();
 
+        $this->load->config('images');
         $this->load->helper('array');
         $this->load->model('wardrobe_model');
         $this->load->model('mix_model');
@@ -199,7 +200,7 @@ class Mix extends MY_Controller {
             {
                 //為此混搭圖建立空白圖
                 $mix_img = "uploads/mixs/{$mix_id}.png";
-                system(escapeshellcmd("convert -size 475x475 -strip -colors 8 -depth 8 xc:none {$mix_img}"));
+                system(escapeshellcmd($this->config->item('library_path') . "convert -size 475x475 -strip -colors 8 -depth 8 xc:none {$mix_img}"));
 
                 //找出混搭中的單品            
                 $mix_items = $this->mix_model->find_items($mix_id);
@@ -221,8 +222,8 @@ class Mix extends MY_Controller {
                         $to = "uploads/thumbs/raw_{$item['item_width']}_{$item['item_height']}_no_image.png";
                     }
                     //將完成的縮圖合併到空白圖中
-                    system(escapeshellcmd("convert -resize {$size} {$from} {$to}"));
-                    system(escapeshellcmd("composite -geometry +{$item['item_left']}+{$item['item_top']} {$to} {$mix_img} {$mix_img}"));
+                    system(escapeshellcmd($this->config->item('library_path') . "convert -resize {$size} {$from} {$to}"));
+                    system(escapeshellcmd($this->config->item('library_path') . "composite -geometry +{$item['item_left']}+{$item['item_top']} {$to} {$mix_img} {$mix_img}"));
                 }
                 //將此混搭圖的縮圖清掉(mix_150_150_7.png   
                 $thumbimages = glob("uploads/thumbs/mix_*_" . $mix_id . ".png", GLOB_BRACE);
