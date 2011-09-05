@@ -1,7 +1,7 @@
 <div id="item-edit">
 
     <?php echo isset($validation_error) ? print_r($validation_error, TRUE) : '' ?>
-    <?php echo form_open('item/edit/' . $item_id) ?>
+    <?php echo form_open('item/edit/' . $item_id, array('id' => 'save_form')) ?>
 
     <div class="images-list" style="float:left">
         <fieldset>
@@ -104,6 +104,22 @@
         var hiddenFileField = null;
         var reviewImg = null;
         var scaleRatio = 1;
+        /**
+         * 表單送出前進行檢查
+         */
+        $('#save_form').submit(function(){
+            //檢查品名
+            if('' == $('input[name="item_title"]').val()){
+                alert('必需輸入單品名稱');
+                return false;
+            }
+            //檢查代表圖
+            if('' == $('input[name="item_cover"]').val()){
+                alert('至少要選擇一張代表圖');
+                return false;
+            }
+        });
+        
         /**
          * 當圖片載入完成後，顯示裁切視窗
          */
