@@ -12,7 +12,7 @@ class Item extends MY_Controller {
     /**
      * 建構子
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
@@ -27,15 +27,15 @@ class Item extends MY_Controller {
      */
     public function index()
     {
-
+        
     }
 
     //--------------------------------------------------------------------------
     /**
      * 單品清單
-     *
+     * 
      * $config['uri_segment']的值為函式參數量數+2
-     *
+     * 
      * @param int $offset 位置
      * @param int $limit 讀取筆數(每頁大小)
      * @param type $orderby 排序欄位
@@ -80,7 +80,7 @@ class Item extends MY_Controller {
 
         $this->pagination->initialize($config);
 
-        //讀取指定的範圍資料
+        //讀取指定的範圍資料   
         $data['items'] = $this->item_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
 
@@ -93,7 +93,7 @@ class Item extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 單品刪除
-     *
+     * 
      * @param int $item_id 單品代碼
      */
     public function delete($item_id=NULL)
@@ -109,7 +109,7 @@ class Item extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 單品檢視
-     *
+     * 
      * @param int $item_id 單品代碼
      */
     public function view($item_id=NULL)
@@ -168,7 +168,7 @@ class Item extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 單品儲存/編輯
-     *
+     * 
      * @param int $item_id 單品代碼
      */
     public function edit($item_id=NULL)
