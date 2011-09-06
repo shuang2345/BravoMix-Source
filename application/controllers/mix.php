@@ -28,12 +28,13 @@ class Mix extends MY_Controller {
      * 檢視混搭
      *
      * @param int $mix_id 混搭代碼
+     * @param boolean $img_mode 
      */
     public function view($mix_id=NULL, $img_mode=FALSE)
     {
         //若有POST或GET的資料，改用POST或GET的資料
         $mix_id = ($this->input->get_post('mix_id')) ?
-                $this->input->get_post('mix_id') : $mix_id;
+                $this->input->get_post('mix_id') : intval($mix_id);
 
         //取出指定混搭代碼內的所有單品
         $mix_items = $this->mix_model->find_items($mix_id);
