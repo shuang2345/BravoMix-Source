@@ -146,7 +146,7 @@ class File extends CI_Controller {
      * @param string $source 原圖來源(raw或crop或mix)
      * @return Boolean 建立結果
      */
-    public function _create_thumb($filename=NULL, $width=NULL, $height=NULL, $source='raw')
+    private function _create_thumb($filename=NULL, $width=NULL, $height=NULL, $source='raw')
     {
         //檢查存放縮圖資料夾是否存在，不存在就先建立
         if (!is_dir($this->upload_config['upload_path'] . '/thumbs'))
