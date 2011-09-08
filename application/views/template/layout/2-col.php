@@ -80,6 +80,7 @@
 
             <!-- Begin Footer -->
             <div id="footer">
+                <?php echo $this->benchmark->elapsed_time()?>
             </div>
             <!-- End Footer -->
 
