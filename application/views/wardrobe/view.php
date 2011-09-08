@@ -27,14 +27,14 @@
                 <li>
                     <a href="<?php echo site_url('item/view/' . $item['item_id']) ?>">
                         <span>&nbsp;</span>
-                        <em><?php echo $item['item_title'] ?></em>
                         <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="170" height="120" 
                              src="<?php echo site_url('file/get/' . element('item_cover', $item, 'no_image.png') . '/170/120') ?>" />
+                        <em><?php echo $item['item_title'] ?></em>                        
                     </a>
                     <div>
                         <?php foreach ($item['item_tags'] as $key => $tag): ?>
                             <?php if ('我所上傳的' != $tag['tag_title']): ?>
-                                <a href="<?php echo site_url('wardrobe/remove_item/' . $item['item_id'] . '/' . $tag['tag_title']) ?>">
+                                <a href="<?php echo site_url('wardrobe/tear_tag/' . $tag['tag_title'] . '/' . $item['item_id']) ?>">
                                     <?php echo $tag['tag_title'] ?>[X]
                                 </a><br />
                             <?php endif; ?>
