@@ -62,7 +62,7 @@ class Wardrobe_model extends CI_Model {
             $this->db->insert('tags', $tag_data);
             return $this->db->insert_id();
         }
-        //找不到符合標籤，回傳0;
+        //找不到符合標籤，回傳0
         return 0;
     }
 
@@ -81,7 +81,7 @@ class Wardrobe_model extends CI_Model {
         $this->db->where('wardrobe_id', $wardrobe_id);
         $this->db->where('item_id', $item_id);
         $query = $this->db->get();
-        $query = $this->db->get();
+        echo $this->db->last_query();
         if ($query->num_rows())
         {
             return $query->row()->wardrobe_item_id;
@@ -95,10 +95,10 @@ class Wardrobe_model extends CI_Model {
      * 
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
-     * @param String $tag_title 標籤名稱
+     * @param string $tag_title 標籤名稱
      * @return int 影響的筆數 
      */
-    public function add_item($item_id=NULL, $wardrobe_id=NULL, $tag_title=NULL)
+    public function add_item($wardrobe_id=NULL, $item_id=NULL, $tag_title=NULL)
     {
         //單品尚未在衣櫃中(沒有此收錄)，才進行加入的動作
         if (!$this->_find_record_id($item_id, $wardrobe_id))
@@ -116,6 +116,7 @@ class Wardrobe_model extends CI_Model {
                 $this->paste_tag($item_id, $wardrobe_id, $tag_title);
             }
         }
+        return $this->db->affected_rows();
     }
 
     //--------------------------------------------------------------------------
@@ -126,7 +127,7 @@ class Wardrobe_model extends CI_Model {
      * @param int $wardrobe_id 衣櫃代碼
      * @return int 影響的筆數 
      */
-    public function remove_item($item_id=NULL, $wardrobe_id=NULL)
+    public function remove_item($wardrobe_id=NULL, $item_id=NULL)
     {
         //單品必需在衣櫃中(有此收錄)，才進行加入的動作
         $record_id = $this->_find_record_id($item_id, $wardrobe_id);
@@ -143,30 +144,80 @@ class Wardrobe_model extends CI_Model {
 
     //--------------------------------------------------------------------------
     /**
-     * 為單品貼上標籤
+     * 檢查是否已經有此標籤
      * 
+     * @param string $tag_title 標籤名稱
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
-     * @param String $tag_title 標籤名稱
-     * @return int 影響的筆數 
+     * @return int 0=沒有,0之外=有
      */
-    public function paste_tag($wardrobe_id=NULL, $tag_title=NULL)
+    public function check_tag($tag_title=NULL, $item_id=NULL, $wardrobe_id=NULL)
     {
-        //取得收錄代碼
-        $record_id = $this->_find_record_id($item_id, $wardrobe_id);
+        if ($wardrobe_id)
+        {
+            $tag_id = $this->_find_tag_id($tag_title, TRUE);
+            if ($item_id)
+            {
+                $record_id = $this->_find_record_id($item_id, $wardrobe_id);
+                if ($record_id)
+                {
 
-        //若收錄代碼存在，為此收錄貼上標籤
-        if ($record_id)
+                    $this->db->from('wardrobes_items_tags');
+                    $this->db->where('wardrobe_item_id', $record_id);
+                    $this->db->where('tag_id', $tag_id);
+                    return $this->db->count_all_results();
+                }
+            }
+            else
+            {
+                $this->db->from('wardrobes_tags');
+                $this->db->where('wardrobe_id', $wardrobe_id);
+                $this->db->where('tag_id', $tag_id);
+                return $this->db->count_all_results();
+            }
+        }
+        return 0;
+    }
+
+    //--------------------------------------------------------------------------
+    /**
+     * 為單品貼上標籤
+     * 
+     * @param string $tag_title 標籤名稱
+     * @param int $item_id 單品代碼
+     * @param int $wardrobe_id 衣櫃代碼
+     * @return int
+     */
+    public function paste_tag($tag_title=NULL, $item_id=NULL, $wardrobe_id=NULL)
+    {
+        //先檢查衣櫃是否已經有此標籤
+        if (!$this->check_tag($tag_title, NULL, $wardrobe_id))
         {
             //取得標籤代碼
             $tag_id = $this->_find_tag_id($tag_title, TRUE);
-            //
             $add_new_tag = array(
-                'wardrobe_item_id' => $record_id,
+                'wardrobe_id' => $wardrobe_id,
                 'tag_id' => $tag_id,
                 'add_time' => time(),
             );
-            $this->db->insert('wardrobes_items_tags', $add_new_tag);
+            $this->db->insert('wardrobes_tags', $add_new_tag);
+        }
+        //先檢查單品是否已經有此標籤
+        if (!$this->check_tag($tag_title, $item_id, $wardrobe_id))
+        {
+            //取得收錄代碼
+            $record_id = $this->_find_record_id($item_id, $wardrobe_id);
+            if ($record_id)
+            {
+                //取得標籤代碼
+                $tag_id = $this->_find_tag_id($tag_title, TRUE);
+                $add_new_tag = array(
+                    'wardrobe_item_id' => $record_id,
+                    'tag_id' => $tag_id,
+                    'add_time' => time(),
+                );
+                $this->db->insert('wardrobes_items_tags', $add_new_tag);
+            }
         }
         return $this->db->affected_rows();
     }
@@ -175,12 +226,12 @@ class Wardrobe_model extends CI_Model {
     /**
      * 撕掉衣櫃單品上的標籤
      * 
-     * @param int $item_id 單品代碼
+     * @param string $tag_title 標籤名稱 
      * @param int $wardrobe_id 衣櫃代碼
-     * @param String $tag_title 標籤名稱
+     * @param int $item_id 單品代碼
      * @return int 影響的筆數 
      */
-    public function tear_tag($item_id=NULL, $wardrobe_id=NULL, $tag_title=NULL)
+    public function tear_tag($tag_title=NULL, $wardrobe_id=NULL, $item_id=NULL)
     {
         //取得收錄代碼
         $record_id = $this->_find_record_id($item_id, $wardrobe_id);
@@ -203,7 +254,7 @@ class Wardrobe_model extends CI_Model {
      * 取得登入者的衣櫃的代碼
      * 
      * @param int $user_id 使用者代碼
-     * @param Boolean $auto_create 是否自動建立
+     * @param boolean $auto_create 是否自動建立
      * @return int 衣櫃代碼
      */
     public function find_loginer_wardbore($user_id=NULL, $auto_create=FALSE)
@@ -294,6 +345,7 @@ class Wardrobe_model extends CI_Model {
 
         //取得結果集
         $query = $this->db->get();
+        $this->db->last_query() . "\n";
         $result = $query->result_array();
 
         //追加讀取出每個單品擁有的標籤(tags)
@@ -310,7 +362,7 @@ class Wardrobe_model extends CI_Model {
     /**
      * 找出衣櫃用過的標籤，若有指定單品，會僅列單品的部分
      * 
-     * @todo 這邊如果有效能考量，也應該用SQL直接刻了
+     * @todo 這邊在找單品標籤直接刻了SQL來用，若資料庫有移植會有問題，要注意
      * 
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $wardrobe_id 單品代碼
@@ -318,34 +370,40 @@ class Wardrobe_model extends CI_Model {
      */
     public function find_tags($wardrobe_id=NULL, $item_id=NULL)
     {
-        //$this->db->distinct();
-        $this->db->select('wardrobes_items_tags.tag_id');
-        $this->db->from('wardrobes_items');
-        $this->db->join('wardrobes_items_tags', 'wardrobes_items.wardrobe_item_id = wardrobes_items_tags.wardrobe_item_id');
-        $this->db->where('wardrobes_items.wardrobe_id', $wardrobe_id);
-        
-        //如果有指定單品代碼，追加條件
-        if ($item_id)
+        if ($wardrobe_id)
         {
-            $this->db->where('wardrobes_items.item_id', $item_id);
-        }
-        $query = $this->db->get();
-        if ($query->num_rows() > 0)
-        {
-            foreach ($query->result_array() as $row)
+            if ($item_id)
             {
-                $tag_ids[] = $row['tag_id'];
+                $sql = "SELECT tag_title "
+                        . "FROM tags "
+                        . "JOIN ( "
+                        . "   SELECT wit.tag_id AS tag_id "
+                        . "   FROM wardrobes_items_tags AS wit "
+                        . "   JOIN wardrobes_items AS wi "
+                        . "   ON wit.wardrobe_item_id = wi.wardrobe_item_id "
+                        . "   WHERE wi.wardrobe_id = {$wardrobe_id} AND wi.item_id = {$item_id} "
+                        . ") AS r "
+                        . "ON tags.tag_id = r.tag_id ";
+                $query = $this->db->query($sql);
+                if ($query->num_rows() > 0)
+                {
+                    return $query->result_array();
+                }
             }
-            $this->db->where_in('tag_id', $tag_ids);
+            else
+            {
+                $this->db->select('tag_title');
+                $this->db->from('wardrobes_tags');
+                $this->db->join('tags', 'wardrobes_tags.tag_id = tags.tag_id');
+                $this->db->where('wardrobes_tags.wardrobe_id', $wardrobe_id);
+                $query = $this->db->get();
+                if ($query->num_rows() > 0)
+                {
+                    return $query->result_array();
+                }
+            }
         }
-        //找出標籤資料
-        $this->db->select('tag_title');
-        $this->db->where('tag_flag', 'wardrobe');
-        $this->db->from('tags');
-        $query = $this->db->get();
-        $result = $query->result_array();
-        $query->free_result();
-        return $result;
+        return array();
     }
 
 }
