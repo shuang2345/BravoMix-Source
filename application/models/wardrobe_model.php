@@ -81,7 +81,6 @@ class Wardrobe_model extends CI_Model {
         $this->db->where('wardrobe_id', $wardrobe_id);
         $this->db->where('item_id', $item_id);
         $query = $this->db->get();
-        echo $this->db->last_query();
         if ($query->num_rows())
         {
             return $query->row()->wardrobe_item_id;

@@ -40,8 +40,6 @@ class Wardrobe extends MY_Controller {
 
         //從衣櫃中找出符合標籤(tag)的所有單品
         $items = $this->wardrobe_model->find_items($wardrobe_id, $tag_title);
-        
-        print_r($items);
 
         //取得衣櫃可選用的所有標籤
         $tags = $this->wardrobe_model->find_tags($wardrobe_id);
@@ -60,7 +58,7 @@ class Wardrobe extends MY_Controller {
             exit;
         }
         //繪出視圖
-        $this->template->set_layout('template/layout/1-col');
+        $this->template->set_layout('template/layout/col-2');
         $this->template->add_css('/assets/css/gallery/4-cork-borad.css', 'screen');
         $this->template->render('wardrobe/view', $data);
     }
@@ -100,7 +98,6 @@ class Wardrobe extends MY_Controller {
         //若沒有指定衣櫃代碼，使用登入者的衣櫃代碼為預設衣櫃代碼
         $wardrobe_id = ($wardrobe_id) ? $wardrobe_id : $this->loginer->wardrobe_id;
 
-        echo 'item_id:' . $item_id . "<br />\n";
         //貼上標籤        
         $result = $this->wardrobe_model->paste_tag($tag_title, $item_id, $wardrobe_id);
 
@@ -116,6 +113,9 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 撕掉衣櫃單品上的標籤
+     * 
+     * ※若沒有指定衣櫃代碼，使用登入者預設的衣櫃
+     * ※這個action通常用在ajax方式
      * 
      * @param int $item_id 單品代碼
      * @param string $tag_title 標籤名稱
@@ -151,7 +151,7 @@ class Wardrobe extends MY_Controller {
     /**
      * 追加單品至衣櫃中
      * 
-     * 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
+     * ※ 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
      * 
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $item_id 單品代碼
