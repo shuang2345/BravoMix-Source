@@ -59,36 +59,36 @@
 
                     <div class="aside-box span-5">
                         <div class='span-1'></div>
-                        <div class='span-1'><img src='/BravoMix-Source/assets/css/gallery/img/mail.png' /></div>
-                        <div class='span-1 last'><img src='/BravoMix-Source/assets/css/gallery/img/msg.png' /></div>
+                        <div class='span-1'><img src='/assets/css/gallery/img/mail.png' /></div>
+                        <div class='span-1 last'><img src='/assets/css/gallery/img/msg.png' /></div>
                     </div>
 
                     <div class="aside-box span-5">
-                        <div class='span-1'><img src="/BravoMix-Source/assets/css/empty.png" /></div>
-                        <div class='span-1'><img src="/BravoMix-Source/assets/css/empty.png" /></div>
-                        <div class='span-1 last'><img src="/BravoMix-Source/assets/css/empty.png" /></div>
+                        <div class='span-1'><img src="/assets/css/empty.png" /></div>
+                        <div class='span-1'><img src="/assets/css/empty.png" /></div>
+                        <div class='span-1 last'><img src="/assets/css/empty.png" /></div>
                     </div>
 
                     <div class="aside-box span-5">
                         <h5>人氣時尚達人</h5>
                         <table>
                             <tbody>
-                                <tr><td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
-                                    <td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
-                                    <td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td></tr>
-                                <tr><td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
-                                    <td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
-                                    <td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td></tr>
-                                <tr><td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
-                                    <td><img src="/BravoMix-Source/assets/css/empty.png" width="45" height="45" /></td>
+                                <tr><td><img src="/assets/css/empty.png" width="45" height="45" /></td>
+                                    <td><img src="/assets/css/empty.png" width="45" height="45" /></td>
+                                    <td><img src="/assets/css/empty.png" width="45" height="45" /></td></tr>
+                                <tr><td><img src="/assets/css/empty.png" width="45" height="45" /></td>
+                                    <td><img src="/assets/css/empty.png" width="45" height="45" /></td>
+                                    <td><img src="/assets/css/empty.png" width="45" height="45" /></td></tr>
+                                <tr><td><img src="/assets/css/empty.png" width="45" height="45" /></td>
+                                    <td><img src="/assets/css/empty.png" width="45" height="45" /></td>
                             </tbody>
                         </table>
                         <a href="#">MORE...</a>
                     </div>
                     <div class="aside-box span-5">
                         <h5>熱門時尚單品</h5>
-                        <img src="/BravoMix-Source/assets/css/empty.png" />
-                        <img src="/BravoMix-Source/assets/css/empty.png" />
+                        <img src="/assets/css/empty.png" />
+                        <img src="/assets/css/empty.png" />
                     </div>                    
 
 
