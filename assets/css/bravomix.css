@@ -1,132 +1,121 @@
-body {
-    line-height: 1;
-    background-color: #F3F3F3;
-}
-#content {	
-    background-color: #ffffff;
-    border: 1px solid #c5c5c5;
-    color: #555;
-    padding: 2px 5px;
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    box-shadow: inset 0 0 3px #ccc;
-    -moz-box-shadow: inset 0 0 3px #ccc;
-    -webkit-box-shadow: inset 0 0 3px #ccc;
-}
-#leftcolumn {
-    border: 0px;
-    background-color: #FAFAFA;
-}
-/**
- * 標題欄
-*/
-h1 {font-size: 2em; margin: .67em 0;}
-h2 {font-size: 1.5em; margin: .83em 0;}
-h3 {font-size: 1.17em; margin: 1em 0;}
-h4 {font-size: 1em; margin: 1.33em 0;}
-h5 {font-size: .83em; line-height: 1.17em; margin: 1.67em 0;}
-h6 {font-size: .67em; margin: 2.33em 0;}
-h1, h2, h3, h4, h5, h6 {font-weight: bolder;}
-
-.clear {
-    clear: both;
-}
 /**
  * top
-*/
-#top {
+ **/
+#top
+{
     background-color: #000;
     color: #FFF;
-    height: 30px;
 }
+
 /**
- * 導覽列
-*/
-#nav-menu ul
+ * header 
+ **/
+#header .menu 
 {
+    text-align: right;
     list-style: none;
     padding: 0;
     margin: 0;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #CCC;
 }
-
-#nav-menu li
+#header .menu li
 {
-    float: left;
-    margin: 0 0.15em;
+    display: inline;
+    margin: 1em;
 }
-
-#nav-menu li a
+#header .menu li a
 {
-    background: url(background.gif) #fff bottom left repeat-x;
-    height: 2em;
-    line-height: 2em;
-    float: left;
-    width: 9em;
-    display: block;
-    border: 0.1em solid #dcdce9;
-    color: #0d2474;
-    text-decoration: none;
-    text-align: center;
+    color: #41210C;
+    font-weight: bold;
 }
-/* Hide from IE5-Mac \*/
-#nav-menu li a
+#header .logo 
 {
-    float: none;
+    height: 41px;
+    width: 191px;
+    background-image: url(logo.png);
+    background-repeat: no-repeat;
 }
-/**
- *
-*/
-ul.links
+#header .logo strong
 {
-    list-style-type:none;
-    margin:0;
-    padding:0;
-}
-ul.links li
-{
-    font-size: large;
-    display:inline;
-    margin: 0px 5px;
-    border:1px solid #CCC;
-    padding: 5px;
-    background-color: #FFF;
-}
-ul.links li.active
-{
-    color: #FFF;
-    background-color: #000;
-}
-ul.links li.active a
-{
-    color: #FFF;
-}
-/**
- *
-*/
-fieldset {
-    padding: 10px;
-    margin: 5px;
-}
-fieldset legend {
     display: none;
 }
-
 /**
- * 單品檢視
-*/
-#item-view .item-info {
+ * nav 
+ **/
+#nav .menu 
+{
+    text-align: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 32px;
+    line-height: 32px;
+}
+#nav .menu li
+{
+    display: inline;
+    background-color: #A38A76;
     border:1px solid #CCC;
-    margin: 5px;
-    padding: 10px;
-    font-size: 16px;
+    padding: 8px 15px;
+    margin: 2px 5px;
 }
-#item-view .item-info li {
-    border-bottom:1px solid #CCC;
-    padding: 5px;
-    list-style-type: none;
+#nav .menu li:hover
+{
+    background-color: #663333;
 }
-#item-view button {
-    padding: 10px 5px;
-    font-size: large;
+#nav .menu li a
+{
+    color: #FFF;
+    font-size: small;
+    text-decoration: none;   
+}
+/**
+ * center
+ **/
+#center
+{
+    border: 1px solid #CCC;
+    background-image: url(center-bg.png);
+    background-repeat: repeat-y;
+}
+/**
+ * footer
+ **/
+#footer .menu 
+{
+    text-align: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #CCC;
+}
+#footer .menu li
+{
+    display: inline;
+    margin: 1em;
+}
+#footer .menu li a
+{
+    color: #735C4A;
+}
+/*############################################################################*/
+.aside-box {
+    border-bottom: 1px solid #CCC;
+}
+.aside-box h5
+{
+    text-align: center;
+    color: #41210C;
+}
+#search 
+{
+    background-color: #999;
+}
+#search input
+{
+    border: 1px solid #CCC;
 }

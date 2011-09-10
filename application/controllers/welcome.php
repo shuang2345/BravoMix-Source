@@ -24,6 +24,7 @@ class Welcome extends MY_Controller {
      */
     public function index()
     {
+        $this->template->set_layout('template/layout/col-2');
         $this->template->render('welcome_message');
     }
 

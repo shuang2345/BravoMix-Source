@@ -3,14 +3,14 @@
 /**
  * 預設使用的樣板
  */
-$config['template_layout'] = 'template/layout/2-col';
+$config['template_layout'] = 'template/layout/col-2';
 
 /**
  * 預先載入的CSS檔
  */
 $config['template_css'] = array(
-    '/assets/css/normalize.css' => '',
-    '/assets/css/bravomix.css' => 'screen',
+   '/assets/css/blueprint/screen.css' => 'screen',
+   '/assets/css/bravomix.css' => 'screen',
 );
 
 /**
