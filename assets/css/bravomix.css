@@ -1,17 +1,7 @@
 /**
- * top
- **/
-#top
-{
-    background-color: #000;
-    color: #FFF;
-}
-
-/**
  * header 
  **/
-#header .menu 
-{
+#header .menu {
     text-align: right;
     list-style: none;
     padding: 0;
@@ -20,32 +10,27 @@
     line-height: 30px;
     border-bottom: 1px solid #CCC;
 }
-#header .menu li
-{
+#header .menu li {
     display: inline;
     margin: 1em;
 }
-#header .menu li a
-{
+#header .menu li a {
     color: #41210C;
     font-weight: bold;
 }
-#header .logo 
-{
+#header .logo {
     height: 41px;
     width: 191px;
-    background-image: url(logo.png);
+    background-image: url(../images/logo.png);
     background-repeat: no-repeat;
 }
-#header .logo strong
-{
+#header .logo strong {
     display: none;
 }
 /**
  * nav 
  **/
-#nav .menu 
-{
+#nav .menu {
     text-align: right;
     list-style: none;
     padding: 0;
@@ -53,38 +38,46 @@
     height: 32px;
     line-height: 32px;
 }
-#nav .menu li
-{
+#nav .menu li {
     display: inline;
     background-color: #A38A76;
     border:1px solid #CCC;
     padding: 8px 15px;
     margin: 2px 5px;
 }
-#nav .menu li:hover
-{
+#nav .menu li:hover {
     background-color: #663333;
 }
-#nav .menu li a
-{
+#nav .menu li a {
     color: #FFF;
     font-size: small;
     text-decoration: none;   
 }
+
+.side_box {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side_box li {
+    display: inline;
+    padding: 0;
+    margin: 3px 8px;
+}
+
 /**
  * center
  **/
-#center
-{
+#center {
     border: 1px solid #CCC;
-    background-image: url(center-bg.png);
+    background-image: url(../images/center-bg.png);
     background-repeat: repeat-y;
 }
 /**
  * footer
  **/
-#footer .menu 
-{
+#footer .menu {
     text-align: right;
     list-style: none;
     padding: 0;
@@ -93,29 +86,26 @@
     line-height: 30px;
     border-bottom: 1px solid #CCC;
 }
-#footer .menu li
-{
+#footer .menu li {
     display: inline;
     margin: 1em;
 }
-#footer .menu li a
-{
+#footer .menu li a {
     color: #735C4A;
 }
+
 /*############################################################################*/
 .aside-box {
     border-bottom: 1px solid #CCC;
 }
-.aside-box h5
-{
+.aside-box h5 {
     text-align: center;
     color: #41210C;
 }
-#search 
-{
+#search {
+    text-align: center;
     background-color: #999;
 }
-#search input
-{
+#search input {
     border: 1px solid #CCC;
 }
