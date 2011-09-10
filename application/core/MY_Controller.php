@@ -1,15 +1,15 @@
 <?php
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 佈局控制器
  *
- * @author Liao San-Kai
+ * @author Liao San-Kai <liaosankai@gmail.com>
  */
 class MY_Controller extends CI_Controller {
 
+    //網站登入者
     public $loginer;
 
     /**
@@ -34,16 +34,9 @@ class MY_Controller extends CI_Controller {
      */
     public function _init_wardrobe()
     {
-        //取得登入者的衣櫃代碼
-        $find_id = $this->wardrobe_model->user_basic($this->loginer->id);
-
-        //如果不存在，為登入者建立一個
-        if (!$find_id)
-        {
-            $find_id = $this->wardrobe_model->create('我的衣櫃', 'basic', $this->loginer->id);
-        }
         //記錄登入者的預設衣櫃代碼
-        $this->loginer->wardrobe_id = $find_id;
+        $this->loginer->wardrobe_id =
+                $this->wardrobe_model->find_loginer_wardbore($this->loginer->id, TRUE);
     }
 
     //--------------------------------------------------------------------------

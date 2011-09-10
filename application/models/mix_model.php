@@ -14,8 +14,7 @@ class Mix_model extends CI_Model {
      * 
      * @var array
      */
-    protected $fields_validation = array(
-    );
+    protected $fields_validation = array();
 
     //--------------------------------------------------------------------------
     /**
