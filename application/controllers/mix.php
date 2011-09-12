@@ -28,7 +28,7 @@ class Mix extends MY_Controller {
      * 檢視混搭
      *
      * @param int $mix_id 混搭代碼
-     * @param boolean $img_mode 
+     * @param boolean $img_mode
      */
     public function view($mix_id=NULL, $img_mode=FALSE)
     {
@@ -101,7 +101,7 @@ class Mix extends MY_Controller {
 
         $this->pagination->initialize($config);
 
-        //讀取指定的範圍資料   
+        //讀取指定的範圍資料
         $data['mixs'] = $this->mix_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
 
@@ -124,7 +124,7 @@ class Mix extends MY_Controller {
         //取得指定衣櫃可選用的所有標籤
         $tags = $this->wardrobe_model->find_tags($this->loginer->wardrobe_id);
 
-        //將代碼數字化(用來避免輸入數字之外的參數導致出錯)        
+        //將代碼數字化(用來避免輸入數字之外的參數導致出錯)
         $mix_id = intval($mix_id);
 
         //混搭中的單品
@@ -184,7 +184,7 @@ class Mix extends MY_Controller {
      */
     public function mix_img($mix_id=NULL, $rebulid=TRUE)
     {
-        //將代碼數字化(用來避免輸入數字之外的參數導致出錯)        
+        //將代碼數字化(用來避免輸入數字之外的參數導致出錯)
         $mix_id = intval($mix_id);
 
         //檢查此混塔代碼是否存在
@@ -203,14 +203,14 @@ class Mix extends MY_Controller {
                 $mix_img = "uploads/mixs/{$mix_id}.png";
                 system(escapeshellcmd($this->config->item('library_path') . "convert -size 475x475 -strip -colors 8 -depth 8 xc:none {$mix_img}"));
 
-                //找出混搭中的單品            
+                //找出混搭中的單品
                 $mix_items = $this->mix_model->find_items($mix_id);
 
                 //製作各單品縮圖並加至空白圖中
                 foreach ($mix_items as $key => $item)
                 {
                     //為混搭中的單品圖，再做一次縮圖
-                    //混塔中的單品圖用的一定是裁切圖(uploads/crops/)                    
+                    //混塔中的單品圖用的一定是裁切圖(uploads/crops/)
                     $size = "{$item['item_width']}x{$item['item_height']}!";
                     if (file_exists("uploads/" . $item['item_cover']))
                     {
@@ -226,7 +226,7 @@ class Mix extends MY_Controller {
                     system(escapeshellcmd($this->config->item('library_path') . "convert -resize {$size} {$from} {$to}"));
                     system(escapeshellcmd($this->config->item('library_path') . "composite -geometry +{$item['item_left']}+{$item['item_top']} {$to} {$mix_img} {$mix_img}"));
                 }
-                //將此混搭圖的縮圖清掉(mix_150_150_7.png   
+                //將此混搭圖的縮圖清掉(mix_150_150_7.png
                 $thumbimages = glob("uploads/thumbs/mix_*_" . $mix_id . ".png", GLOB_BRACE);
                 foreach ($thumbimages as $removeImg)
                 {

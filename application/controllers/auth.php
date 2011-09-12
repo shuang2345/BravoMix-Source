@@ -364,7 +364,7 @@ class Auth extends MY_Controller {
             $register_code = $this->input->post('register_code');
             /* verify vCode */
             $vCode = $this->session->userdata('vCode');
-            $auth_code = explode("|", $vCode);            
+            $auth_code = explode("|", $vCode);
             if($register_code != $auth_code[0])
                 redirect('auth/create_user', 'refresh');
 
@@ -462,7 +462,7 @@ class Auth extends MY_Controller {
         if($this->ion_auth->update_user($id, $data))
         {
             echo 'ok';
-        } 
+        }
     }
 
     public function update_user()

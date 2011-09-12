@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * 衣櫃控制器
- * 
+ *
  * @author Liao San-Kai <liaosankai@gmail.com>
  */
 class Wardrobe extends MY_Controller {
@@ -23,7 +23,7 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 檢視衣櫃
-     * 
+     *
      * @param string $tag_title 標籤名稱(中文)※需要進行urldecode
      * @param int $wardrobe_id 欲檢視的衣櫃代碼
      */
@@ -66,24 +66,24 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 衣櫃清單
-     * 
+     *
      * @todo 由於目前的需求，一位使用者只有一個衣櫃，故此action僅保留
      */
     public function roll()
     {
-        
+
     }
 
     //--------------------------------------------------------------------------
     /**
      * 為衣櫃中的單品貼上標籤
-     * 
+     *
      * ※若沒有指定衣櫃代碼，使用登入者預設的衣櫃
      * ※這個action通常用在ajax方式
-     * 
+     *
      * @param string $tag_title 標籤名稱(中文)※需要urldecode
-     * @param int $item_id 單品代碼     
-     * @param int $wardrobe_id 衣櫃代碼 
+     * @param int $item_id 單品代碼
+     * @param int $wardrobe_id 衣櫃代碼
      */
     public function paste_tag($tag_title=NULL, $item_id=NULL, $wardrobe_id=NULL)
     {
@@ -98,7 +98,7 @@ class Wardrobe extends MY_Controller {
         //若沒有指定衣櫃代碼，使用登入者的衣櫃代碼為預設衣櫃代碼
         $wardrobe_id = ($wardrobe_id) ? $wardrobe_id : $this->loginer->wardrobe_id;
 
-        //貼上標籤        
+        //貼上標籤
         $result = $this->wardrobe_model->paste_tag($tag_title, $item_id, $wardrobe_id);
 
         //如果以Ajax方式請求，以JSON格式輸出結果
@@ -113,14 +113,14 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 撕掉衣櫃單品上的標籤
-     * 
+     *
      * ※若沒有指定衣櫃代碼，使用登入者預設的衣櫃
      * ※這個action通常用在ajax方式
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param string $tag_title 標籤名稱
      * @param int $wardrobe_id 衣櫃代碼
-     * @return int 影響的筆數 
+     * @return int 影響的筆數
      */
     public function tear_tag($tag_title=NULL, $item_id=NULL, $wardrobe_id=NULL)
     {
@@ -150,9 +150,9 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 追加單品至衣櫃中
-     * 
+     *
      * ※ 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
-     * 
+     *
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $item_id 單品代碼
      * @param string $tag_title 標籤名稱(中文)※需要urldecode     *
@@ -186,11 +186,11 @@ class Wardrobe extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 從衣櫃移除單品(也就是移除tag)
-     * 
+     *
      * 若沒有指定衣櫃代碼，使用登入者預設的衣櫃
-     * 
+     *
      * @param int $item_id 單品代碼
-     * @param int $wardrobe_id 衣櫃代碼 
+     * @param int $wardrobe_id 衣櫃代碼
      */
     public function remove_item($wardrobe_id=NULL, $item_id=NULL)
     {

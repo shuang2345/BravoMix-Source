@@ -11,7 +11,7 @@ class Wardrobe_model extends CI_Model {
 
     /**
      * 驗證規則
-     * 
+     *
      * @var array
      */
     protected $fields_validation = array();
@@ -28,7 +28,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找到標籤名稱的代碼
-     * 
+     *
      * @param String $tag_title 標籤名稱
      * @param Boolean $auto_create 自動建立
      * @return int 標籤代碼
@@ -69,7 +69,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 取得收錄代碼(單品在衣櫃中的代碼)
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
      * @return int 收錄代碼
@@ -91,11 +91,11 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 新增單品到衣櫃
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
      * @param string $tag_title 標籤名稱
-     * @return int 影響的筆數 
+     * @return int 影響的筆數
      */
     public function add_item($wardrobe_id=NULL, $item_id=NULL, $tag_title=NULL)
     {
@@ -121,10 +121,10 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 從衣櫃中移除單品
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
-     * @return int 影響的筆數 
+     * @return int 影響的筆數
      */
     public function remove_item($wardrobe_id=NULL, $item_id=NULL)
     {
@@ -144,7 +144,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 檢查是否已經有此標籤
-     * 
+     *
      * @param string $tag_title 標籤名稱
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
@@ -181,7 +181,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 為單品貼上標籤
-     * 
+     *
      * @param string $tag_title 標籤名稱
      * @param int $item_id 單品代碼
      * @param int $wardrobe_id 衣櫃代碼
@@ -224,11 +224,11 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 撕掉衣櫃單品上的標籤
-     * 
-     * @param string $tag_title 標籤名稱 
+     *
+     * @param string $tag_title 標籤名稱
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $item_id 單品代碼
-     * @return int 影響的筆數 
+     * @return int 影響的筆數
      */
     public function tear_tag($tag_title=NULL, $wardrobe_id=NULL, $item_id=NULL)
     {
@@ -251,7 +251,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 取得登入者的衣櫃的代碼
-     * 
+     *
      * @param int $user_id 使用者代碼
      * @param boolean $auto_create 是否自動建立
      * @return int 衣櫃代碼
@@ -280,7 +280,7 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 建立新衣櫃
-     * 
+     *
      * @param String $title 衣櫃名稱
      * @param String $type 衣櫃類型
      * @param int $user_id 衣櫃擁有者代碼
@@ -301,9 +301,9 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出衣櫃中的單品
-     * 
+     *
      * @todo 這邊效能如果很差，可以考慮直接刻SQL了
-     * 
+     *
      * @param int $wardrobe_id 衣櫃代碼
      * @param string $tag_title 標籤名稱
      * @return array 結果陣列，若無資料會回傳空陣列
@@ -360,9 +360,9 @@ class Wardrobe_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出衣櫃用過的標籤，若有指定單品，會僅列單品的部分
-     * 
+     *
      * @todo 這邊在找單品標籤直接刻了SQL來用，若資料庫有移植會有問題，要注意
-     * 
+     *
      * @param int $wardrobe_id 衣櫃代碼
      * @param int $wardrobe_id 單品代碼
      * @return array 結果陣列，若無資料會回傳空陣列
