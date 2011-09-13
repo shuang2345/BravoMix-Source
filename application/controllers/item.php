@@ -5,9 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 單品控制器
  *
- * @author Liao San-Kai
+ * @author Liao San-Kai <liaosankai@gmail.com>
  */
-class Item extends MY_Controller {
+class Item extends MY_Controller
+{
 
     /**
      * 建構子
@@ -27,15 +28,15 @@ class Item extends MY_Controller {
      */
     public function index()
     {
-        
+        redirect('item/roll');
     }
 
     //--------------------------------------------------------------------------
     /**
      * 單品清單
-     * 
-     * $config['uri_segment']的值為函式參數量數+2
-     * 
+     *
+     * $config['uri_segment']的值為函式參數數量+2
+     *
      * @param int $offset 位置
      * @param int $limit 讀取筆數(每頁大小)
      * @param type $orderby 排序欄位
@@ -51,6 +52,7 @@ class Item extends MY_Controller {
             exit;
         }
         $this->load->library('pagination');
+
         //計算單品總數(尚未考慮條件)
         $item_total = $this->db->count_all_results('items');
         $config['base_url'] = site_url('item/roll/' . join('/', array($limit, $orderby, $vector)));
@@ -58,29 +60,10 @@ class Item extends MY_Controller {
         $config['num_links'] = 10;
         $config['total_rows'] = $item_total;
         $config['per_page'] = $limit;
-        //
-        $config['full_tag_open'] = '<ul>';
-        $config['full_tag_close'] = '</ul>';
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li';
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['next_link'] = '&gt;';
-        $config['next_tag_open'] = '<li class="next">';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_link'] = '&lt;';
-        $config['prev_tag_open'] = '<li class="prev">';
-        $config['prev_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="current">';
-        $config['cur_tag_close'] = '</li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
 
         $this->pagination->initialize($config);
 
-        //讀取指定的範圍資料   
+        //讀取指定的範圍資料
         $data['items'] = $this->item_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
 
@@ -93,14 +76,14 @@ class Item extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 單品刪除
-     * 
+     *
      * @param int $item_id 單品代碼
      */
     public function delete($item_id=NULL)
     {
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
-                $this->input->get_post('item_id') : $item_id;
+                $this->input->get_post('item_id') : intval($item_id);
 
         //嘗試讀取指定單品代碼的資料
         $item = $this->item_model->delete($data['item_id']);
@@ -109,19 +92,19 @@ class Item extends MY_Controller {
     //--------------------------------------------------------------------------
     /**
      * 單品檢視
-     * 
+     *
      * @param int $item_id 單品代碼
      */
     public function view($item_id=NULL)
     {
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
-                $this->input->get_post('item_id') : $item_id;
+                $this->input->get_post('item_id') : intval($item_id);
 
         //嘗試讀取指定單品代碼的基本資料
         $data = $this->item_model->find($item_id);
 
-        //是否要顯示編輯按鈕
+        //如果登入者為此單品的建立者，顯示編輯按鈕
         $data['show_edit_button'] = FALSE;
         if ($this->loginer->id == $data['item_user_id'])
         {
@@ -138,47 +121,46 @@ class Item extends MY_Controller {
             //讀取指定單品代碼的圖片
             $data['item_images'] = $this->item_model->find_images($data['item_id'], 5);
         }
+
         //如果是以Ajax模式請求，自動輸出JSON格式
         if ($this->input->is_ajax_request())
         {
             $response['total'] = count($data);
             $response['data'] = $data;
             echo json_encode($response);
+            exit;
         }
-        else
-        {
-            $data = $data + array(
-                'item_id' => '',
-                'item_title' => '',
-                'item_brand' => '',
-                'item_price' => '',
-                'item_link' => '',
-                'item_cover' => '',
-            );
-            $data['item_kind_tags'] = (isset($data['item_kind_tags'])) ? $data['item_kind_tags'] : array();
-            $data['item_style_tags'] = (isset($data['item_style_tags'])) ? $data['item_style_tags'] : array();
-            $data['item_images'] = (isset($data['item_images'])) ? $data['item_images'] : array();
-            //
-            $this->template->add_js('/assets/js/pikaChoose/jquery.pikachoose.full.js');
-            $this->template->add_css('/assets/js/pikaChoose/styles/bottom.css');
-            $this->template->render('item/view', $data);
-        }
+        //給予預設值陣列合併，避免無資料時的錯誤
+        $data = $data + array(
+            'item_id' => '',
+            'item_title' => '',
+            'item_brand' => '',
+            'item_price' => '',
+            'item_link' => '',
+            'item_cover' => '',
+        );
+        $data['item_kind_tags'] = (isset($data['item_kind_tags'])) ? $data['item_kind_tags'] : array();
+        $data['item_style_tags'] = (isset($data['item_style_tags'])) ? $data['item_style_tags'] : array();
+        $data['item_images'] = (isset($data['item_images'])) ? $data['item_images'] : array();
+
+        //套用視圖
+        $this->template->add_js('/assets/js/pikaChoose/jquery.pikachoose.full.js');
+        $this->template->add_css('/assets/js/pikaChoose/styles/bottom.css');
+        $this->template->render('item/view', $data);
     }
 
     //--------------------------------------------------------------------------
     /**
      * 單品儲存/編輯
-     * 
+     *
      * @param int $item_id 單品代碼
      */
     public function edit($item_id=NULL)
     {
         //若有POST或GET的資料，改用POST或GET的資料
         $item_id = ($this->input->get_post('item_id')) ?
-                $this->input->get_post('item_id') : $item_id;
+                $this->input->get_post('item_id') : intval($item_id);
 
-        // Fixed: if add new item
-        $item_id = intval($item_id);
         if (count($_POST))
         {
             //儲存單品資料
@@ -221,7 +203,7 @@ class Item extends MY_Controller {
               $curldata = $this->curl->simple_post('item/view/' . $item_id);
               $response = json_decode($curldata, TRUE);
              */
-            //########用Ajax方式有權限上的問題，這邊先改回直接自己處理 2011-08-19#######
+            //########用Ajax方式有權限上的問題，這邊先改回直接自己處理 2011-08-19 #######
 
             if ($item_id > 0)
             {
@@ -279,12 +261,20 @@ class Item extends MY_Controller {
 
         //載入視圖
         $this->template->add_js('/assets/js/jquery.form.js');
+        $this->template->add_js('/assets/js/jquery-custom-file-input.js');
+        
         $this->template->add_js('/assets/js/jcrop/jquery.Jcrop.min.js');
         $this->template->add_js('/assets/js/jcrop/jquery.color.js');
-        $this->template->add_js('/assets/js/jquery-custom-file-input.js');
+        
         $this->template->add_js('/assets/js/jquery-ui/jquery-ui-1.8.16.custom.min.js');
+        
+        $this->template->add_js('/assets/js/browserplus-min.js');
+        $this->template->add_js('/assets/js/plupload/plupload.full.js');        
+        $this->template->add_js('/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');        
+        
         $this->template->add_css('/assets/js/jcrop/styles/jquery.Jcrop.css');
         $this->template->add_css('/assets/js/jquery-ui/styles/ui-lightness/jquery-ui-1.8.16.custom.css');
+        
         $this->template->render('item/edit', $data);
     }
 

@@ -20,10 +20,10 @@ class File_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 儲存圖片
-     * 
+     *
      * @param array $data 檔案資訊
      * @param Boolean $commit 是否確認
-     * 
+     *
      * @todo: 登入者的帳號帶入
      */
     public function save($data=array(), $commit=FALSE)

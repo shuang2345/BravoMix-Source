@@ -77,7 +77,7 @@ class Vcode extends CI_Controller {
         // 產生驗證碼
         $v_code = $this->system->generate_code($this->v_num);
         /*
-        for($i = 0; $i < $this->v_num; $i++){  
+        for($i = 0; $i < $this->v_num; $i++){
             $randnum = mt_rand(0, $cmax);
             $this_char = $list[$randnum];
             $v_code .= $this_char;
@@ -105,7 +105,7 @@ class Vcode extends CI_Controller {
 
         $ranum = mt_rand(0, 1);
         $dis_range = mt_rand(8, 12);
-        $distortion_im = imagecreatetruecolor ($this->img_w * 1.5 ,$this->img_h);        
+        $distortion_im = imagecreatetruecolor ($this->img_w * 1.5 ,$this->img_h);
         imagefill($distortion_im, 0, 0, imagecolorallocate($distortion_im, 255, 255, 255));
         for ($i = 0; $i < $this->img_w + 50; $i++) {
             for ($j = 0; $j < $this->img_h; $j++) {
@@ -162,5 +162,5 @@ class Vcode extends CI_Controller {
 
         imagedestroy($im);
         imagedestroy($distortion_im);
-    }  
+    }
 }

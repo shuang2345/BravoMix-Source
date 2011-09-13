@@ -5,13 +5,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 檔案控制器
  *
- * @author Liao San-Kai
+ * @author Liao San-Kai <liaosankai@gmail.com>
  */
 class File extends CI_Controller {
 
     /**
      * 檔案上傳設定
-     * 
+     *
      * @see http://www.codeigniter.org.tw/user_guide/libraries/file_uploading.html
      */
     private $upload_config = array(
@@ -48,7 +48,7 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 預設動作
-     * 
+     *
      * @param $filename 實體檔名
      */
     public function index($filename='no_image.png', $width=NULL, $height=NULL)
@@ -60,12 +60,12 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 取得檔案
-     * 
+     *
      * 若為圖片會直接顯示，其它檔案變成下載
-     * 
+     *
      * 用法：
      *  <img src="<?php echo site_url('file/get/random_name.jpg/150/150')?>" />
-     * 
+     *
      * @param string $filename 實體檔名
      * @param int $width 縮圖寬度(圖片限定)
      * @param int $height 縮圖高度(圖片限定)
@@ -138,7 +138,7 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 建立縮圖
-     * 
+     *
      * @see http://www.codeigniter.org.tw/user_guide/libraries/image_lib.html
      * @param $filename 實體檔名
      * @param $width 縮圖寬度(圖片限定)
@@ -186,7 +186,7 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 取得指定檔案的資訊
-     * 
+     *
      * @param $filename 實體檔名
      */
     public function info($filename=NULL)
@@ -197,7 +197,7 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 刪除檔案
-     * 
+     *
      * 若為Ajax模式請求，結果將會以JSON輸出
      * @param $filename 實體檔名
      */
@@ -218,9 +218,9 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 裁圖
-     * 
+     *
      * 將圖片裁切成指定寬度、長度、位置並儲存
-     * 
+     *
      * @param $filename 實體檔名
      */
     public function crop($filename=NULL, $width=NULL, $height=NULL, $x_axis=0, $y_axis=0)
@@ -274,13 +274,13 @@ class File extends CI_Controller {
     //--------------------------------------------------------------------------
     /**
      * 上傳檔案動作
-     * 
+     *
      * 若為Ajax模式請求，結果將會以JSON輸出
      *
      * 目前AjaxForm送出都是用隱藏的iframe包住再送出
      * 所以$this->input->is_ajax_request()是無效的
      * 因為沒有HTTP_X_REQUESTED_WITH=XMLHttpRequest的header
-     * 
+     *
      * $param String $field_name 自訂的檔案欄位名稱
      * $param String $json_encode 將結果輸出成JSON格式
      */

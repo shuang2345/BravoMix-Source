@@ -11,7 +11,7 @@ class Mix_model extends CI_Model {
 
     /**
      * 驗證規則
-     * 
+     *
      * @var array
      */
     protected $fields_validation = array();
@@ -34,7 +34,7 @@ class Mix_model extends CI_Model {
      * @param String $orderby 排序
      * @param String $vector 方向
      * @param int $offset 位移
-     * @return Array 
+     * @return Array
      */
     public function find_all($limit=20, $orderby='add_time', $vector='DESC', $offset=0)
     {
@@ -50,7 +50,7 @@ class Mix_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出混塔的單品內容
-     * 
+     *
      * @param int $mix_id 混搭代碼
      * @return Array 搜尋結果，若無資料會回傳空陣列
      */
@@ -71,9 +71,9 @@ class Mix_model extends CI_Model {
     /**
      * 將指定的單品代碼從指定混搭代碼的中移除，若沒有指定單品代碼
      * 表示移除所有單品
-     * 
+     *
      * @param int $mix_id 混搭代碼
-     * @return int 
+     * @return int
      */
     public function remove_item($mix_id=NULL, $item_id=NULL)
     {
@@ -92,9 +92,9 @@ class Mix_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 追加一個單品至混搭中
-     * 
+     *
      * @param int $mix_id 混搭代碼
-     * @return int 
+     * @return int
      */
     public function add_item($mix_id, $savedata)
     {
@@ -105,7 +105,7 @@ class Mix_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 檢查混搭代碼的是否存在，若不存在，是否要自動建立？
-     * 
+     *
      * @param int $mix_id 混搭代碼
      * @param boolean $auto_new 自動建立
      * @return int 若存在，回傳檢查值，不存在回傳0，若自動建立=TRUE，則回傳建立後的新ID

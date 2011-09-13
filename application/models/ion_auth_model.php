@@ -591,9 +591,9 @@ class Ion_auth_model extends CI_Model
             if ($result->password === $password)
             {
                 $this->update_last_login($result->id);
-    
+
                 $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
-    
+
                 $session_data = array(
                         $this->identity_column => $result->{$this->identity_column},
                         'id'                   => $result->id, //kept for backwards compatibility
@@ -601,14 +601,14 @@ class Ion_auth_model extends CI_Model
                         'group_id'             => $result->group_id,
                         'group'                => $group_row->name
                          );
-    
+
                 $this->session->set_userdata($session_data);
-    
+
                 if ($remember && $this->config->item('remember_users', 'ion_auth'))
                 {
                     $this->remember_user($result->id);
                 }
-    
+
                 return TRUE;
             }
         }

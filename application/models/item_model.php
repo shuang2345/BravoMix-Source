@@ -11,7 +11,7 @@ class Item_model extends CI_Model {
 
     /**
      * 驗證規則
-     * 
+     *
      * @var array
      */
     protected $fields_validation = array(
@@ -116,7 +116,7 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出單品資料
-     * 
+     *
      * @param int $item_id 單品代碼
      * @return Array
      */
@@ -136,7 +136,7 @@ class Item_model extends CI_Model {
      * @param String $orderby 排序
      * @param String $vector 方向
      * @param int $offset 位移
-     * @return Array 
+     * @return Array
      */
     public function find_all($limit=20, $orderby='add_time', $vector='DESC', $offset=0)
     {
@@ -166,7 +166,7 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出單品標籤
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param String $flag 標籤標記
      * @param int $limit 數量
@@ -193,7 +193,7 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 清空單品所有標籤
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param String $tag_flag 標籤標誌
      * @return int 影響的列數
@@ -218,7 +218,7 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 追加標籤至單品
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param int $tag_title 標籤名稱
      * @param String $tag_flag 標籤標誌
@@ -269,11 +269,11 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 找出單品的圖片
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param int $limit 圖片數量
      * @return Array
-     * 
+     *
      * @todo: 這邊應該不需要全部SELECT出來
      */
     public function find_images($item_id=NULL, $limit=NULL)
@@ -296,12 +296,12 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 清空單品圖片
-     * 
+     *
      * 這個動作只會移除關聯，不會刪除實體圖片檔案，但會將實體圖片更新為「未確認」
-     * 
+     *
      * @param int $item_id 單品代碼
      * @return int 影響的列數
-     * 
+     *
      * @todo: 應追加登入者(建立者)的帳號判斷
      */
     public function clear_images($item_id=NULL)
@@ -328,11 +328,11 @@ class Item_model extends CI_Model {
     //--------------------------------------------------------------------------
     /**
      * 追加一張圖片至單品
-     * 
+     *
      * @param int $item_id 單品代碼
      * @param String $filename 圖片實體名稱
      * @return int 影響的列數
-     * 
+     *
      * @todo: 把未確認的檔案從資料庫與實體刪除
      */
     public function add_image($item_id=NULL, $filename=NULL)

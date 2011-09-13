@@ -5,7 +5,7 @@ Bravomix 2011
 
 ### assets
 
-共用 CSS / JS / 圖片
+共用 CSS / JS / Images 圖片
 
 ## 安裝步驟
 

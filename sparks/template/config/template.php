@@ -9,8 +9,7 @@ $config['template_layout'] = 'template/layout/col-2';
  * 預先載入的CSS檔
  */
 $config['template_css'] = array(
-   '/assets/css/blueprint/screen.css' => 'screen',
-   '/assets/css/bravomix.css' => 'screen',
+    '/assets/css/bravomix.css' => 'screen',
 );
 
 /**

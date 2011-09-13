@@ -7,7 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author Liao San-Kai <liaosankai@gmail.com>
  */
-class MY_Controller extends CI_Controller {
+class MY_Controller extends CI_Controller
+{
 
     //網站登入者
     public $loginer;
@@ -65,6 +66,9 @@ class MY_Controller extends CI_Controller {
                 redirect('auth/login');
             }
         }
+
+        $this->template->set('ctrl', $ctrl);
+        $this->template->set('action', $action);
     }
 
 }
