@@ -1,23 +1,29 @@
 <div id="item-roll">
-    <h1>時尚單品列表</h1>
-    <div class="pagination quotes">
-        <?php echo $pager ?>
+    <div class="filter">
+        排序規則↓
     </div>
+    <div>
+        <div class="pagination quotes">
+            <?php echo $pager ?>
+        </div>
 
-    <ul class="gallery clearfix">
-        <?php foreach ($items as $key => $item): ?>
-            <li>
-                <a href="<?php echo site_url('item/view/' . $item['item_id']) ?>">
-                    <span>&nbsp;</span>
-                    <em><?php echo $item['item_title'] ?></em>
-                    <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="170" height="120" 
-                         src="<?php echo site_url('file/get/' . element('item_cover', $item, 'no_image.png') . '/170/120/crop') ?>" />
-                </a>
-            </li>         
-        <?php endforeach; ?>
-    </ul>  
-
-    <div class="pagination quotes">
-        <?php echo $pager ?>
-    </div>    
+        <table class="grid prepend-1 span-18">
+            <tr>
+                <?php foreach ($items as $key => $item): ?>
+                    <td>
+                        <a href="<?php echo site_url('item/view/' . $item['item_id']) ?>">
+                            <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="150" height="150" 
+                                 src="file/get/<?php echo element('item_cover', $item, 'no_image.png') ?>/150/150/crop" />
+                        </a>                        
+                    </td>
+                    <?php if ($key != 0 && ($key+1) % 4 == 0): ?>
+                    </tr><tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+        </table>
+        <div class="pagination quotes">
+            <?php echo $pager ?>
+        </div>    
+    </div>
 </div>

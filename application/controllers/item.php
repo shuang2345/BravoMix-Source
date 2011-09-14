@@ -20,6 +20,8 @@ class Item extends MY_Controller
         $this->load->helper('array');
         $this->load->model('item_model');
         $this->load->model('wardrobe_model');
+        
+        $this->template->add_css('assets/css/item.css', 'screen');
     }
 
     //--------------------------------------------------------------------------
@@ -66,10 +68,11 @@ class Item extends MY_Controller
         //讀取指定的範圍資料
         $data['items'] = $this->item_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
+        $data['limit'] = $limit;
 
         //套用視圖
         $this->template->add_css('/assets/css/pagination.css', 'screen');
-        $this->template->add_css('/assets/css/gallery/3-mini-paper-clip.css', 'screen');
+        
         $this->template->render('item/roll', $data);
     }
 
@@ -262,19 +265,19 @@ class Item extends MY_Controller
         //載入視圖
         $this->template->add_js('/assets/js/jquery.form.js');
         $this->template->add_js('/assets/js/jquery-custom-file-input.js');
-        
+
         $this->template->add_js('/assets/js/jcrop/jquery.Jcrop.min.js');
         $this->template->add_js('/assets/js/jcrop/jquery.color.js');
-        
+
         $this->template->add_js('/assets/js/jquery-ui/jquery-ui-1.8.16.custom.min.js');
-        
+
         $this->template->add_js('/assets/js/browserplus-min.js');
-        $this->template->add_js('/assets/js/plupload/plupload.full.js');        
-        $this->template->add_js('/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');        
-        
+        $this->template->add_js('/assets/js/plupload/plupload.full.js');
+        $this->template->add_js('/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
+
         $this->template->add_css('/assets/js/jcrop/styles/jquery.Jcrop.css');
         $this->template->add_css('/assets/js/jquery-ui/styles/ui-lightness/jquery-ui-1.8.16.custom.css');
-        
+
         $this->template->render('item/edit', $data);
     }
 

@@ -1,7 +1,7 @@
 /**
  * header 
  **/
-#header .menu {
+.header-wrapper .menu-bar {
     text-align: right;
     list-style: none;
     padding: 0;
@@ -10,77 +10,105 @@
     line-height: 30px;
     border-bottom: 1px solid #CCC;
 }
-#header .menu li {
+.header-wrapper .menu-bar li {
     display: inline;
     margin: 1em;
 }
-#header .menu li a {
-    color: #41210C;
+.header-wrapper .menu-bar li a {
+    color: #663333;
     font-weight: bold;
 }
-#header .logo {
+.header-wrapper .logo {
     height: 41px;
     width: 191px;
     background-image: url(../images/logo.png);
     background-repeat: no-repeat;
 }
-#header .logo strong {
+.header-wrapper .logo strong {
     display: none;
 }
+/*----------------------------------------------------------------------------*/
 /**
  * nav 
  **/
-#nav .menu {
+.nav-wrapper .menu-bar {
     text-align: right;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 5em 0 0;
     height: 32px;
     line-height: 32px;
 }
-#nav .menu li {
+.nav-wrapper .menu-bar li {
     display: inline;
     background-color: #A38A76;
     border:1px solid #CCC;
     padding: 8px 15px;
     margin: 2px 5px;
 }
-#nav .menu li.current {
+.nav-wrapper .menu-bar li.current {
     background-color: #663333;
 }
-#nav .menu li:hover {
+.nav-wrapper .menu-bar li:hover {
     background-color: #663333;
 }
-#nav .menu li a {
+.nav-wrapper .menu-bar li a {
     color: #FFF;
     font-size: small;
     text-decoration: none;   
 }
-
-.side_box {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.side_box li {
-    display: inline;
-    padding: 0;
-    margin: 3px 8px;
-}
-
+/*----------------------------------------------------------------------------*/
 /**
- * center
+ * webpage
  **/
-#center {
-    border: 1px solid #CCC;
-    background-image: url(../images/center-bg.png);
-    background-repeat: repeat-y;
+.webpage-wrapper {
+    background-color: #FFF;
 }
+/*----------------------------------------------------------------------------*/
+/**
+ * aside
+ **/
+.aside-wrapper {
+    background-color: #F4F1E8;
+    border-left:1px solid #CCC;
+    border-right:1px solid #CCC;
+}
+.aside-wrapper .figure {
+    text-align: left;
+    padding: 1em;
+    border-top: 1px solid #CCC;
+    margin: 0px;
+}
+.aside-wrapper .figure ul {
+    margin: 0px;
+}
+.aside-wrapper .figure .figcaption {
+    color:#663333;
+}
+.aside-wrapper .figure .more {
+    text-align: right;
+}
+.aside-wrapper .figure a {
+    color: #333;
+    text-decoration: none;
+}
+.aside-wrapper .figure a:hover {
+    color:#0099FF;
+    text-decoration: underline;
+}
+/*----------------------------------------------------------------------------*/
+/**
+ * content
+ **/
+.content-wrapper {
+    background-color: #FFF;
+    border:1px solid #CCC;
+}
+/*----------------------------------------------------------------------------*/
 /**
  * footer
  **/
-#footer .menu {
+.footer-wrapper .menu-bar {
     text-align: right;
     list-style: none;
     padding: 0;
@@ -89,26 +117,24 @@
     line-height: 30px;
     border-bottom: 1px solid #CCC;
 }
-#footer .menu li {
+.footer-wrapper .menu-bar li {
     display: inline;
     margin: 1em;
 }
-#footer .menu li a {
+.footer-wrapper .menu-bar li a {
     color: #735C4A;
 }
-
 /*############################################################################*/
-.aside-box {
-    border-bottom: 1px solid #CCC;
-}
-.aside-box h5 {
-    text-align: center;
-    color: #41210C;
-}
+/*  下面為左欄裡面的各別設定
+/*############################################################################*/
 #search {
     text-align: center;
     background-color: #999;
 }
 #search input {
     border: 1px solid #CCC;
+}
+#profile table {
+    margin: 0px;
+    padding: 0px;
 }

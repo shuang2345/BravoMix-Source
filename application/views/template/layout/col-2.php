@@ -4,11 +4,11 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="<?php echo $lang; ?>"> <!--<![endif]-->
     <head>
-        <meta charset="utf-8">
-        <base href="<?php echo base_url(); ?>" />
+        <meta charset="<?php echo $meta_charset; ?>">
         <title><?php echo $site_title; ?></title>
+        <base href="<?php echo base_url(); ?>" />
         <meta name="description" content="<?php echo $site_description; ?>" />
         <meta name="keywords" content="<?php echo $site_keywords; ?>" />
         <?php echo $meta_tag; ?>
@@ -23,121 +23,131 @@
     </head>
 
     <body>
-        <div id="top"></div>
+        <div id="top">
+            <div class="top-wrapper"></div>
+        </div>
 
         <!-- Begin Wrapper -->
-        <div id="wrapper" class="container">
+        <div id="webpage" class="container showgrid">
+            <div class="webpage-wrapper">
+                <!-- Begin Header -->
+                <div id="header" class="column span-24">
+                    <div class="header-wrapper">
+                        <ul class="menu-bar">
+                            <li><a href="auth/create_user">註冊</a></li>
+                            <li><a href="auth/login">登入</a></li>
+                            <li><a href="#">小幫手</a></li>
+                        </ul>
+                        <a href="welcome">
+                            <h1 class="logo"><strong>BravoMix</strong></h1>
+                        </a>
+                    </div>
+                </div>
+                <!-- End Header -->
 
-            <!-- Begin Header -->
-            <div id="header">
-                <ul class="menu">
-                    <li><a href="<?php echo site_url('auth/create_user'); ?>">註冊</a></li>
-                    <li><a href="<?php echo site_url('auth/login'); ?>">登入</a></li>
-                    <li><a href="#">小幫手</a></li>
-                </ul>
-                <a href="<?php echo site_url('welcome'); ?>">
-                    <h1 class="logo"><strong>BravoMix</strong></h1>
-                </a>
-            </div>
-            <!-- End Header -->
+                <!-- Begin Navigation -->
+                <div id="nav" class="column span-24">
+                    <div class="nav-wrapper">
+                        <ul class="menu-bar">
+                            <li class="opt-mix <?php echo ('mix' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="mix/roll">搭配</a></li>
+                            <li class="opt-item <?php echo ('item' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="item/roll">單品</a></li>                    
+                            <li class="opt-expert <?php echo ('expert' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">達人</a></li>
+                            <li class="opt-brand <?php echo ('brand' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">品牌專區</a></li>
+                            <li class="opt-unknow <?php echo ('unknow' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">我不知道要穿什麼</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Navigation -->
 
-            <!-- Begin Navigation -->
-            <div id="nav">
-                <ul class="menu">
-                    <li class="tab-mix <?php echo ('mix' == $ctrl) ? 'current' : ''; ?>"><a href="<?php echo site_url('mix/roll'); ?>">搭配</a></li>
-                    <li class="tab-item <?php echo ('item' == $ctrl) ? 'current' : ''; ?>"><a href="<?php echo site_url('item/roll'); ?>">單品</a></li>                    
-                    <li class="tab-expert <?php echo ('expert' == $ctrl) ? 'current' : ''; ?>"><a href="#">達人</a></li>
-                    <li class="tab-brand <?php echo ('brand' == $ctrl) ? 'current' : ''; ?>"><a href="#">品牌專區</a></li>
-                    <li class="tab-unknow <?php echo ('unknow' == $ctrl) ? 'current' : ''; ?>"><a href="#">我不知道要穿什麼</a></li>
-                </ul>
-            </div>
-            <!-- End Navigation -->
-
-            <div id="center" class="span-24">
                 <!-- Begin Left Column -->
-                <div id="aside" class="span-5">
+                <div id="aside" class="column span-5">
+                    <div class="aside-wrapper">
 
-                    <div id="search">
-                        <input type="text" value="" />
-                        <input type="button" value="GO" />
-                    </div>
+                        <div id="search" class="figure">
+                            <input type="text" size="18" value="" />
+                            <input type="button" value="GO" />
+                        </div>
 
-                    <div class="profile">
-                        <img src="assets/images/no_image.png" width="64" height="64" />
-                        <a href="auth/" >liaosankai</a>
+                        <div id="profile" class="figure">
+                            <table>
+                                <tr>
+                                    <td><img alt="empty" src="assets/images/no_image.png" width="64" height="64" /></td>
+                                    <td><a href="auth/personal_index" >liaosankai</a></td>
+                                </tr>
+                            </table>
+                            <ul class="menu">
+                                <li><a href="#">個人設定</a></li>
+                                <li><a href="#">我的衣櫃</a></li>
+                                <li><a href="#">我的收件匣</a> (2)</li>                            
+                            </ul>       
+                        </div>       
 
-                        <ul class="menu">
-                            <li><a href="#">個人設定</a></li>
-                            <li><a href="#">我的衣櫃</a></li>
-                            <li><a href="#">我的收件匣</a> (2)</li>                            
-                        </ul>                        
+
+                        <div class="figure">
+                            <h4 class="figcaption">人氣穿搭達人</h4>
+                            <div>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                            </div>       
+                            <div class="more"><a href="#">more...</a></div>
+                        </div>
+
+                        <div class="figure">
+                            <h4 class="figcaption">熱門單品</h4>
+                            <div>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="128" height="128" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="128" height="128" /></a>
+                                <div class="more"><a href="#">more...</a></div>
+                            </div>
+                        </div>     
+                        <div class="clearfix">&nbsp;</div>
                     </div>
-                    <hr />
-                    <div class="profile">
-                        <h4>我所追蹤的網友</h4>
-                        <ul class="menu">
-                            <li><a href="#">大米</a></li>
-                            <li><a href="#">lulu卡</a></li>
-                            <li><a href="#">大口徑</a></li>                            
-                        </ul>                        
-                    </div>
-                    <hr />
-                    <div class="profile">
-                        <h4>關注的單品</h4>
-                        <ul class="menu">
-                            <li><a href="#">追蹤</a></li>
-                            <li><a href="#">我的衣櫃</a></li>
-                            <li><a href="#">收件匣</a></li>                            
-                        </ul>                        
-                    </div>                    
-                    <div class="clearfix">&nbsp;</div>
                 </div>
                 <!-- End Left Column -->
 
                 <!--Begin Content -->
-                <div  class="span-14 ">
-                    <?php echo $content; ?>
+                <div id="content" class="last column span-19">
+                    <div class="content-wrapper">
+                        <?php echo $content; ?>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
                 </div>
                 <!-- End Content -->
 
-                <div id="aside" class="span-5 last">
-   
-                    <div class="profile">
-                        <h4>正在關注你的網友</h4>
-                        <ul class="menu">
-                            <li><a href="#">大米</a></li>
-                            <li><a href="#">lulu卡</a></li>
-                            <li><a href="#">大口徑</a></li>                            
+                <!-- Begin Footer -->
+                <div id="footer" class="span-24">
+                    <div class="footer-wrapper">
+                        <ul class="menu-bar">
+                            <li><a href="#">合作機會</a></li>
+                            <li><a href="#">工作機會</a></li>
+                            <li><a href="#">連絡我們</a></li>
                         </ul>
-                        <a href="#">檢視更多</a>
                     </div>
-                    <hr />
-                    <div class="profile">
-                        <h4>關注的單品</h4>
-                        <ul class="menu">
-                            <li><a href="#">追蹤</a></li>
-                            <li><a href="#">我的衣櫃</a></li>
-                            <li><a href="#">收件匣</a></li>                            
-                        </ul>                        
-                    </div>                    
-                    <div class="clearfix">&nbsp;</div>
                 </div>
+                <!-- End Footer -->
+                <div class="clearfix"></div>
             </div>
-
-            <!-- Begin Footer -->
-            <div id="footer" class="span-24">
-                <ul class="menu">
-                    <li><a href="#">合作機會</a></li>
-                    <li><a href="#">工作機會</a></li>
-                    <li><a href="#">連絡我們</a></li>
-                </ul>
-            </div>
-            <!-- End Footer -->
-
         </div>
         <!-- End Wrapper -->
 
-        <div id="bottom" class="notice"><?php echo "Page rendered in " . $this->benchmark->elapsed_time() . " seconds" ?></div>
+        <div id="bottom">
+            <div class="bottom-wrapper notice">
+                <?php echo "Page rendered in " . $this->benchmark->elapsed_time() . " seconds" ?>
+            </div>
+        </div>
         <?php echo $scripts_footer; ?>
     </body>
 </html>
