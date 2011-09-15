@@ -1,23 +1,35 @@
-<div id="item-roll">
-    <h1>時尚混搭列表</h1>
-    <div class="pagination quotes">
-        <?php echo $pager ?>
+<div id="mix-roll">
+    <div class="filter">
+        排序規則↓
     </div>
+    <div>
+        <div class="pagination quotes">
+            <?php echo $pager ?>
+        </div>
 
-    <ul class="gallery clearfix">
-        <?php foreach ($mixs as $key => $mix): ?>
-            <li>
-                <a href="<?php echo site_url('mix/view/' . $mix['mix_id']) ?>">
-                    <span>&nbsp;</span>
-                    <em><?php echo $mix['mix_id'] ?></em>
-                    <img alt="" width="150" height="150" 
-                         src="<?php echo site_url('file/get/' . element('mix_id', $mix, 'no_image.png') . '.png/150/150/mix') ?>" />
-                </a>
-            </li>         
-        <?php endforeach; ?>
-    </ul>  
+        <table class="grid prepend-1 span-18">
+            <tr>
+                <?php foreach ($mixs as $key => $mix): ?>
+                    <td>
+                        <a href="<?php echo site_url('mix/view/' . $mix['mix_id']) ?>">
+                            <div class="cell">
 
-    <div class="pagination quotes">
-        <?php echo $pager ?>
+                                <img alt="#" width="150" height="150" 
+                                     src="file/get/<?php echo element('mix_id', $mix, 'no_image.png') ?>/150/150/crop" />
+
+                                <strong><?php echo $mix['mix_id'] ?></strong>
+                            </div>
+                        </a>
+                    </td>
+                    <?php if (1 == $chumk || $key != 0 && ($key + 1) % $chumk == 0): ?>
+                    </tr><tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+        </table>
+
+        <div class="pagination quotes">
+            <?php echo $pager ?>
+        </div>    
     </div>    
 </div>

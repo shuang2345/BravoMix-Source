@@ -1,7 +1,7 @@
 /**
- * item/roll
+ * mix/roll
  **/
-#item-roll .filter{
+#mix-roll .filter{
     border-bottom: 1px solid #CCC;
     height: 35px;
     line-height: 35px;
@@ -9,18 +9,18 @@
     text-align: right;
     padding: 0px 1em;
 }
-#item-roll .grid {
+#mix-roll .grid {
     border: 0px solid snow;
 }
-#item-roll .grid td{
+#mix-roll .grid td{
     text-align: center;
 }
-#item-roll .grid .cell {
+#mix-roll .grid .cell {
     position: relative;
     width: 150px; /* for IE 6 */
     height: 150px;
 }
-#item-roll .grid .cell strong{
+#mix-roll .grid .cell strong{
     font-weight: lighter;
     font-size: medium;
     color: #FFF;
@@ -31,9 +31,9 @@
     width: 150px;
     display: none;
 }
-#item-roll .grid a:hover .cell strong{
+#mix-roll .grid a:hover .cell strong{
     display: block;
 }
 /**
- * item/view
+ * mix/view
  **/

@@ -44,7 +44,7 @@ class Item extends MY_Controller
      * @param type $orderby 排序欄位
      * @param type $vector 遞增或遞增
      */
-    public function roll($limit=6, $orderby='add_time', $vector='DESC', $offset=0)
+    public function roll($limit=12, $orderby='add_time', $vector='DESC', $offset=0)
     {
         //如果為Ajax模式請求，就直接輸出JSON格式
         if ($this->input->is_ajax_request())
@@ -68,7 +68,7 @@ class Item extends MY_Controller
         //讀取指定的範圍資料
         $data['items'] = $this->item_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
-        $data['limit'] = $limit;
+        $data['chumk'] = 4;//表格每行個數
 
         //套用視圖
         $this->template->add_css('/assets/css/pagination.css', 'screen');

@@ -12,16 +12,22 @@
                 <?php foreach ($items as $key => $item): ?>
                     <td>
                         <a href="<?php echo site_url('item/view/' . $item['item_id']) ?>">
-                            <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="150" height="150" 
-                                 src="file/get/<?php echo element('item_cover', $item, 'no_image.png') ?>/150/150/crop" />
-                        </a>                        
+                            <div class="cell">
+
+                                <img alt="<?php echo element('item_cover', $item, 'no_image.png') ?>" width="150" height="150" 
+                                     src="file/get/<?php echo element('item_cover', $item, 'no_image.png') ?>/150/150/crop" />
+
+                                <strong><?php echo $item['item_title'] ?></strong>
+                            </div>
+                        </a>
                     </td>
-                    <?php if ($key != 0 && ($key+1) % 4 == 0): ?>
+                    <?php if (1 == $chumk || $key != 0 && ($key + 1) % $chumk == 0): ?>
                     </tr><tr>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </tr>
         </table>
+
         <div class="pagination quotes">
             <?php echo $pager ?>
         </div>    

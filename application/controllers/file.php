@@ -7,7 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  * @author Liao San-Kai <liaosankai@gmail.com>
  */
-class File extends CI_Controller {
+class File extends CI_Controller
+{
 
     /**
      * 檔案上傳設定
@@ -191,7 +192,7 @@ class File extends CI_Controller {
      */
     public function info($filename=NULL)
     {
-
+        
     }
 
     //--------------------------------------------------------------------------
@@ -203,7 +204,7 @@ class File extends CI_Controller {
      */
     public function delete($filename=NULL)
     {
-
+        
     }
 
     //--------------------------------------------------------------------------

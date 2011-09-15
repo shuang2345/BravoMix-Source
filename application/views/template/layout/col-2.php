@@ -24,7 +24,9 @@
 
     <body>
         <div id="top">
-            <div class="top-wrapper"></div>
+            <div class="top-wrapper notice">
+                <?php echo "Page rendered in " . $this->benchmark->elapsed_time() . " seconds" ?>
+            </div>
         </div>
 
         <!-- Begin Wrapper -->
@@ -144,8 +146,8 @@
         <!-- End Wrapper -->
 
         <div id="bottom">
-            <div class="bottom-wrapper notice">
-                <?php echo "Page rendered in " . $this->benchmark->elapsed_time() . " seconds" ?>
+            <div class="bottom-wrapper">
+                
             </div>
         </div>
         <?php echo $scripts_footer; ?>

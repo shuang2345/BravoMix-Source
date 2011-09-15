@@ -21,6 +21,8 @@ class Mix extends MY_Controller {
         $this->load->helper('array');
         $this->load->model('wardrobe_model');
         $this->load->model('mix_model');
+        
+        $this->template->add_css('assets/css/mix.css', 'screen');
     }
 
     //--------------------------------------------------------------------------
@@ -85,6 +87,7 @@ class Mix extends MY_Controller {
         //讀取指定的範圍資料
         $data['mixs'] = $this->mix_model->find_all($limit, $orderby, $vector, $offset);
         $data['pager'] = $this->pagination->create_links();
+        $data['chumk'] = 4;
 
         //套用視圖
         $this->template->add_css('/assets/css/pagination.css', 'screen');
