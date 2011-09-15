@@ -62,7 +62,7 @@
  * webpage
  **/
 .webpage-wrapper {
-    background-color: #FFF;
+	background-color: #FFF;
 }
 /*----------------------------------------------------------------------------*/
 /**
@@ -138,3 +138,53 @@
     margin: 0px;
     padding: 0px;
 }
+#profile .menu {
+	list-style: none;
+	padding: 0px;
+}
+#profile .menu li{
+	background-repeat: no-repeat;	
+	padding-left: 50px;
+	line-height: 35px;
+	height: 35px;
+}
+#profile .menu .setting {
+	background-image: url(../images/friend.png);
+}
+#profile .menu .wardrobe {
+	background-image: url(../images/msg.png);
+}
+#profile .menu .inbox {
+	background-image: url(../images/mail.png);
+}
+#social{
+	background-color: #fff;
+	letter-spacing: 15px;
+}
+#social .menu li{
+	list-style: none;
+	display: inline-block;
+}
+#social .list{
+	width: 26px;
+	height: 25px;
+	background-repeat: no-repeat;
+}
+#social b{
+	display: none;
+}
+#social #blog{	
+	background-image: url(../images/b.png);
+}
+#social #fb{
+	background-image: url(../images/f.png);
+}
+#social #twitter{
+	background-image: url(../images/t.png);
+}
+#group{
+	padding-left: 20px;
+	letter-spacing: 5px;
+	line-height: 35px;
+}
+

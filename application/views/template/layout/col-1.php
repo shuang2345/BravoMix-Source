@@ -22,58 +22,81 @@
     <?php echo $scripts_header; ?>
 </head>
 <body>
-    <div class="notice"><?php echo "Page rendered in " .  $this->benchmark->elapsed_time() . " seconds" ?></div>
+	<div id="top">
+        <div class="top-wrapper notice">
+             <?php echo "Page rendered in " . $this->benchmark->elapsed_time() . " seconds" ?>
+        </div>
+    </div>
 
     <!-- Begin Wrapper -->
-    <div id="wrapper" class="container">
-
-        <!-- Begin Header -->
-        <div id="header">
-            <ul class="menu">
-                <li><a href="#">小幫手</a></li>
-                <li><a href="#">註冊</a></li>
-                <li><a href="#">登入</a></li>
-            </ul>
-            <a href="<?php echo site_url('welcome') ?>">
-                <h1 class="logo"><strong>BravoMix</strong></h1>
-            </a>
-        </div>
+	<div id="webpage" class="container showgrid">
+        <div class="webpage-wrapper">
+        
+		<!-- Begin Header -->
+        <div id="header" class="column span-24">
+                    <div class="header-wrapper">
+                        <ul class="menu-bar">
+                            <li><a href="auth/create_user">註冊</a></li>
+                            <li><a href="auth/login">登入</a></li>
+                            <li><a href="#">小幫手</a></li>
+                        </ul>
+                        <a href="welcome">
+                            <h1 class="logo"><strong>BravoMix</strong></h1>
+                        </a>
+                    </div>
+                </div>
         <!-- End Header -->
 
         <!-- Begin Navigation -->
-        <div id="nav">
-            <ul class="menu">
-                <li class="tab-item"><a href="<?php echo site_url('item/roll'); ?>">單品</a></li>
-                <li class="tab-mix"><a href="<?php echo site_url('mix/roll'); ?>">搭配</a></li>
-                <li class="tab-expert"><a href="#">達人</a></li>
-                <li class="tab-brand"><a href="#">品牌專區</a></li>
-                <li class="tab-brand"><a href="#">我不知道要穿什麼</a></li>
-            </ul>
-        </div>
+        <div id="nav" class="column span-24">
+                    <div class="nav-wrapper">
+                        <ul class="menu-bar">
+                            <li class="opt-mix <?php echo ('mix' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="mix/roll">搭配</a></li>
+                            <li class="opt-item <?php echo ('item' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="item/roll">單品</a></li>                    
+                            <li class="opt-expert <?php echo ('expert' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">達人</a></li>
+                            <li class="opt-brand <?php echo ('brand' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">品牌專區</a></li>
+                            <li class="opt-unknow <?php echo ('unknow' == $ctrl) ? 'current' : ''; ?>">
+                                <a href="#">我不知道要穿什麼</a></li>
+                        </ul>
+                    </div>
+                </div>
         <!-- End Navigation -->
 
         <!--Begin Content -->
-        <div  class="span-19 last">
-            <?php echo $content; ?>
-        </div>
+         <div id="content" class="last column span-24">
+                    <div class="content-wrapper">
+                        <?php echo $content; ?>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
         <!-- End Content -->
 
 
         <!-- Begin Footer -->
         <div id="footer" class="span-24">
-            <ul class="menu">
-                <li><a href="#">合作機會</a></li>
-                <li><a href="#">工作機會</a></li>
-                <li><a href="#">連絡我們</a></li>
-            </ul>
-        </div>
+                    <div class="footer-wrapper">
+                        <ul class="menu-bar">
+                            <li><a href="#">合作機會</a></li>
+                            <li><a href="#">工作機會</a></li>
+                            <li><a href="#">連絡我們</a></li>
+                        </ul>
+                    </div>
+                </div>
         <!-- End Footer -->
-
+			 <div class="clearfix"></div>
+		</div>
     </div>
     <!-- End Wrapper -->
 
-    <div id="bottom"></div>     
-
-    <?php echo $scripts_footer; ?>
+    <div id="bottom">
+            <div class="bottom-wrapper">
+                
+            </div>
+        </div>
+        <?php echo $scripts_footer; ?>
 </body>
 </html>

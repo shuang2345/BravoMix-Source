@@ -45,6 +45,12 @@ class Welcome extends MY_Controller {
         // test auth random image
         echo "<img src='".base_url()."vcode'>";
     }
+	
+	public function test_col_1()
+	{
+		$this->template->set_layout('template/layout/col-1');
+		$this->template->render('welcome_message');
+	}
 }
 
 /* End of file welcome.php */

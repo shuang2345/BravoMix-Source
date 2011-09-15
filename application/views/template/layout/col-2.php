@@ -83,26 +83,32 @@
                                 </tr>
                             </table>
                             <ul class="menu">
-                                <li><a href="#">個人設定</a></li>
-                                <li><a href="#">我的衣櫃</a></li>
-                                <li><a href="#">我的收件匣</a> (2)</li>                            
+                                <li class="setting"><a href="#">個人設定</a></li>
+                                <li class="wardrobe"><a href="#">我的衣櫃</a></li>
+                                <li class="inbox"><a href="#">我的收件匣</a> (2)</li>                            
                             </ul>       
-                        </div>       
-
+                        </div>
+						<div id="social" class="figure">
+							<ul class="menu">
+								<li id="twitter" class="list"><a href="#"><b>Twitter</b></a></li>
+								<li id="fb" class="list"><a href="#"><b>Facebook</b></a></li>
+								<li id="blog" class="list"><a href="#"><b>Blog</b></a></li>
+							</ul>
+						</div>
 
                         <div class="figure">
                             <h4 class="figcaption">人氣穿搭達人</h4>
-                            <div>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
-                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="30" height="30" /></a>
+                            <div id="group">
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
+                                <a href="#"><img alt="empty" src="assets/images/no_image.png" width="40" height="40" /></a>
                             </div>       
                             <div class="more"><a href="#">more...</a></div>
                         </div>
